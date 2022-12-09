@@ -3,8 +3,8 @@ import colors from "vuetify/es5/util/colors";
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: "%s - Deverra Lab",
-    title: "Deverra Lab",
+    titleTemplate: "%s - Fifa World Cup",
+    title: "Fifa World Cup",
     htmlAttrs: {
       lang: "en",
     },
@@ -22,10 +22,6 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {
-      src: "./plugins/gtag.js",
-      mode: "client",
-    },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
