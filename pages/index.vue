@@ -1,5 +1,5 @@
 <template>
-  <div class="app"></div>
+  <div class="app">WORLD CUP FOOTBALL 2022</div>
 </template>
 
 <script>
