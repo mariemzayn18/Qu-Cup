@@ -1,8 +1,15 @@
 <template>
-  <div class="app"></div>
+  <div>
+    <Dashboard></Dashboard>
+  </div>
 </template>
-
 <script>
-export default {};
+import Dashboard from "../screens/Dashboard";
+export default {
+  components: {
+    Dashboard,
+  },
+};
 </script>
+
 <style scoped></style>
