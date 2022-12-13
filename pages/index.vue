@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <Dashboard></Dashboard>
   </div>
 </template>
@@ -12,4 +12,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.main {
+  background-color: #eff5f5;
+}
+</style>
