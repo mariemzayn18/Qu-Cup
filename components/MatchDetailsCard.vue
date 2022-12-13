@@ -33,7 +33,7 @@
       </v-row>
     </v-card-text>
     <!-- <v-divider light></v-divider> -->
-    <v-card-actions>
+    <v-card-actions class="d-flex justify-center py-4">
       <v-btn id="btn" class="text-center"> VIEW DETAILS</v-btn>
     </v-card-actions>
   </v-card>
@@ -57,18 +57,31 @@ export default {
 
 <style scoped>
 #btn {
-  color: #eb6440;
+  text-transform: unset !important;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: white;
+  background-color: #eb6440;
+  
 }
 
 .flag {
-  width: max(70px, 20%);
+  width: max(80px, 20%);
 }
 .teams {
   color: #497174;
-  font-size: 1.3vmax;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .date {
   color: #eb6440;
+}
+
+.card {
+  width: max-content;
+  background-color: #eb644020 !important;
+  border-radius: 2px !important;
 }
 </style>
