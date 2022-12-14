@@ -1,8 +1,9 @@
 <template>
-    <v-container fluid>
-        <v-form id="login" ref="form" v-model="isValid" class="form-container" action="/login" method="post">
-            <v-row>
-            <v-col>
+    <!-- <v-container fluid class="form-container mx-7" > -->
+        <div class="form-container mx-7" >
+        <v-form id="login" ref="form" v-model="isValid" action="/login" method="post">
+            <!-- <v-row>
+            <v-col> -->
                 <v-text-field
                 v-model="firstName"
                 class="input-field mt-7"
@@ -20,6 +21,24 @@
                 label="Last Name"
                  autocomplete="off"
                 ></v-text-field>
+
+                <v-text-field
+                v-model="nationality"
+                class="input-field mt-7"
+                :rules="nameRules"
+                name="nationality"
+                label="Your Nationality"
+                autocomplete="off"
+                ></v-text-field>
+                <v-icon @click="showDatePicker=!showDatePicker"  color="white">mdi-phone</v-icon>
+                <v-date-picker
+                v-show="showDatePicker"
+                v-model="birthDate"
+                color="red lighten-1"
+                header-color="green"
+                class="date red-text"
+                ></v-date-picker>
+
     
                 <v-text-field
                 v-model="email"
@@ -49,33 +68,6 @@
                 autocomplete="off"
                 type="password"
                 ></v-text-field>
-
-                <v-text-field
-                v-model="nationality"
-                class="input-field mt-7"
-                :rules="nameRules"
-                name="nationality"
-                label="Your Nationality"
-                autocomplete="off"
-                ></v-text-field>
-
-                <v-text-field
-                v-model="birthDate"
-                class="input-field mt-7"
-                :rules="nameRules"
-                name="birthDate"
-                label="birthDate"
-                autocomplete="off"
-                ></v-text-field>
-
-                <v-text-field
-                v-model="nationality"
-                class="input-field mt-7"
-                :rules="nameRules"
-                name="nationality"
-                label="Your ROLLLE"
-                autocomplete="off"
-                ></v-text-field>
                 <v-radio-group v-model="gender" :rules="notEmptyRules">
               <v-row>
                 <v-col md="3" sm="5" cols="5"> 
@@ -84,17 +76,26 @@
                 <v-col md="3" sm="7" cols="7"
                 ><v-radio label="male" value="male" color="#3E9E99"></v-radio
                 ></v-col>
-                <!-- <v-date-picker
-      v-model="picker"
-      color="green lighten-1"
-    ></v-date-picker> -->
               </v-row>
             </v-radio-group>
-            </v-col>
-        </v-row>
+
+               
+                
+            <v-radio-group v-model="role" :rules="notEmptyRules">
+              <v-row>
+                <v-col md="3" sm="5" cols="5"> 
+                    <v-radio label="fan" value="fan" color="#3E9E99"></v-radio>
+                </v-col>
+                <v-col md="3" sm="7" cols="7"
+                ><v-radio label="manager" value="manager" color="#3E9E99"></v-radio
+                ></v-col>
+              </v-row>
+            </v-radio-group>
+            <!-- </v-col> -->
+        <!-- </v-row> -->
         </v-form>
-    </v-container>
-    
+    <!-- </v-container> -->
+</div>
     </template>
       
     <script>
@@ -108,9 +109,11 @@
             password: '',
             nationality: '',
             gender:'',
+            role:'',
             birthDate:'',
             isValid: false,
             showDialog: false,
+            showDatePicker:false,
             emailRules: [
                 (v) => !!v || 'E-mail is required',
                 (v) =>
@@ -135,5 +138,26 @@
     };
     </script>
     <style scoped>
+    
+.v-text-field--outlined:deep(fieldset) {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  text-decoration-color: white;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  width: auto;
+  height: auto;
+  align-items: center;
+  position: relative;
+  margin-bottom: 25px;
+  background-color: #d3d5d5;
+  box-shadow: 0 0 20px rgba(163, 171, 185, 0.24);
+}
+.date{
+    z-index: 10;
+}
     </style>
       
