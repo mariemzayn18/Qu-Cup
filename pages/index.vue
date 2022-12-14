@@ -2,6 +2,7 @@
   <div class="main">
     <Dashboard></Dashboard>
   </div>
+ 
 </template>
 <script>
 import Dashboard from "../screens/Dashboard";
