@@ -1,15 +1,14 @@
-export const state = newFunction()
+export const state = newFunction();
 function newFunction() {
   return () => ({
-    Theme: 
-      {
-        color1: '#492293', //purple
-        color2: 'rgba(255, 183, 77, 1)', // gold
-        color3: 'rgba(86, 86, 86, 1)',  // grey
-        color4:' #F8F8F8', //Grey BG color
-        titleFontSize: '38px',
-        subTitleFontSize: '24px',
-        paragraphFontSize: '20px',
-      }
-  })
+    Theme: {
+      color1: "#EB6440", //orange --> text
+      color2: "#497174", // turqouise --> borders
+      color3: "#D6E4E5", // baby blue --> (hovering/ underlining/ styling purposes)
+      color4: "#EFF5F5", //light blue --> BG
+      titleFontSize: "38px",
+      subTitleFontSize: "24px",
+      paragraphFontSize: "20px",
+    },
+  });
 }

@@ -11,7 +11,7 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 export default {
-  components: {
+ components: {
     NavBar,
    },
   name: "DefaultLayout",
@@ -22,3 +22,4 @@ export default {
   background-color:#6e1131 ;
 }
 </style>
+
