@@ -60,6 +60,7 @@ import TheButton from './TheButton.vue'
   }
   .v-tab {
     text-transform: none !important;
+    color: #d3d5d5 !important;
   }
   .nav-bar {
     position: fixed;
