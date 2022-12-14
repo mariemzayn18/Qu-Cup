@@ -1,12 +1,11 @@
-<!-- <template>
-<v-container fluid class="container-div">
+<template>
+<v-container fluid class="container-div my-8">
     <v-row>
-        <v-col  >
-         </v-col>
-        <v-col class="mx-5" cols="4">
-            <v-form id="login" ref="form" v-model="isValid" action="/login" method="post">
-            <!-- <v-row>
-            <v-col> -->
+        <v-col cols="2"></v-col>
+        <v-col class="my-5" cols="4">
+            <v-form id="login" class="form-container pa-6" ref="form" v-model="isValid" action="/login" method="post">
+            <v-row>
+            <v-col>
 
                 <v-text-field
                 v-model="userName"
@@ -26,24 +25,22 @@
                 autocomplete="off"
                 type="password"
                 ></v-text-field>
-              
-
-               
-                
             <v-radio-group v-model="role" :rules="notEmptyRules">
               <v-row>
                 <v-col md="3" sm="5" cols="5"> 
-                    <v-radio label="fan" value="fan" color="#3E9E99"></v-radio>
+                    <v-radio label="fan" value="fan" color="#6e1131"></v-radio>
                 </v-col>
                 <v-col md="3" sm="7" cols="7"
-                ><v-radio label="manager" value="manager" color="#3E9E99"></v-radio
+                ><v-radio label="manager" value="manager" color="#6e1131"></v-radio
                 ></v-col>
               </v-row>
             </v-radio-group>
-            <!-- </v-col> -->
-        <!-- </v-row> -->
+            </v-col>  
+      </v-row>
         </v-form>
         </v-col>
+        <v-col  >
+         </v-col>
        
     </v-row>
 </v-container>
@@ -58,13 +55,9 @@ export default {
     },
     data() {
         return {
-        firstName: '',
-        lastName:'',
-        email: '',
         password: '',
-        nationality: '',
-        gender:'',
-        birthDate:'',
+        username:'',
+        role:'',
         isValid: false,
         showDialog: false,
         emailRules: [
@@ -92,13 +85,23 @@ export default {
 </script>
 <style scoped>
 .container-div {
-    background-image: url('../assets/imgs/qatar_cup.jpg');
+    background-image: url('../assets/imgs/bg_right.jpg');
     background-size: cover; /* or contain depending on what you want */
     background-position: center center;
     background-repeat: no-repeat;
     width:100%;
     height: 100vh;
 }
+.v-text-field--outlined:deep(fieldset) {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  text-decoration-color: white;
+}
+.form-container {
+  height: 500px;
+  widows: 30%;
+  border-radius: 20px;
+  background-color: #d3d5d5;
+}
 
 </style>
-   -->

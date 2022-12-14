@@ -1,9 +1,9 @@
 <template>
-    <!-- <v-container fluid class="form-container mx-7" > -->
-        <div class="form-container mx-7" >
-        <v-form id="login" ref="form" v-model="isValid" action="/login" method="post">
-            <!-- <v-row>
-            <v-col> -->
+    <v-container fluid  >
+        <!-- <div class="form-container mx-7" > -->
+        <v-form id="login" class="form-container pa-6" ref="form" v-model="isValid" action="/login" method="post">
+            <v-row>
+            <v-col>
                 <v-text-field
                 v-model="firstName"
                 class="input-field mt-7"
@@ -30,14 +30,34 @@
                 label="Your Nationality"
                 autocomplete="off"
                 ></v-text-field>
-                <v-icon @click="showDatePicker=!showDatePicker"  color="white">mdi-phone</v-icon>
-                <v-date-picker
-                v-show="showDatePicker"
-                v-model="birthDate"
-                color="red lighten-1"
-                header-color="green"
-                class="date red-text"
-                ></v-date-picker>
+                <v-row>
+                    <v-col>
+                        <v-icon @click="showDatePicker=!showDatePicker"  color="#6e1131">mdi-calendar-month</v-icon>
+                        <v-date-picker
+                        v-show="showDatePicker"
+                        v-model="birthDate"
+                        color="#6e1131 lighten-1"
+                        header-color="#6e1131"
+                        class="date"
+                        ></v-date-picker>
+                    </v-col>
+                    <v-col>
+                        <v-radio-group v-model="gender" :rules="notEmptyRules">
+              <v-row>
+                <v-col > 
+                    <v-radio label="female" value="female" color="#6e1131"></v-radio>
+                </v-col>
+                <v-col 
+                ><v-radio label="male" value="male" color="#6e1131"></v-radio
+                ></v-col>
+              </v-row>
+            </v-radio-group>
+
+                    </v-col>
+                </v-row>
+            
+
+                
 
     
                 <v-text-field
@@ -68,34 +88,22 @@
                 autocomplete="off"
                 type="password"
                 ></v-text-field>
-                <v-radio-group v-model="gender" :rules="notEmptyRules">
-              <v-row>
-                <v-col md="3" sm="5" cols="5"> 
-                    <v-radio label="female" value="female" color="#3E9E99"></v-radio>
-                </v-col>
-                <v-col md="3" sm="7" cols="7"
-                ><v-radio label="male" value="male" color="#3E9E99"></v-radio
-                ></v-col>
-              </v-row>
-            </v-radio-group>
-
-               
                 
             <v-radio-group v-model="role" :rules="notEmptyRules">
               <v-row>
                 <v-col md="3" sm="5" cols="5"> 
-                    <v-radio label="fan" value="fan" color="#3E9E99"></v-radio>
+                    <v-radio label="fan" value="fan" color="#6e1131"></v-radio>
                 </v-col>
                 <v-col md="3" sm="7" cols="7"
-                ><v-radio label="manager" value="manager" color="#3E9E99"></v-radio
+                ><v-radio label="manager" value="manager" color="#6e1131"></v-radio
                 ></v-col>
               </v-row>
             </v-radio-group>
-            <!-- </v-col> -->
-        <!-- </v-row> -->
+            </v-col> 
+     </v-row>
         </v-form>
-    <!-- </v-container> -->
-</div>
+    </v-container>
+<!-- </div> -->
     </template>
       
     <script>
@@ -145,16 +153,10 @@
   text-decoration-color: white;
 }
 .form-container {
-  display: flex;
-  flex-direction: column;
+  
   border-radius: 20px;
-  width: auto;
-  height: auto;
-  align-items: center;
-  position: relative;
-  margin-bottom: 25px;
   background-color: #d3d5d5;
-  box-shadow: 0 0 20px rgba(163, 171, 185, 0.24);
+  /* box-shadow: 0 0 20px rgba(163, 171, 185, 0.24); */
 }
 .date{
     z-index: 10;
