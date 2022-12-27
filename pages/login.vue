@@ -10,7 +10,7 @@
                 <v-text-field
                 v-model="userName"
                 class="input-field mt-7"
-                :rules="nameRules"
+                :rules="usernameRules"
                 name="userName"
                 label="username"
                 autocomplete="off"
@@ -19,7 +19,7 @@
                 <v-text-field
                 v-model="password"
                 class="input-field mt-7"
-                :rules="nameRules"
+                :rules="passwordRules"
                 name="password"
                 label="password"
                 autocomplete="off"
@@ -35,6 +35,7 @@
                 ></v-col>
               </v-row>
             </v-radio-group>
+            <TheButton @clicked="login" route="/" :disabled="!isValid" text="Log in" bgColor="#6e1131" textColor="#d3d5d5"/>
             </v-col>  
       </v-row>
         </v-form>
@@ -48,15 +49,16 @@
 </template>
   
 <script>
-import SignUpForm from '../components/SignUpForm.vue'
+import TheButton from '../components/TheButton.vue'
+
 export default {
     components:{
-        SignUpForm
+        TheButton
     },
     data() {
         return {
         password: '',
-        username:'',
+        userName:'',
         role:'',
         isValid: false,
         showDialog: false,
@@ -72,12 +74,23 @@ export default {
             (v) => (v && v.length <= 30) || 'Name must be less than 30 characters',
             (v) => /^[A-Za-z\s]+$/.test(v) || 'Please insert a right name',
         ],
-        phoneNumberRules: [
-            (v) => !!v || 'This field is required',
-            (v) => /^\+?[0-9]+\s*$/.test(v) || 'Invalid Phone Number',
-            (v) => (v && v.length >= 6 && v.length <= 1) || 'Invalid Phone Number',
+        passwordRules: [
+            (v) => !!v || ' Password is required',
+            (v) => (v && v.length <= 15 ) || 'Password must be less than 15 characters',
+            (v) => (v && v.length >= 5 ) || 'Password must be at least 5 characters',
+        ],
+        usernameRules:[
+            (v) => !!v || ' Username is required',
+            (v) => (v && v.length <= 15 ) || 'Username must be less than 15 characters',
+            (v) => (v && v.length >= 5 ) || 'Username must be at least 5 characters',
         ],
         notEmptyRules: [(v) => !!v || 'required'],
+        }
+    },
+    methods:{
+        login(){
+            console.log("login")
+            console.log(this.username)
         }
     }
 
