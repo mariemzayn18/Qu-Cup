@@ -40,8 +40,8 @@ export default {
       return {
         width: this.width,
         height: this.height,
-        color: this.textColor,
-        " background-color": this.bgColor,
+        "color": this.textColor,
+        "background-color": this.bgColor,
       };
     },
   },
