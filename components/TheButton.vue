@@ -2,7 +2,7 @@
 <template>
     <div class="btn">
       <NuxtLink :to="route">
-        <button :style="buttonColor">
+        <button :style="buttonColor" :disabled="disabled">
           {{ text }}
         </button>
       </NuxtLink>
@@ -19,6 +19,19 @@
       },
       width: String,
       height: String,
+      bgColor: {
+        type: [String],
+        default: "#d3d5d5",
+      },
+      textColor: {
+        type: [String],
+        default: "#6e1131",
+      },
+      disabled:{
+        type: [Boolean],
+        default: false ,
+      },
+      
     },
     computed: {
       Theme() {
@@ -29,6 +42,8 @@
         return {
           width: this.width,
           height: this.height,
+          color:this.textColor,
+         " background-color": this.bgColor
         };
       },
     },
@@ -46,11 +61,11 @@
     width: 120px;
     height: 50px;
     border-radius: 10px;
-    color: #6e1131;
+   
     text-decoration: none;
     font-size: 18px;
     line-height: 21.94px;
-    background-color:  #d3d5d5;
+ 
   }
   </style>
   
