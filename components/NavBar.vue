@@ -1,153 +1,158 @@
 <template>
-    <!-- <MobNavBarVue v-if="$vuetify.breakpoint.smAndDown" /> -->
-    <v-container fluid>
-      <v-row class="nav-bar  justify-center align-center">
-        <v-col cols="2">
-          <nuxt-link to="/">
-            <img src="~assets/icons/ball.png" alt="" />
-          </nuxt-link>
-        </v-col>
+  <!-- <MobNavBarVue v-if="$vuetify.breakpoint.smAndDown" /> -->
+  <v-container fluid>
+    <v-row class="nav-bar justify-center align-center">
+      <v-col cols="2">
+        <nuxt-link to="/">
+          <img src="~assets/icons/ball.png" alt="" />
+        </nuxt-link>
+      </v-col>
 
-        <v-col cols="7">
-          <v-tabs
-            grow
-            align-with-title
-            background-color="transparent"
-            color="#d3d5d5"
+      <v-col cols="7">
+        <v-tabs
+          grow
+          align-with-title
+          background-color="transparent"
+          color="#d3d5d5"
+        >
+          <v-tab
+            v-for="tab in tabs"
+            :key="tab.route"
+            :to="tab.route"
+            :nuxt="true"
+            class="title ss"
+            >{{ tab.name }}</v-tab
           >
-            <v-tab
-              v-for="tab in tabs"
-              :key="tab.route"
-              :to="tab.route"
-              :nuxt="true"
-              class="title ss"
-              >{{ tab.name }}</v-tab
-            >
-          </v-tabs>
-        </v-col>
-        <v-col v-if="auth">
-          <TheButton @clicked="showDropdownList=!showDropdownList" text="Profile"/>
-          <transition name="fade">
-        <div v-if="showDropdownList">
-            <div class="dd-list ma-4" >
+        </v-tabs>
+      </v-col>
+      <v-col v-if="auth">
+        <TheButton
+          @clicked="showDropdownList = !showDropdownList"
+          text="Profile"
+        />
+        <transition name="fade">
+          <div v-if="showDropdownList">
+            <div class="dd-list ma-4">
               <v-avatar size="120">
                 <img
                   src="https://cdn.vuetifyjs.com/images/john.jpg"
                   alt="John"
-                >
+                />
               </v-avatar>
-              <p class="name">Marco josif</p> 
+              <p class="name">Marco josif</p>
               <p class="un">makro7853</p>
-              <TheButton @clicked="showProfile=!showProfile"  text="edit profile" bgColor="#6e1131" textColor="#d3d5d5"/>
+              <TheButton
+                @clicked="showProfile = !showProfile"
+                text="edit profile"
+                bgColor="#6e1131"
+                textColor="#d3d5d5"
+              />
               <v-dialog
                 v-model="showProfile"
                 transition="dialog-bottom-transition"
                 scrollable
                 width="700"
               >
-               <profile v-show="showProfile"/>
+                <profile v-show="showProfile" />
               </v-dialog>
             </div>
-        </div>
-      </transition>
-        </v-col>
-       
-        <v-col v-if="!auth">
-           <TheButton route="/login" text="Log in"/>
-        </v-col>
-        <v-col v-if="!auth">
-           <TheButton route="/signup" text="Sign Up"/>
-        </v-col>
-        
-      </v-row>
-    </v-container>
-  </template>
-  
-  <script>
-// import MobNavBarVue from "./MobNavBar.vue";
-import TheButton from './TheButton.vue'
-import profile from './profile.vue'
-  export default {
-    components: {
-        TheButton,
-        profile
-    //   MobNavBarVue,
-    },
-    data() {
-      return {
-        showDropdownList:false,
-        showProfile:false,
-        auth:true,
-        tabs: [
-          { name: "Dashboard", route: "/" },
-          { name: "Tickets", route: "/tickets" },
-          { name: "profile", route: "/profile" },
-        ],
-      };
-    },
-  };
-  </script>
-  <style scoped>
-  a {
-    text-decoration: none;
-  }
-  .v-tab {
-    text-transform: none !important;
-    color: #d3d5d5 !important;
-  }
-  .nav-bar {
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    height: 75px;
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-  }
-  .v-tab--exact--active v-tab {
-    font-size: 20px !important;
-  }
-  .ss:hover {
-    color: #d3d5d5 !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    background-color: transparent !important;
-  }
-  img{
-    width: 60px;
-    height: 60px;
-  }
-  .dd-list{
-    background-color: #d3d5d5;
-    width: 200px;
-    height: 270px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    position: absolute;
+          </div>
+        </transition>
+      </v-col>
 
-  }
-  .name{
-    font-weight: 700;
-    font-size: 20px;
-  }
-  .un{
-    color: #475050;
-  }
-  </style>
-  
+      <v-col v-if="!auth">
+        <TheButton route="/login" text="Log in" />
+      </v-col>
+      <v-col v-if="!auth">
+        <TheButton route="/signup" text="Sign Up" />
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+// import MobNavBarVue from "./MobNavBar.vue";
+import TheButton from "./TheButton.vue";
+import profile from "./profile.vue";
+export default {
+  components: {
+    TheButton,
+    profile,
+    //   MobNavBarVue,
+  },
+  data() {
+    return {
+      showDropdownList: false,
+      showProfile: false,
+      auth: true,
+      tabs: [
+        { name: "Dashboard", route: "/" },
+        { name: "Reservations", route: "/reservations " },
+        { name: "profile", route: "/profile" },
+      ],
+    };
+  },
+};
+</script>
+<style scoped>
+a {
+  text-decoration: none;
+}
+.v-tab {
+  text-transform: none !important;
+  color: #d3d5d5 !important;
+}
+.nav-bar {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 75px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.v-tab--exact--active v-tab {
+  font-size: 20px !important;
+}
+.ss:hover {
+  color: #d3d5d5 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+img {
+  width: 60px;
+  height: 60px;
+}
+.dd-list {
+  background-color: #d3d5d5;
+  width: 200px;
+  height: 270px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  position: absolute;
+}
+.name {
+  font-weight: 700;
+  font-size: 20px;
+}
+.un {
+  color: #475050;
+}
+</style>
