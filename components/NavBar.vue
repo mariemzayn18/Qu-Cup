@@ -25,13 +25,7 @@
             >
           </v-tabs>
         </v-col>
-        <!-- <v-col>
-           <TheButton route="/login" text="Log in"/>
-        </v-col>
-        <v-col>
-           <TheButton route="/signup" text="Sign Up"/>
-        </v-col> -->
-        <v-col>
+        <v-col v-if="auth">
           <TheButton @clicked="showDropdownList=!showDropdownList" text="Profile"/>
           <transition name="fade">
         <div v-if="showDropdownList">
@@ -57,6 +51,14 @@
         </div>
       </transition>
         </v-col>
+       
+        <v-col v-if="!auth">
+           <TheButton route="/login" text="Log in"/>
+        </v-col>
+        <v-col v-if="!auth">
+           <TheButton route="/signup" text="Sign Up"/>
+        </v-col>
+        
       </v-row>
     </v-container>
   </template>
@@ -75,6 +77,7 @@ import profile from './profile.vue'
       return {
         showDropdownList:false,
         showProfile:false,
+        auth:true,
         tabs: [
           { name: "Dashboard", route: "/" },
           { name: "Tickets", route: "/tickets" },
