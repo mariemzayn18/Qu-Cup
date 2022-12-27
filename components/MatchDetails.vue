@@ -41,7 +41,8 @@
       v-model="showDialog"
       transition="dialog-bottom-transition"
       scrollable
-      width="450"
+      height="max-content"
+      width="440"
     >
       <v-card class="round py-5 px-2">
         <matchDetails
@@ -56,18 +57,26 @@
           :mainReferee="mainReferee"
           :linesMen="linesMen"
         ></matchDetails>
-        <button @click="hideMe" id="btn2" class="text-center pa-3">
+        <button
+          @click="ticketReservation"
+          id="btn2"
+          class="text-center pa-3"
+          v-if="!reserveTicket"
+        >
           RESERVE TICKET
         </button>
+        <reservationForm class="pt-6" v-show="reserveTicket"> </reservationForm>
       </v-card>
     </v-dialog>
   </v-card>
 </template>
 <script>
 import matchDetails from "./MatchDetailsCard.vue";
+import reservationForm from "./ReservationForm.vue";
 export default {
   components: {
     matchDetails,
+    reservationForm,
   },
   props: {
     group_number: Number,
@@ -84,11 +93,15 @@ export default {
   data() {
     return {
       showDialog: false,
+      reserveTicket: false,
     };
   },
   methods: {
+    ticketReservation() {
+      this.reserveTicket = true;
+    },
     hideMe() {
-      this.showDialog = false;
+      // this.showDialog = false;
     },
   },
 };
@@ -115,7 +128,7 @@ export default {
   width: max(80px, 20%);
 }
 .teams {
-  color: #6e1131;
+  color: black;
   font-size: 20px;
   font-weight: 400;
 }
@@ -125,9 +138,8 @@ export default {
   font-weight: 700;
 }
 
-.card {
-  width: max-content;
-  background-color: rgb(249, 249, 249, 0.7) important;
+.v-card {
+  height: max-content;
   border-radius: 2px !important;
 }
 </style>
