@@ -1,5 +1,5 @@
 <template>
-  <div class="home px-6 px-md-10">
+  <div class="home px-6 px-md-10 ma-16">
     <v-container fluid>
       <v-row>
         <v-col
@@ -9,7 +9,7 @@
           sm="4"
           md="3"
         >
-          <matchDetailsCard
+          <matchDetails
             :group_number="count + 1"
             :oponent1_flag="match.oponent1_flag"
             :oponent2_flag="match.oponent2_flag"
@@ -21,17 +21,17 @@
             :mainReferee="match.mainReferee"
             :linesMen="match.linesMen"
           >
-          </matchDetailsCard>
+          </matchDetails>
         </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
 <script>
-import matchDetailsCard from "../components/MatchDetailsCard";
+import matchDetails from "../components/MatchDetails";
 export default {
   components: {
-    matchDetailsCard,
+    matchDetails,
   },
 
   data() {
@@ -96,7 +96,6 @@ export default {
   border-radius: 20px;
   /* max-width: 700px; */
   height: auto;
-  /* background-color: #497174; */
   background-color: white;
   box-shadow: 0 0 20px #d6e4e5;
 }

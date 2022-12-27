@@ -1,43 +1,34 @@
 <template>
-  <v-card class="card">
-    <v-card-text>
-      <v-row>
-        <v-col>
-          <p class="text-left date">Group {{ group_number }}</p> </v-col
-        ><v-col
-          ><p class="text-right date">{{ date }}</p>
-        </v-col>
-      </v-row>
-      <v-divider light></v-divider>
+  <v-container fluid>
+    <h1 class="text-center">Group {{ group_number }}</h1>
+    <v-row class="pt-5">
+      <v-col class="d-flex align-center justify-center" cols="12">
+        <p class="teams">
+          {{ oponent1_name }} <strong> VS </strong> {{ oponent2_name }}
+        </p>
+      </v-col>
+      <v-col class="d-flex align-center justify-center" cols="12">
+        <p><strong> Date: </strong> {{ date }}</p>
+      </v-col>
+      <v-col class="d-flex align-center justify-center" cols="12">
+        <p><strong> Time: </strong>{{ time }}</p>
+      </v-col>
 
-      <v-row class="pt-5">
-        <v-col class="d-flex align-center">
-          <p class="teams">{{ oponent1_name }}</p>
-        </v-col>
-        <v-col>
-          <img
-            class="flag"
-            :src="require(`~/assets/icons/${oponent1_flag}`)"
-            alt="oponent 1"
-        /></v-col> </v-row
-      ><v-row>
-        <v-col class="d-flex align-center">
-          <p class="teams">{{ oponent2_name }}</p>
-        </v-col>
-        <v-col
-          ><img
-            class="flag"
-            :src="require(`~/assets/icons/${oponent2_flag}`)"
-            alt="oponent 1"
-        /></v-col>
-      </v-row>
-    </v-card-text>
-    <!-- <v-divider light></v-divider> -->
-    <v-card-actions class="d-flex justify-center py-4">
-      <v-btn id="btn" class="text-center"> VIEW DETAILS</v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-col class="d-flex align-center justify-center" cols="12">
+        <p><strong> Stadium: </strong> {{ stadium }}</p>
+      </v-col>
+
+      <v-col class="d-flex align-center justify-center" cols="12">
+        <p><strong>Main Referee:</strong> {{ mainReferee }}</p>
+      </v-col>
+
+      <v-col class="d-flex align-center justify-center" cols="12">
+        <p><strong>Lines Men:</strong> {{ linesMen }}</p>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+
 <script>
 export default {
   props: {
@@ -54,34 +45,9 @@ export default {
   },
 };
 </script>
-
 <style scoped>
-#btn {
-  text-transform: unset !important;
-  text-decoration: none;
-  font-size: 15px;
-  cursor: pointer;
-  color: white;
-  background-color: #eb6440;
-  
-}
-
-.flag {
-  width: max(80px, 20%);
-}
+h1,
 .teams {
-  color: #497174;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.date {
-  color: #eb6440;
-}
-
-.card {
-  width: max-content;
-  background-color: #eb644020 !important;
-  border-radius: 2px !important;
+  color: #6e1131;
 }
 </style>
