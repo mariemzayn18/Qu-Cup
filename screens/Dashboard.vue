@@ -1,14 +1,16 @@
 <template>
-  <div class="home px-6 px-md-10 ma-16">
+  <div class="home px-6 px-md-10 my-16">
     <v-container fluid>
-      <v-row>
+      <v-row class="text-center">
         <v-col
           v-for="(match, count) in matches"
           :key="count"
           cols="12"
-          sm="4"
+          sm="6"
           md="3"
+          class="d-flex align-center justify-center"
         >
+          <!-- TODO: ADD VACANT SEATS -->
           <matchDetails
             :group_number="count + 1"
             :oponent1_flag="match.oponent1_flag"
