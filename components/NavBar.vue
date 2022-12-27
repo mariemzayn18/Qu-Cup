@@ -87,7 +87,7 @@ export default {
       auth: true,
       tabs: [
         { name: "Dashboard", route: "/" },
-        { name: "Reservations", route: "/reservations " },
+        { name: "Reservations", route: "/reservations" },
         { name: "profile", route: "/profile" },
       ],
     };
