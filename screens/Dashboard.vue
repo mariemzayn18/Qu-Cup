@@ -47,8 +47,8 @@ export default {
           date: "Nov 22",
           time: "9:00pm",
           stadium: "Qatar",
-          mainReferee: "Mohamed Ali",
-          linesMen: "Ahmed Omar",
+          mainReferee: "",
+          linesMen: "",
         },
         {
           oponent1_flag: "argentina.png",
@@ -58,8 +58,8 @@ export default {
           date: "Nov 23",
           time: "9:00pm",
           stadium: "Qatar",
-          mainReferee: "Mohamed Ali",
-          linesMen: "Ahmed Omar",
+          mainReferee: "",
+          linesMen: "",
         },
         {
           oponent1_flag: "argentina.png",
@@ -69,8 +69,8 @@ export default {
           date: "Nov 23",
           time: "9:00pm",
           stadium: "Qatar",
-          mainReferee: "Mohamed Ali",
-          linesMen: "Ahmed Omar",
+          mainReferee: "",
+          linesMen: "",
         },
         {
           oponent1_flag: "argentina.png",
@@ -80,8 +80,8 @@ export default {
           date: "Nov 23",
           time: "9:00pm",
           stadium: "Qatar",
-          mainReferee: "Mohamed Ali",
-          linesMen: "Ahmed Omar",
+          mainReferee: "",
+          linesMen: "",
         },
       ],
     };
@@ -90,10 +90,6 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  /* background-color: #eff5f5; */
-  /* height: 100%; */
-}
 .card {
   border-radius: 20px;
   /* max-width: 700px; */
