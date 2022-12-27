@@ -25,26 +25,56 @@
             >
           </v-tabs>
         </v-col>
-        <v-col>
+        <!-- <v-col>
            <TheButton route="/login" text="Log in"/>
         </v-col>
         <v-col>
            <TheButton route="/signup" text="Sign Up"/>
+        </v-col> -->
+        <v-col>
+          <TheButton @clicked="showDropdownList=!showDropdownList" text="Profile"/>
+          <transition name="fade">
+        <div v-if="showDropdownList">
+            <div class="dd-list ma-4" >
+              <v-avatar size="120">
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                >
+              </v-avatar>
+              <p class="name">Marco josif</p> 
+              <p class="un">makro7853</p>
+              <TheButton @clicked="showProfile=!showProfile"  text="edit profile" bgColor="#6e1131" textColor="#d3d5d5"/>
+              <v-dialog
+                v-model="showProfile"
+                transition="dialog-bottom-transition"
+                scrollable
+                width="700"
+              >
+               <profile v-show="showProfile"/>
+              </v-dialog>
+            </div>
+        </div>
+      </transition>
         </v-col>
       </v-row>
     </v-container>
   </template>
   
   <script>
-//   import MobNavBarVue from "./MobNavBar.vue";
+// import MobNavBarVue from "./MobNavBar.vue";
 import TheButton from './TheButton.vue'
+import profile from './profile.vue'
   export default {
     components: {
-        TheButton
+        TheButton,
+        profile
     //   MobNavBarVue,
     },
     data() {
       return {
+        showDropdownList:false,
+        showProfile:false,
         tabs: [
           { name: "Dashboard", route: "/" },
           { name: "Tickets", route: "/tickets" },
@@ -95,6 +125,26 @@ import TheButton from './TheButton.vue'
     width: 60px;
     height: 60px;
   }
-  
+  .dd-list{
+    background-color: #d3d5d5;
+    width: 200px;
+    height: 270px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    position: absolute;
+
+  }
+  .name{
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .un{
+    color: #475050;
+  }
   </style>
   
