@@ -37,7 +37,7 @@
         VIEW DETAILS</v-btn
       >
     </v-card-actions>
-    <v-dialog
+    <v-dialog 
       v-model="showDialog"
       transition="dialog-bottom-transition"
       scrollable
