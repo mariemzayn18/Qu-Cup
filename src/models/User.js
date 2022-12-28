@@ -26,7 +26,7 @@ const UserSchema = mongoose.Schema({
     nationality: {type: String, required: true},
     email: {type: String, required: true},
     address: {type: String},
-    role: {type: Number},
+    role: {type: String},
     approved: {type: Boolean}
 })
 
