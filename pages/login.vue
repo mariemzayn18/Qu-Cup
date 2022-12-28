@@ -90,7 +90,12 @@ export default {
     methods:{
         login(){
             console.log("login")
-            console.log(this.username)
+            console.log(this.role)
+            let username= this.username
+            let password =this.password
+            let role = this.role
+            this.$store.dispatch('login',{username,password,role})
+        .then(()=>this.$router.push('/'))
         }
     }
 

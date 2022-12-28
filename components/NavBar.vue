@@ -77,7 +77,7 @@ import profile from './profile.vue'
       return {
         showDropdownList:false,
         showProfile:false,
-        auth:true,
+        auth:false,
         tabs: [
           { name: "Dashboard", route: "/" },
           { name: "Tickets", route: "/tickets" },
