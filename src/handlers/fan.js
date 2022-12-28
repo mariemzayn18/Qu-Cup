@@ -1,4 +1,4 @@
-const Match = require('../models/Match.js')
+import {Match} from '../models/Match.js'
 
 const getAllMatches  = async(req,res) =>{
     try{
@@ -10,6 +10,6 @@ const getAllMatches  = async(req,res) =>{
         res.status(400).send({message: error.message})
     }
 }
-module.exports = {
+export {
     getAllMatches
 }

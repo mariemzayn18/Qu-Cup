@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Reservation = require('./Reservation')
+import {mongoose} from 'mongoose'
+import {Reservation} from './Reservation.js'
 
 const matchSchema = mongoose.Schema({
     teamOne : {
@@ -50,4 +50,5 @@ matchSchema.pre('remove', async function(next) {
 })
 
 const Match = mongoose.model('Match', matchSchema)
-module.exports = Match
+
+export {Match}
