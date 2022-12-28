@@ -62,9 +62,9 @@
                 ></v-text-field>
 
                 <v-text-field
-                v-model="userName"
+                v-model="username"
                 class="input-field mt-7"
-                name="userName"
+                name="username"
                 label="username"
                 :rules="usernameRules"
                 autocomplete="off"
@@ -126,7 +126,7 @@ export default {
         firstName: '',
         lastName:'',
         email: '',
-        userName:'',
+        username:'',
         password: '',
         nationality: '',
         gender:'',
@@ -169,6 +169,16 @@ export default {
         onRegister(){
             console.log("register")
             console.log(this.birthDate)
+            console.log(this.username)
+            console.log(this.password)
+            let username= this.username
+            let password =this.password
+            let birthDate =this.birthDate
+            let gender =this.gender
+            let nationality =this.nationality
+            let email =this.email
+            let role =this.role
+            this.$store.dispatch('signup',{username,password, birthDate, gender,nationality,email,role})
         }
     }
 

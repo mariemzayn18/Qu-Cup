@@ -45,6 +45,21 @@ export const actions = {
         console.log(err);
       });
   },
+  async signup({ commit }, user) {
+    await axios
+      .post("http://localhost:8888/users/signup", user)
+      console.log(user)
+      .then((res) => {
+        console.log(res) 
+            console.log(res.data)
+            const user = res.data.user;
+              const token = res.data.token
+              commit('sign_up',user,token)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   async matchDetails({ commit }) {
     await axios
       .get("http://localhost:8888/fan/allmatches")
@@ -60,6 +75,18 @@ export const actions = {
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {
   auth_init(state, user, token) {
+    state.token = token;
+    state.user.username = user.userName;
+    state.user.firstName = user.firstName;
+    state.user.lastName = user.lastName;
+    state.user.password = user.password;
+    state.user.email = user.email;
+    state.user.birthDate = user.birthDate;
+    state.user.nationality = user.nationality;
+    state.user.role = user.role;
+  },
+  sign_up(state, token) {
+    console.log("mutation signup")
     state.token = token;
     state.user.username = user.userName;
     state.user.firstName = user.firstName;
