@@ -14,6 +14,7 @@
           align-with-title
           background-color="transparent"
           color="#d3d5d5"
+          v-if="!admin"
         >
           <v-tab
             v-for="tab in tabs"
@@ -24,8 +25,25 @@
             >{{ tab.name }}</v-tab
           >
         </v-tabs>
+
+        <v-tabs
+          grow
+          align-with-title
+          background-color="transparent"
+          color="#d3d5d5"
+          v-else
+        >
+          <v-tab
+            v-for="tab in adminTabs"
+            :key="tab.route"
+            :to="tab.route"
+            :nuxt="true"
+            class="title ss"
+            >{{ tab.name }}</v-tab
+          >
+        </v-tabs>
       </v-col>
-      <v-col v-if="auth">
+      <v-col v-if="auth && !admin">
         <TheButton
           @clicked="showDropdownList = !showDropdownList"
           text="Profile"
@@ -79,82 +97,85 @@ export default {
     TheButton,
     profile,
     //   MobNavBarVue,
-    },
-    data() {
-      return {
-        showDropdownList:false,
-        showProfile:false,
-        auth:true,
-        tabs: [
-          { name: "Dashboard", route: "/" },
-          { name: "Tickets", route: "/tickets" },
-          { name: "profile", route: "/profile" },
-        ],
-      };
-    },
-  };
-  </script>
-  <style scoped>
-  a {
-    text-decoration: none;
-  }
-  .v-tab {
-    text-transform: none !important;
-    color: #d3d5d5 !important;
-  }
-  .nav-bar {
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    height: 75px;
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-  }
-  .v-tab--exact--active v-tab {
-    font-size: 20px !important;
-  }
-  .ss:hover {
-    color: #d3d5d5 !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    background-color: transparent !important;
-  }
-  img{
-    width: 60px;
-    height: 60px;
-  }
-  .dd-list{
-    background-color: #d3d5d5;
-    width: 200px;
-    height: 270px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    position: absolute;
-
-  }
-  .name{
-    font-weight: 700;
-    font-size: 20px;
-  }
-  .un{
-    color: #475050;
-  }
-  </style>
-  
+  },
+  data() {
+    return {
+      showDropdownList: false,
+      showProfile: false,
+      auth: true,
+      admin: true,
+      tabs: [
+        { name: "Dashboard", route: "/" },
+        { name: "Reservations", route: "/reservations" },
+        { name: "profile", route: "/profile" },
+      ],
+      adminTabs: [
+        { name: "Users", route: "/currentUsers" },
+        { name: "Requests", route: "/usersRequests" },
+      ],
+    };
+  },
+};
+</script>
+<style scoped>
+a {
+  text-decoration: none;
+}
+.v-tab {
+  text-transform: none !important;
+  color: #d3d5d5 !important;
+}
+.nav-bar {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 75px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.v-tab--exact--active v-tab {
+  font-size: 20px !important;
+}
+.ss:hover {
+  color: #d3d5d5 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+img {
+  width: 60px;
+  height: 60px;
+}
+.dd-list {
+  background-color: #d3d5d5;
+  width: 200px;
+  height: 270px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  position: absolute;
+}
+.name {
+  font-weight: 700;
+  font-size: 20px;
+}
+.un {
+  color: #475050;
+}
+</style>
