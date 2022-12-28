@@ -27,10 +27,10 @@
         </v-col>
 
         <v-col class="d-flex align-center justify-center" cols="12">
-          <p><strong>Lines Men:</strong> {{ lineMan1 }}</p>
+          <p><strong>Line Man 1:</strong> {{ lineMan1 }}</p>
         </v-col>
         <v-col class="d-flex align-center justify-center" cols="12">
-          <p><strong>Lines Men:</strong> {{ lineMan2 }}</p>
+          <p><strong>Line Man 2:</strong> {{ lineMan2 }}</p>
         </v-col>
       </v-row>
     </v-container>
