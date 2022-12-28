@@ -96,6 +96,7 @@
     },
     data() {
         return {
+        Name:"",
         firstName: '',
         lastName:'',
         email: '',
@@ -108,26 +109,20 @@
         isValid: false,
         showProfile: false,
         passwordRules: [
-            (v) => !!v || ' Password is required',
-            (v) => (v && v.length <= 15 ) || 'Password must be less than 15 characters',
-            (v) => (v && v.length >= 5 ) || 'Password must be at least 5 characters',
+            (v) => (v.length <= 15 ) || 'Password must be less than 15 characters',
+            (v) => (v.length >= 5 ) || 'Password must be at least 5 characters',
         ],
         usernameRules:[
-            (v) => !!v || ' Username is required',
-            (v) => (v && v.length <= 15 ) || 'Username must be less than 15 characters',
-            (v) => (v && v.length >= 5 ) || 'Username must be at least 5 characters',
+            (v) => (v.length <= 15 ) || 'Username must be less than 15 characters',
+            (v) => (v.length >= 5 ) || 'Username must be at least 5 characters',
         ],
         nameRules: [
-            (v) => !!v || 'Name is required',
-            (v) => (v && v.length <= 30) || 'Name must be less than 30 characters',
+            (v) => (v.length <= 30) || 'Name must be less than 30 characters',
             (v) => /^[A-Za-z\s]+$/.test(v) || 'Please insert a right name',
         ],
-        phoneNumberRules: [
-            (v) => !!v || 'This field is required',
-            (v) => /^\+?[0-9]+\s*$/.test(v) || 'Invalid Phone Number',
-            (v) => (v && v.length >= 6 && v.length <= 1) || 'Invalid Phone Number',
-        ],
         notEmptyRules: [(v) => !!v || 'required'],
+        
+       
         }
     },
     methods: {
@@ -135,9 +130,15 @@
         this.showDialog = false;
       },
       update(){
-
+        console.log("console.log(username)")
+       console.log(this.username)
       }
     },
+    computed: {
+      username() {
+      return this.$store.state.user.username
+    },}
+
   };
   </script>
   
