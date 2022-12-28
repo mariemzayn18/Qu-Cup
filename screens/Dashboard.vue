@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row class="text-center">
         <v-col
-          v-for="(match, count) in matchDetails"
+          v-for="(match, count) in matches"
           :key="count"
           cols="12"
           sm="6"

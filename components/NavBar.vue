@@ -104,16 +104,15 @@
       </v-col>
       <v-col v-if="manager && auth">
         <TheButton
-          @clicked="showAddMatch = !showAddMatch"
+          @clicked="showNewStadium = !showNewStadium"
           text="New stadium"
         />
         <v-dialog
-          v-model="showAddMatch"
-          transition="dialog-bottom-transition"
+          v-model="showNewStadium"
           scrollable
-          width="700"
+          width="1300"
         >
-            <profile v-show="showProfile" />
+         <NewStad v-show="showNewStadium" /> 
         </v-dialog>
       </v-col>
     </v-row>
@@ -142,6 +141,7 @@ export default {
       admin: false,
       manager:true,
       showAddMatch:false,
+      showNewStadium:false,
       tabs: [
         { name: "Dashboard", route: "/" },
         { name: "Reservations", route: "/reservations" },
@@ -221,4 +221,5 @@ img {
 .un {
   color: #475050;
 }
+
 </style>
