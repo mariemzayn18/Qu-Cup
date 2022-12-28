@@ -7,7 +7,8 @@
     "app": "node app",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "serve": "nodemon server.js"
   },
   "dependencies": {
     "@nuxtjs/google-gtag": "^1.0.4",
