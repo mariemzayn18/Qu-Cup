@@ -26,15 +26,7 @@ function newFunction() {
       role: "",
       approved: false,
     },
-    matchDetails: {
-      teamOne: "",
-      teamTwo: "",
-      matchVenue: "",
-      date: "",
-      mainReferee: "",
-      lineMan1: "",
-      lineMan2: "",
-    },
+    matchDetails: [],
   });
 }
 //---------------------------------------- ACTIONS ---------------------------------------------------
@@ -78,14 +70,27 @@ export const mutations = {
   },
 
   match_details(state, matchDetails) {
-    console.log("hereeeeeeeeeeeeeeeeeeeeeee");
     console.log(matchDetails);
-    state.teamOne = matchDetails.teamOne;
-    state.teamTwo = matchDetails.teamTwo;
-    state.matchVenue = matchDetails.matchVenue;
-    state.date = matchDetails.date;
-    state.mainReferee = matchDetails.mainReferee;
-    state.lineMan1 = matchDetails.lineMan1;
-    state.lineMan2 = matchDetails.lineMan2;
+    for (var i = 0; i < matchDetails.length; i++) {
+      console.log("here");
+      var match = {};
+      match["teamOne"] = matchDetails[i].teamOne;
+      match["teamTwo"] = matchDetails[i].teamTwo;
+      match["matchVenue"] = matchDetails[i].matchVenue;
+      match["date"] = matchDetails[i].date;
+      match["mainReferee"] = matchDetails[i].mainReferee;
+      match["lineMan1"] = matchDetails[i].lineMan1;
+      match["lineMan2"] = matchDetails[i].lineMan2;
+      state.matchDetails[i].push(match);
+    }
+    // console.log(matchDetails);
+    // state.matchDetails.teamOne = matchDetails.teamOne;
+    // state.matchDetails.teamTwo = matchDetails.teamTwo;
+    // state.matchDetails.matchVenue = matchDetails.matchVenue;
+    // state.matchDetails.date = matchDetails.date;
+    // state.matchDetails.mainReferee = matchDetails.mainReferee;
+    // state.matchDetails.lineMan1 = matchDetails.lineMan1;
+    // state.matchDetails.lineMan2 = matchDetails.lineMan2;
+    // console.log(state.matchDetails);
   },
 };

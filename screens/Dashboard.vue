@@ -90,7 +90,7 @@ export default {
   computed: {
     matchDetails() {
       this.$store.dispatch("matchDetails");
-      console.log("hereeee from dashboard");
+      // console.log("hereeee from dashboard");
       // console.log(this.$store.state.matchDetails);
       return this.$store.state.matchDetails;
     },
