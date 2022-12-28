@@ -1,6 +1,6 @@
 <template>
   <!-- <MobNavBarVue v-if="$vuetify.breakpoint.smAndDown" /> -->
-  <v-container fluid>
+  <v-container fluid class="navbar">
     <v-row class="nav-bar justify-center align-center">
       <v-col cols="2">
         <nuxt-link to="/">
@@ -30,7 +30,7 @@
           grow
           align-with-title
           background-color="transparent"
-          color="#d3d5d5"
+          color="#6e1131"
           v-else
         >
           <v-tab
@@ -42,6 +42,9 @@
             >{{ tab.name }}</v-tab
           >
         </v-tabs>
+      </v-col>
+      <v-col v-if="auth && admin">
+        <userRequests />
       </v-col>
       <v-col v-if="auth && !admin">
         <TheButton
@@ -90,12 +93,14 @@
 
 <script>
 // import MobNavBarVue from "./MobNavBar.vue";
+import userRequests from "./UserRequests.vue";
 import TheButton from "./TheButton.vue";
 import profile from "./profile.vue";
 export default {
   components: {
     TheButton,
     profile,
+    userRequests,
     //   MobNavBarVue,
   },
   data() {
@@ -111,7 +116,7 @@ export default {
       ],
       adminTabs: [
         { name: "Users", route: "/currentUsers" },
-        { name: "Requests", route: "/usersRequests" },
+        // { name: "Requests", route: "/usersRequests" },
       ],
     };
   },
@@ -141,8 +146,9 @@ a {
   -ms-flex-pack: justify;
   justify-content: space-between;
   height: 75px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(11px);
+  backdrop-filter: blur(11px);
+  background-color: #d3d5d590;
 }
 .v-tab--exact--active v-tab {
   font-size: 20px !important;
