@@ -81,16 +81,8 @@ export const mutations = {
       match["mainReferee"] = matchDetails[i].mainReferee;
       match["lineMan1"] = matchDetails[i].lineMan1;
       match["lineMan2"] = matchDetails[i].lineMan2;
-      state.matchDetails[i].push(match);
+      state.matchDetails.push(match);
     }
-    // console.log(matchDetails);
-    // state.matchDetails.teamOne = matchDetails.teamOne;
-    // state.matchDetails.teamTwo = matchDetails.teamTwo;
-    // state.matchDetails.matchVenue = matchDetails.matchVenue;
-    // state.matchDetails.date = matchDetails.date;
-    // state.matchDetails.mainReferee = matchDetails.mainReferee;
-    // state.matchDetails.lineMan1 = matchDetails.lineMan1;
-    // state.matchDetails.lineMan2 = matchDetails.lineMan2;
     // console.log(state.matchDetails);
   },
 };
