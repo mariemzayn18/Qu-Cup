@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="ma-16">
     <v-row class="pa-4" justify="space-between">
       <v-col cols="5">
         <v-treeview
@@ -65,12 +65,13 @@
               </v-col>
               <v-col>{{ selected.phone }}</v-col>
               <v-col cols="12 " class="text-center">
-                <TheButton
-                  @clicked="removeUser"
-                  text="REMOVE USER"
-                  bgColor="red"
-                  textColor="#d3d5d5"
-                />
+                <button
+                  id="btn2"
+                  class="text-center pa-3 mt-4"
+                  @click="removeUser"
+                >
+                  REMOVE USER
+                </button>
               </v-col>
             </v-row>
           </v-card>
@@ -143,5 +144,16 @@ export default {
 <style scoped>
 .colors {
   color: #6e1131;
+}
+
+#btn2 {
+  text-transform: unset !important;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: white;
+  background-color: red;
+  margin: auto;
+  padding: auto;
 }
 </style>
