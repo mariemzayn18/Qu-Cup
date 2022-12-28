@@ -87,11 +87,11 @@ export default {
       ],
     };
   },
+  created() {
+    this.$store.dispatch("matchDetails");
+  },
   computed: {
     matchDetails() {
-      this.$store.dispatch("matchDetails");
-      // console.log("hereeee from dashboard");
-      // console.log(this.$store.state.matchDetails);
       return this.$store.state.matchDetails;
     },
   },
