@@ -44,8 +44,17 @@ export default {
         version: 3,
         size: "invisible",
       },
+      '@nuxtjs/axios',
+      // '@nuxtjs/proxy'
     ],
+    
   ],
+  axios: {
+    // proxy: true
+  },
+  // proxy: {
+  //   '/api/': { target: 'http://localhost:8888', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+  // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

@@ -1,8 +1,20 @@
 <template>
-  <div class="app"></div>
+  <div class="main">
+    <Dashboard></Dashboard>
+  </div>
+ 
 </template>
-
 <script>
-export default {};
+import Dashboard from "../screens/Dashboard";
+export default {
+  components: {
+    Dashboard,
+  },
+};
 </script>
-<style scoped></style>
+
+<style scoped>
+.main {
+  /* background-color: #eff5f5; */
+}
+</style>

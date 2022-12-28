@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {handleUserSignUp, handleLogin, handleApproveUser, handlegetAllUser, handleDeleteUser} from "../handlers/User.js";
-import { adminAuth } from "../middlewares/Guards.js";
+import { adminAuth } from "../middlewares/Guard.js";
 const router = Router()
 
 router.post("/signup", handleUserSignUp)
