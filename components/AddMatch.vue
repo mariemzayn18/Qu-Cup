@@ -80,6 +80,7 @@
             <TheButton
               @clicked="addMatch"
               text="Add"
+              :disabled="!isValid" 
               bgColor="#6e1131"
               textColor="#d3d5d5"
             />
@@ -128,15 +129,9 @@
         team2:"",
         venue:"",
         isValid: false,
-        passwordRules: [
-          (v) => v.length <= 15 || "Password must be less than 15 characters",
-          (v) => v.length >= 5 || "Password must be at least 5 characters",
-        ],
-        usernameRules: [
-          (v) => v.length <= 15 || "Username must be less than 15 characters",
-          (v) => v.length >= 5 || "Username must be at least 5 characters",
-        ],
+
         nameRules: [
+          (v) => !!v || "required",
           (v) => v.length <= 30 || "Name must be less than 30 characters",
           (v) => /^[A-Za-z\s]+$/.test(v) || "Please insert a right name",
         ],

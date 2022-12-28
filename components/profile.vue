@@ -117,8 +117,7 @@ export default {
         (v) => v.length >= 5 || "Username must be at least 5 characters",
       ],
       nameRules: [
-        (v) => v.length <= 30 || "Name must be less than 30 characters",
-        (v) => /^[A-Za-z\s]+$/.test(v) || "Please insert a right name",
+        (v) => /^[A-Za-z\s ]+$/.test(v) || "Please insert a right name",
       ],
       notEmptyRules: [(v) => !!v || "required"],
     };
