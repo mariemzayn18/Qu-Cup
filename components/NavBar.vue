@@ -88,7 +88,7 @@
         <TheButton route="/signup" text="Sign Up" />
       </v-col>
           <!-------------------  Manager ---------------------->
-      <v-col v-if="manager && auth">
+      <v-col v-if="userData.role == 'manager' && auth">
         <TheButton
           @clicked="showAddMatch = !showAddMatch"
           text="New match"
@@ -102,7 +102,7 @@
             <AddMatch v-show="showAddMatch" />
         </v-dialog>
       </v-col>
-      <v-col v-if="manager && auth">
+      <v-col v-if="userData.role == 'manager' && auth">
         <TheButton
           @clicked="showNewStadium = !showNewStadium"
           text="New stadium"
@@ -139,7 +139,6 @@ export default {
       showProfile: false,
       auth:true,
       admin: false,
-      manager:true,
       showAddMatch:false,
       showNewStadium:false,
       tabs: [

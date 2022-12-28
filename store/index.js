@@ -23,7 +23,7 @@ function newFunction() {
       username: "",
       nationality: "",
       gender: "",
-      role: "",
+      role: "manager",
       approved: false,
     },
     matchDetails: [],
