@@ -8,7 +8,7 @@
         </nuxt-link>
       </v-col>
 
-      <v-col cols="7">
+      <v-col cols="5">
         <v-tabs
           grow
           align-with-title
@@ -80,12 +80,40 @@
           </div>
         </transition>
       </v-col>
-
+       <!-------------------  Guest ---------------------->
       <v-col v-if="!auth">
         <TheButton route="/login" text="Log in" />
       </v-col>
       <v-col v-if="!auth">
         <TheButton route="/signup" text="Sign Up" />
+      </v-col>
+          <!-------------------  Manager ---------------------->
+      <v-col v-if="manager && auth">
+        <TheButton
+          @clicked="showAddMatch = !showAddMatch"
+          text="New match"
+        />
+        <v-dialog
+          v-model="showAddMatch"
+          transition="dialog-bottom-transition"
+          scrollable
+          width="1300"
+        >
+            <AddMatch v-show="showAddMatch" />
+        </v-dialog>
+      </v-col>
+      <v-col v-if="manager && auth">
+        <TheButton
+          @clicked="showNewStadium = !showNewStadium"
+          text="New stadium"
+        />
+        <v-dialog
+          v-model="showNewStadium"
+          scrollable
+          width="1300"
+        >
+         <NewStad v-show="showNewStadium" /> 
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -96,23 +124,27 @@
 import userRequests from "./UserRequests.vue";
 import TheButton from "./TheButton.vue";
 import profile from "./profile.vue";
+import AddMatch from "./AddMatch.vue"
 export default {
   components: {
     TheButton,
     profile,
     userRequests,
+    AddMatch
     //   MobNavBarVue,
   },
   data() {
     return {
       showDropdownList: false,
       showProfile: false,
-      auth: true,
+      auth:true,
       admin: false,
+      manager:true,
+      showAddMatch:false,
+      showNewStadium:false,
       tabs: [
         { name: "Dashboard", route: "/" },
         { name: "Reservations", route: "/reservations" },
-        { name: "profile", route: "/profile" },
       ],
       adminTabs: [
         { name: "Users", route: "/currentUsers" },
@@ -189,4 +221,5 @@ img {
 .un {
   color: #475050;
 }
+
 </style>
