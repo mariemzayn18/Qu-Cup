@@ -45,12 +45,25 @@ export const actions = {
         console.log(err);
       });
   },
+  async signup({ commit }, user) {
+    await axios
+      .post("http://localhost:8888/users/login", user)
+      .then((res) => {
+        console.log(res) 
+              const user = res.data.user
+              const token = res.data.token
+              commit('auth_init', user,token)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   async matchDetails({ commit }) {
     await axios
       .get("http://localhost:8888/fan/allmatches")
       .then((res) => {
         // console.log(res.data.match);
-        commit("match_details", state, res.data.match);
+        commit("match_details", res.data.match);
       })
       .catch((err) => {
         console.log(err);
