@@ -1,9 +1,9 @@
-const express = require('express')
-const router = new express.Router()
-const fanController = require('../controllers/fan')
+import { Router } from "express";
+const router = Router()
+const fanController = require("../controllers/fan");
 
-// should put auth middleware 
+// should put auth middleware
 
-router.get('/allmatches',fanController.getAllMatches)
+router.get("/allmatches", fanController.getAllMatches);
 
-module.exports = router
+export default router;

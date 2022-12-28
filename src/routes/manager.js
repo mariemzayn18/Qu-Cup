@@ -1,5 +1,5 @@
-const express = require('express')
-const router = new express.Router()
+import { Router } from "express";
+const router = Router()
 const managerController = require('../controllers/manager')
 
 // should put auth middleware 
@@ -9,4 +9,4 @@ router.get('/match/:matchID',managerController.getMatch)
 router.get('/match/viewseats/:matchID',managerController.viewVacantResSeats)
 router.patch('/match/:matchID',managerController.editMatch)
 
-module.exports = router
+export default router
