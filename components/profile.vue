@@ -15,11 +15,11 @@
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-avatar>
           <div class="my-5">
-            <p class="name">Marco josif</p>
-            <p class="un">mako7853</p>
-            <p class="un">marcdo8@Jffflk.com</p>
-            <p class="un">Nationality: Egyptian</p>
-            <p class="un">birth date: 26-9-2000</p>
+            <p class="name">{{userData.firstName}} {{userData.lastName}}</p>
+            <p class="un">username: {{userData.username}}</p>
+            <p class="un">email: {{userData.email}}</p>
+            <p class="un">Nationality: {{userData.nationality}}</p>
+            <p class="un">birth date:{{userData.birthDate}}</p>
           </div>
         </v-col>
         <v-col>
@@ -94,18 +94,6 @@ export default {
     matchDetails,
     TheButton,
   },
-  props: {
-    group_number: Number,
-    oponent1_flag: String,
-    oponent2_flag: String,
-    oponent1_name: String,
-    oponent2_name: String,
-    date: String,
-    time: String,
-    stadium: String,
-    mainReferee: String,
-    linesMen: String,
-  },
   data() {
     return {
       Name: "",
@@ -145,8 +133,8 @@ export default {
     },
   },
   computed: {
-    username() {
-      return this.$store.state.user.username;
+    userData() {
+      return this.$store.state.user;
     },
   },
 };

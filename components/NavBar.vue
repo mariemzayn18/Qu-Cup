@@ -60,8 +60,8 @@
                   alt="John"
                 />
               </v-avatar>
-              <p class="name">Marco josif</p>
-              <p class="un">makro7853</p>
+              <p class="name">{{userData.firstName}}  {{userData.lastName}}</p>
+              <p class="un">{{userData.username}}</p>
               <TheButton
                 @clicked="showProfile = !showProfile"
                 text="edit profile"
@@ -108,7 +108,7 @@ export default {
       showDropdownList: false,
       showProfile: false,
       auth: true,
-      admin: true,
+      admin: false,
       tabs: [
         { name: "Dashboard", route: "/" },
         { name: "Reservations", route: "/reservations" },
@@ -119,6 +119,11 @@ export default {
         // { name: "Requests", route: "/usersRequests" },
       ],
     };
+  },
+  computed: {
+    userData() {
+      return this.$store.state.user;
+    },
   },
 };
 </script>
