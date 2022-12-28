@@ -18,6 +18,8 @@ const handleLogin = async (req,res) => {
 
 const handleUserSignUp = async (req,res) => {    
     try{
+        console.log("GGGGGGGGGGg")
+        console.log(req.body)
         const register_user = new userData({
         userName: req.body.username,
         password: req.body.password,
@@ -27,13 +29,15 @@ const handleUserSignUp = async (req,res) => {
         gender: req.body.gender,
         nationality: req.body.nationality,
         email: req.body.email,
-        address: req.body.address,
         role: (req.body.role == "fan") ? 0 : (req.body.role == "manager")? 2 :1,
         approved:false
         })
+        console.log("before")
     const user_id = await register_user.save().then(saved=>{
+        console.log("in")
         return saved._id.valueOf()
     })
+    console.log("after")
     const token = Jwt.sign({id : user_id, role: register_user.role}, SECRET_KEY)
     res.status(200).send({user: register_user,token: token, error: false})
     }catch (err){

@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row class="text-center">
         <v-col
-          v-for="(match, count) in matches"
+          v-for="(match, count) in matchDetails"
           :key="count"
           cols="12"
           sm="6"
@@ -16,36 +16,39 @@
                 <v-col
                   ><p class="text-left date">{{ match.date }}</p>
                 </v-col>
-                <v-col>
+                <!-- <v-col>
                   <p class="text-right date">{{ match.time }}</p>
-                </v-col>
+                </v-col> -->
               </v-row>
               <v-divider light></v-divider>
 
               <v-row class="pt-5">
                 <v-col class="d-flex align-center">
-                  <p class="teams">{{ match.oponent1_name }}</p>
+                  <p class="teams">{{ match.teamOne }}</p>
                 </v-col>
-                <v-col>
+                <!-- <v-col>
                   <img
                     class="flag"
                     :src="require(`~/assets/icons/${match.oponent1_flag}`)"
                     alt="oponent 1"
-                /></v-col> </v-row
+                /></v-col> --> </v-row
               ><v-row>
                 <v-col class="d-flex align-center">
-                  <p class="teams">{{ match.oponent2_name }}</p>
+                  <p class="teams">{{ match.teamTwo }}</p>
                 </v-col>
-                <v-col
+                <!-- <v-col
                   ><img
                     class="flag"
                     :src="require(`~/assets/icons/${match.oponent2_flag}`)"
                     alt="oponent 1"
-                /></v-col>
+                />
+              </v-col> -->
               </v-row>
             </v-card-text>
             <v-card-actions class="d-flex justify-center py-4">
-              <v-btn id="btn" class="text-center" @click=""> CANCEL RESERVATION</v-btn>
+              <v-btn id="btn" class="text-center" @click="cancelReservation">
+                CANCEL RESERVATION</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -60,55 +63,63 @@ export default {
     matchDetails,
   },
 
-  data() {
-    return {
-      matches: [
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 22",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-      ],
-    };
+  computed: {
+    matchDetails() {
+      return this.$store.state.matchDetails;
+    },
+    // data() {
+    //   return {
+    //     matches: [
+    //       {
+    //         oponent1_flag: "argentina.png",
+    //         oponent2_flag: "croatia.png",
+    //         oponent1_name: "Argentina",
+    //         oponent2_name: "Croatia",
+    //         date: "Nov 22",
+    //         time: "9:00pm",
+    //         stadium: "Qatar",
+    //         mainReferee: "",
+    //         linesMen: "",
+    //       },
+    //       {
+    //         oponent1_flag: "argentina.png",
+    //         oponent2_flag: "croatia.png",
+    //         oponent1_name: "Argentina",
+    //         oponent2_name: "Croatia",
+    //         date: "Nov 23",
+    //         time: "9:00pm",
+    //         stadium: "Qatar",
+    //         mainReferee: "",
+    //         linesMen: "",
+    //       },
+    //       {
+    //         oponent1_flag: "argentina.png",
+    //         oponent2_flag: "croatia.png",
+    //         oponent1_name: "Argentina",
+    //         oponent2_name: "Croatia",
+    //         date: "Nov 23",
+    //         time: "9:00pm",
+    //         stadium: "Qatar",
+    //         mainReferee: "",
+    //         linesMen: "",
+    //       },
+    //       {
+    //         oponent1_flag: "argentina.png",
+    //         oponent2_flag: "croatia.png",
+    //         oponent1_name: "Argentina",
+    //         oponent2_name: "Croatia",
+    //         date: "Nov 23",
+    //         time: "9:00pm",
+    //         stadium: "Qatar",
+    //         mainReferee: "",
+    //         linesMen: "",
+    //       },
+    //     ],
+    //   };
+    // },
+    methods: {
+      cancelReservation() {},
+    },
   },
 };
 </script>
