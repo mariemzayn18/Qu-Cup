@@ -67,11 +67,22 @@
           @click="ticketReservation"
           id="btn2"
           class="text-center pa-3"
-          v-if="!reserveTicket"
+          v-if='!reserveTicket && userData.role == "fan"' 
         >
           RESERVE TICKET
         </button>
         <reservationForm class="pt-6" v-show="reserveTicket"> </reservationForm>
+        
+        <button
+          v-if='userData.role == "manager"' 
+          @click="showSeats= !showSeats"
+          id="btn2"
+          class="text-center pa-3"
+        >
+          SEATS STATUS
+        </button>
+        <Seats v-show="showSeats"/>
+        
       </v-card>
     </v-dialog>
     <v-dialog
@@ -112,6 +123,7 @@ export default {
       showDialog: false,
       reserveTicket: false,
       showEdit:false,
+      showSeats:false,
     };
   },
   methods: {
