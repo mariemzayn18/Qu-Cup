@@ -3,15 +3,15 @@
     <v-row>
         <v-col cols="2"></v-col>
         <v-col class="my-5" cols="4">
-            <v-form id="login" class="form-container pa-6" ref="form" v-model="isValid" action="/login" method="post">
+            <v-form id="login" class="form-container pa-6" ref="form" v-model="isValid" method="post">
             <v-row>
             <v-col>
 
                 <v-text-field
-                v-model="userName"
+                v-model="username"
                 class="input-field mt-7"
                 :rules="usernameRules"
-                name="userName"
+                name="username"
                 label="username"
                 autocomplete="off"
                 ></v-text-field>
@@ -25,7 +25,7 @@
                 autocomplete="off"
                 type="password"
                 ></v-text-field>
-            <v-radio-group v-model="role" :rules="notEmptyRules">
+            <!-- <v-radio-group v-model="role" :rules="notEmptyRules">
               <v-row>
                 <v-col md="3" sm="5" cols="5"> 
                     <v-radio label="fan" value="fan" color="#6e1131"></v-radio>
@@ -34,7 +34,7 @@
                 ><v-radio label="manager" value="manager" color="#6e1131"></v-radio
                 ></v-col>
               </v-row>
-            </v-radio-group>
+            </v-radio-group> -->
             <TheButton @clicked="login" route="/" :disabled="!isValid" text="Log in" bgColor="#6e1131" textColor="#d3d5d5"/>
             </v-col>  
       </v-row>
@@ -58,8 +58,7 @@ export default {
     data() {
         return {
         password: '',
-        userName:'',
-        role:'',
+        username:'',
         isValid: false,
         showDialog: false,
         emailRules: [
@@ -90,12 +89,12 @@ export default {
     methods:{
         login(){
             console.log("login")
-            console.log(this.role)
+            console.log(this.username)
+            console.log(this.password)
             let username= this.username
             let password =this.password
-            let role = this.role
-            this.$store.dispatch('login',{username,password,role})
-        .then(()=>this.$router.push('/'))
+            this.$store.dispatch('login',{username,password})
+        
         }
     }
 

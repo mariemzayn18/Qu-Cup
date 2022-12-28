@@ -3,8 +3,9 @@ import Jwt from 'jsonwebtoken'
 
 const SECRET_KEY = "NOTESAPI"
 const handleLogin = async (req,res) => { 
-    const {username, password} = req.body
+
     try{
+        const {username, password} = req.body
         const logged_user = await userData.loginCheck(username, password)
         const user_id = logged_user._id.valueOf()
         const token = Jwt.sign({id : user_id,role:logged_user.role},SECRET_KEY)
@@ -18,7 +19,7 @@ const handleLogin = async (req,res) => {
 const handleUserSignUp = async (req,res) => {    
     try{
         const register_user = new userData({
-        userName: req.body.userName,
+        userName: req.body.username,
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -27,7 +28,7 @@ const handleUserSignUp = async (req,res) => {
         nationality: req.body.nationality,
         email: req.body.email,
         address: req.body.address,
-        role: req.body.role,
+        role: (req.body.role == "fan") ? 0 : (req.body.role == "manager")? 2 :1,
         approved:false
         })
     const user_id = await register_user.save().then(saved=>{
