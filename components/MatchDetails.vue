@@ -42,7 +42,7 @@
       transition="dialog-bottom-transition"
       scrollable
       height="max-content"
-      width="440"
+      width="1000"
     >
       <v-card class="round py-5 px-2">
         <matchDetails
