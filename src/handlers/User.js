@@ -27,7 +27,6 @@ const handleUserSignUp = async (req,res) => {
         gender: req.body.gender,
         nationality: req.body.nationality,
         email: req.body.email,
-        address: req.body.address,
         role: (req.body.role == "fan") ? 0 : (req.body.role == "manager")? 2 :1,
         approved:false
         })
