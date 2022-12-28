@@ -9,14 +9,19 @@
         </template>
 
         <v-list v-if="requests.length > 0">
-          <v-list-item
+          <v-list-item 
             v-for="(request, index) in requests"
             :key="index"
             class="pt-4 px-0"
           >
             <v-row class="pa-0 ma-0">
               <v-col cols="6">
-                <p class="text-left px-2">{{ request.username }}</p>
+                <button
+                  class="text-left px-2"
+                  @click="showUserDetails = !showUserDetails"
+                >
+                  {{ request.username }}
+                </button>
               </v-col>
               <v-col cols="2"
                 ><v-btn
@@ -43,6 +48,7 @@
                 </v-btn></v-col
               >
             </v-row>
+            <p v-if="showUserDetails">nasj dsakjsdsa</p>
           </v-list-item>
         </v-list>
         <v-list v-else>
@@ -58,6 +64,7 @@
 <script>
 export default {
   data: () => ({
+    showUserDetails: false,
     requests: [
       { username: "mariemzayn", email: "mz@gmail.com", id: "0" },
       { username: "mariemzayn21", email: "mz@gmail.com", id: "1" },
@@ -91,5 +98,13 @@ export default {
 p {
   color: #6e1131;
   font-weight: 500;
+}
+
+button {
+  color: #6e1131;
+  font-weight: 500;
+}
+button:hover {
+  background-color: rgb(110, 17, 49, 0.2);
 }
 </style>
