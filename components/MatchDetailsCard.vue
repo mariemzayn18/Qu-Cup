@@ -14,9 +14,9 @@
         <v-col class="d-flex align-center justify-center" cols="12">
           <p><strong> Date: </strong> {{ date }}</p>
         </v-col>
-        <v-col class="d-flex align-center justify-center" cols="12">
+        <!-- <v-col class="d-flex align-center justify-center" cols="12">
           <p><strong> Time: </strong>{{ time }}</p>
-        </v-col>
+        </v-col> -->
 
         <v-col class="d-flex align-center justify-center" cols="12">
           <p><strong> Stadium: </strong> {{ stadium }}</p>
@@ -27,7 +27,10 @@
         </v-col>
 
         <v-col class="d-flex align-center justify-center" cols="12">
-          <p><strong>Lines Men:</strong> {{ linesMen }}</p>
+          <p><strong>Lines Men:</strong> {{ lineMan1 }}</p>
+        </v-col>
+        <v-col class="d-flex align-center justify-center" cols="12">
+          <p><strong>Lines Men:</strong> {{ lineMan2 }}</p>
         </v-col>
       </v-row>
     </v-container>
@@ -46,7 +49,8 @@ export default {
     time: String,
     stadium: String,
     mainReferee: String,
-    linesMen: String,
+    lineMan1: String,
+    lineMan2: String,
   },
 };
 </script>

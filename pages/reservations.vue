@@ -45,7 +45,9 @@
               </v-row>
             </v-card-text>
             <v-card-actions class="d-flex justify-center py-4">
-              <v-btn id="btn" class="text-center" @click=""> CANCEL RESERVATION</v-btn>
+              <v-btn id="btn" class="text-center" @click="cancelReservation">
+                CANCEL RESERVATION</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-col>
@@ -109,6 +111,9 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    cancelReservation() {},
   },
 };
 </script>

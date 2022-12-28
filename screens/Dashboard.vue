@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row class="text-center">
         <v-col
-          v-for="(match, count) in matches"
+          v-for="(match, count) in matchDetails"
           :key="count"
           cols="12"
           sm="6"
@@ -13,16 +13,17 @@
           <!-- TODO: ADD VACANT SEATS -->
           <matchDetails
             :group_number="count + 1"
-            :oponent1_flag="match.oponent1_flag"
-            :oponent2_flag="match.oponent2_flag"
-            :oponent1_name="match.oponent1_name"
-            :oponent2_name="match.oponent2_name"
+            oponent1_flag="argentina.png"
+            oponent2_flag="croatia.png"
+            :oponent1_name="match.teamOne"
+            :oponent2_name="match.teamTwo"
             :date="match.date"
-            :time="match.time"
-            :stadium="match.stadium"
+            :stadium="match.matchVenue"
             :mainReferee="match.mainReferee"
-            :linesMen="match.linesMen"
+            :lineMan1="match.lineMan1"
+            :lineMan2="match.lineMan2"
           >
+            <!-- :time="match.time" -->
           </matchDetails>
         </v-col>
       </v-row>
@@ -85,6 +86,14 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    matchDetails() {
+      this.$store.dispatch("matchDetails");
+      console.log("hereeee from dashboard");
+      // console.log(this.$store.state.matchDetails);
+      return this.$store.state.matchDetails;
+    },
   },
 };
 </script>

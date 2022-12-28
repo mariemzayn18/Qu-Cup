@@ -14,22 +14,23 @@
         <v-col class="d-flex align-center">
           <p class="teams">{{ oponent1_name }}</p>
         </v-col>
-        <v-col>
+        <!-- <v-col>
           <img
             class="flag"
             :src="require(`~/assets/icons/${oponent1_flag}`)"
             alt="oponent 1"
-        /></v-col> </v-row
+        /></v-col>  -->
+        </v-row
       ><v-row>
         <v-col class="d-flex align-center">
           <p class="teams">{{ oponent2_name }}</p>
         </v-col>
-        <v-col
+        <!-- <v-col
           ><img
             class="flag"
             :src="require(`~/assets/icons/${oponent2_flag}`)"
             alt="oponent 1"
-        /></v-col>
+        /></v-col> -->
       </v-row>
     </v-card-text>
     <v-card-actions class="d-flex justify-center py-4">
@@ -52,11 +53,13 @@
           :oponent1_name="oponent1_name"
           :oponent2_name="oponent2_name"
           :date="date"
-          :time="time"
           :stadium="stadium"
           :mainReferee="mainReferee"
-          :linesMen="linesMen"
+          :lineMan1="lineMan1"
+          :lineMan2="lineMan2"
         ></matchDetails>
+        <!-- :time="time" -->
+
         <button
           @click="ticketReservation"
           id="btn2"
@@ -88,7 +91,8 @@ export default {
     time: String,
     stadium: String,
     mainReferee: String,
-    linesMen: String,
+    lineMan1: String,
+    lineMan2: String,
   },
   data() {
     return {
