@@ -110,8 +110,8 @@ export default {
         { name: "profile", route: "/profile" },
       ],
       adminTabs: [
-        { name: "Users", route: "currentUsers" },
-        { name: "Requests", route: "usersRequests" },
+        { name: "Users", route: "/currentUsers" },
+        { name: "Requests", route: "/usersRequests" },
       ],
     };
   },
