@@ -36,10 +36,10 @@ export const actions = {
     await axios
       .post("http://localhost:8888/users/login", user)
       .then((res) => {
-        console.log(res) 
-              const user = res.data.user
-              const token = res.data.token
-              commit('auth_init', user,token)
+        console.log(res);
+        const user = res.data.user;
+        const token = res.data.token;
+        commit("auth_init", user, token);
       })
       .catch((err) => {
         console.log(err);
@@ -85,9 +85,7 @@ export const mutations = {
   },
 
   match_details(state, matchDetails) {
-    console.log(matchDetails);
     for (var i = 0; i < matchDetails.length; i++) {
-      console.log("here");
       var match = {};
       match["teamOne"] = matchDetails[i].teamOne;
       match["teamTwo"] = matchDetails[i].teamTwo;
@@ -98,6 +96,5 @@ export const mutations = {
       match["lineMan2"] = matchDetails[i].lineMan2;
       state.matchDetails.push(match);
     }
-    // console.log(state.matchDetails);
   },
 };
