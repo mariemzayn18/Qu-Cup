@@ -36,8 +36,10 @@ export const actions = {
     await axios
       .post("http://localhost:8888/users/login", user)
       .then((res) => {
-        console.log(res.data.user);
-        commit("auth_init", state, user, token);
+        console.log(res) 
+              const user = res.data.user
+              const token = res.data.token
+              commit('auth_init', user,token)
       })
       .catch((err) => {
         console.log(err);
