@@ -155,7 +155,7 @@
       };
     },
     methods: {
-      addMatch() {
+      async addMatch() {
         console.log("new match");
         if (this.team1 == this.team2)
             {
@@ -180,7 +180,10 @@
             let linesmen2 =this.linesmen2
             let date = this.date
             let time = this.time
-            this.$store.dispatch('addMatch',{ team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time})
+            let result =await  this.$store.dispatch('addMatch',{ team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time})
+            console.log("hhhhhhhhhhhhh")
+            console.log(result)
+            //TODO need to print backend errors to user
             this.showSuccessAlert=true
       },
     },

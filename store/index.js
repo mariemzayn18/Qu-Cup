@@ -77,7 +77,7 @@ export const actions = {
   async addMatch({ commit }, match) {
     console.log(match)
     await axios
-      .post("http://localhost:8888/match", match)
+      .post("http://localhost:8888/manager/match", match)
       .then((res) => {
         console.log(res.data);
         const user = res.data.user;
@@ -105,7 +105,18 @@ export const actions = {
   async addStad({ commit }, stad) {
     console.log(stad)
     await axios
-      .post("http://localhost:8888/stadium", stad)
+      .post("http://localhost:8888/manager/stadium", stad)
+      .then((res) => {
+      })
+      .catch((err) => {
+        console.log("Error in adding stadium");
+        console.log(err);
+      });
+  },
+  async getMatch({ commit }, matchID) {
+    console.log(stad)
+    await axios
+      .get("http://localhost:8888/match/${matchID}")
       .then((res) => {
         console.log(res.data);
         // commit("auth_init", user, token);
