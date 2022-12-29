@@ -14,28 +14,31 @@
         <v-col class="d-flex align-center">
           <p class="teams">{{ oponent1_name }}</p>
         </v-col>
-        <!-- <v-col>
+        <v-col>
           <img
             class="flag"
             :src="require(`~/assets/icons/${oponent1_flag}`)"
             alt="oponent 1"
-        /></v-col>  -->
+        /></v-col> 
         </v-row
       ><v-row>
         <v-col class="d-flex align-center">
           <p class="teams">{{ oponent2_name }}</p>
         </v-col>
-        <!-- <v-col
+        <v-col
           ><img
             class="flag"
             :src="require(`~/assets/icons/${oponent2_flag}`)"
             alt="oponent 1"
-        /></v-col> -->
+        /></v-col>
       </v-row>
     </v-card-text>
     <v-card-actions class="d-flex justify-center py-4">
-      <v-btn id="btn" class="text-center" @click="showDialog = true">
+      <v-btn id="btn" class="text-center" @click="viewDetails">
         VIEW DETAILS</v-btn
+      >
+      <v-btn v-if='userData.role == "manager"'  id="btn" class="text-center" @click="showEdit = true">
+        EDIT MATCH</v-btn
       >
     </v-card-actions>
     <v-dialog 
@@ -64,22 +67,43 @@
           @click="ticketReservation"
           id="btn2"
           class="text-center pa-3"
-          v-if="!reserveTicket"
+          v-if='!reserveTicket && userData.role == "fan"' 
         >
           RESERVE TICKET
         </button>
         <reservationForm class="pt-6" v-show="reserveTicket"> </reservationForm>
+        
+        <button
+          v-if='userData.role == "manager"' 
+          @click="viewSeats"
+          id="btn2"
+          class="text-center pa-3"
+        >
+          SEATS STATUS
+        </button>
+        <Seats v-show="showSeats"/>
+        
       </v-card>
     </v-dialog>
+    <v-dialog
+          v-model="showEdit"
+          transition="dialog-bottom-transition"
+          scrollable
+          width="1300"
+        >
+            <EditMatch v-show="showEdit" />
+        </v-dialog>
   </v-card>
 </template>
 <script>
 import matchDetails from "./MatchDetailsCard.vue";
 import reservationForm from "./ReservationForm.vue";
+import EditMatch from "./EditMatch.vue"
 export default {
   components: {
     matchDetails,
     reservationForm,
+    EditMatch,
   },
   props: {
     group_number: Number,
@@ -98,14 +122,34 @@ export default {
     return {
       showDialog: false,
       reserveTicket: false,
+      showEdit:false,
+      showSeats:false,
+      ID:"",
     };
   },
   methods: {
     ticketReservation() {
       this.reserveTicket = true;
     },
-    hideMe() {
-      // this.showDialog = false;
+    viewDetails() {
+      this.showDialog = true
+      // // TODO get id from props
+      // this.ID="63ac638c8a2242b48201c541"
+      // this.$store.dispatch("getMatch", this.ID);
+
+    },
+    viewSeats(){
+      this.showSeats= ! this.showSeats
+       // // TODO get id from props
+      this.ID="63ac638c8a2242b48201c541"
+      let ID= this.ID
+      this.$store.dispatch('viewSeats',{ID})
+
+    }
+  },
+  computed: {
+    userData() {
+      return this.$store.state.user;
     },
   },
 };

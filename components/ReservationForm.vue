@@ -47,11 +47,21 @@
         <v-icon class="seat-icon" size="50" color="#6e1131"  @click="select(i)" :class="{selected:isSelected[i]}" >mdi-seat</v-icon>   
       </v-col>
     </v-row>
+    <v-row v-show="confirmed">
+      <v-col></v-col>
+      <v-col cols="7">
+        <v-alert
+            shaped
+            type="success"
+            >reservation is done successfully your seat number is {{reservedSeat }}
+        </v-alert>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
     <v-row>
-        <button id="btn2" class="text-center pa-3 mt-4" @click="confirm">Confirm</button>
+      <button id="btn2" class="text-center pa-3 mt-4" @click="confirm">Confirm</button>
       </v-row>
       <v-row>
-        <p v-show="confirmed"> reservation is done successfully your seat number is {{reservedSeat }} </p>
       </v-row>
 </v-container>
 </template>
@@ -113,6 +123,7 @@ export default {
   created(){
     for (let i =0; i < this.seatsNum; i++)
       this.isSelected[i]= false;
+    this.confirmed=false
   }
 };
 </script>

@@ -29,7 +29,8 @@ const handleUserSignUp = async (req,res) => {
         gender: req.body.gender,
         nationality: req.body.nationality,
         email: req.body.email,
-        role: (req.body.role == "fan") ? 0 : (req.body.role == "manager")? 2 :1,
+        address: req.body.address,
+        role: req.body.role,
         approved:false
         })
         console.log("before")
@@ -45,38 +46,20 @@ const handleUserSignUp = async (req,res) => {
     }
 }
 
-const handleApproveUser = async (req,res)=>{
+const handleUpdateData  = async(req,res) =>{
     try{
-        const {userId} = req.body
-        const update = {approved:true}
-        const updated= await userData.findByIdAndUpdate(userId, update)
-        res.status(200).json({user:updated})
-    }catch(err){
-        res.status(401).send({message: "cann't approve user"})
-    }
-}
-
-const handlegetAllUser = async (req,res)=>{
-    try{
-        const filter = {approved: false}
-        const allUsers= await userData.find(filter)
-        
-        res.status(200).json({users: allUsers})
-    }catch(err){
-        res.status(401).send({message: "cann't approve user"})
-    }
-}
-
-const handleDeleteUser = async (req,res)=>{
-    try{
-        const filter = {id: req.params.userid}
-        console.log(filter, req.params);
-        await userData.deleteOne(filter)
-        res.status(200).send({message:"Success"})
-    }catch(err){
-        res.status(401).send({message: "cann't approve user"})
+        const bearer = req.headers.authorization;
+        const token = bearer?.split(" ")[1];
+        const payload  = Jwt.decode(token)
+        const userId = payload.id
+        const update= { ...req.body }
+        console.log(req.body)
+        const updated = await userData.findByIdAndUpdate(userId,{firstName: req.body.firstName},{new:true})
+        return res.status(200).json({user: updated});
+    }catch(error){
+        res.status(400).send({message: error.message})
     }
 }
 
 
-export { handleUserSignUp, handleLogin ,handleApproveUser, handlegetAllUser, handleDeleteUser}
+export { handleUserSignUp, handleLogin ,handleUpdateData}

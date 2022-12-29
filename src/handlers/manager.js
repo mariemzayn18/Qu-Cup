@@ -1,23 +1,26 @@
 import {Match} from '../models/Match.js'
 import {Stadium} from '../models/Stadium.js'
 
+
 const addMatch =  async (req, res) => {
     try {
+        console.log("add match")
+        console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
-        await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
+        await Match.find({teamOne :req.body.team1, date: req.body.date},async(err,docs)=>{
             if(docs)
             throw new Error('team one has match in this date');
             else {
-                await  Match.find({teamOne : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
+                await  Match.find({teamOne : req.body.team2, date: req.body.date },async(err,docs)=>{
                     if(docs)
                      throw new Error('team one has match in this date');
                      else {
-                        await  Match.find({teamTwo : req.body.teamOne, date: req.body.date },async(err,docs)=>{
+                        await  Match.find({teamTwo : req.body.team1, date: req.body.date },async(err,docs)=>{
                             if(docs)
                              throw new Error('team one has match in this date');
                              else {
-                                await  Match.find({teamTwo : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
+                                await  Match.find({teamTwo : req.body.team2, date: req.body.date },async(err,docs)=>{
                                     if(docs)
                                      throw new Error('team one has match in this date');
 
@@ -65,7 +68,12 @@ const addMatch =  async (req, res) => {
 }
 
 const addStadium = async (req, res) => {
+    console.log("adddddd ")
+console.log(req.body)
+
     try {
+        console.log("add stadium")
+        console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
         const stadium = new Stadium(req.body);
@@ -115,7 +123,6 @@ const viewVacantResSeats = async (req,res) =>{
         res.status(400).send({message: error.message})
     }
 }
-
 
 export {
     addMatch,

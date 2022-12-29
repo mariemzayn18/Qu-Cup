@@ -1,6 +1,7 @@
 import {mongoose} from 'mongoose'
 import {Reservation} from './Reservation.js'
 
+
 const matchSchema = mongoose.Schema({
     teamOne : {
         type : String,
@@ -52,3 +53,4 @@ matchSchema.pre('remove', async function(next) {
 const Match = mongoose.model('Match', matchSchema)
 
 export {Match}
+
