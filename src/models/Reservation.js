@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const reservationShema = mongoose.Schema({
@@ -31,4 +30,7 @@ const reservationShema = mongoose.Schema({
 //reservationShema.index({match : 1, owner : 1}, {unique : true})
 const Reservation = mongoose.model('Reservation', reservationShema)
 Reservation.syncIndexes();
-export default Reservation
+
+
+export  {Reservation}
+

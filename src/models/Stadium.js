@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Match from './Match.js'
+import {Match} from './Match.js'
 
 
 const stadiumSchema = mongoose.Schema({
@@ -29,7 +29,7 @@ const stadiumSchema = mongoose.Schema({
 stadiumSchema.virtual('matches', {
     ref : 'Match',
     localField : '_id',
-    foreignField : 'matchVenue' 
+    foreignField : 'matchVenue'
  })
 
  stadiumSchema.pre('remove', async (next) => {
@@ -39,4 +39,6 @@ stadiumSchema.virtual('matches', {
  })
 
 const Stadium = mongoose.model('Stadium', stadiumSchema)
-export default Stadium
+
+export  {Stadium}
+

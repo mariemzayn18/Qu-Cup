@@ -1,5 +1,6 @@
-import express from "express"
-import bodyParser from "body-parser"
+import express from "express";
+import bodyParser from "body-parser";
+
 
 import userRouter from "./routes/User.js"
 import managerRouter from "./routes/manager.js"
@@ -7,13 +8,11 @@ import adminRouter from './routes/admin.js'
 import fanRouter from "./routes/fan.js"
 import cors from "cors"
 
-const app = express()
+const app = express();
 
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
 
 app.use(cors({origin:"http://localhost:3000" , methods: [
  'GET','POST','DELETE','PUT'
@@ -28,15 +27,4 @@ app.use("", userRouter)
 app.use('/manager',managerRouter)
 app.use('/fan',fanRouter)
 app.use('/admin',adminRouter)
-
-
-app.get("/test",(req,res)=>{
-    res.json({message: "hello"})
-})
-app.post("/test-post",(req,res)=>{
-    console.log(req.body)
-    res.json({message: `hello ${req.body.name}`})
-})
-
-
 
