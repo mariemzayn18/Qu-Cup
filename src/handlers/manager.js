@@ -56,8 +56,6 @@ const addMatch =  async (req, res) => {
         match.set('normal_seats', standardSeats)
         match.set('seats', VIPSeats)
 
-
-
         await match.save();
         res.status(201).json({match : match});
     }
@@ -112,7 +110,7 @@ const viewVacantResSeats = async (req,res) =>{
         if(!match)
            throw new Error('No match was found with this id');
 
-        return res.status(200).json({VIPSeats: match.VIPSeats , standardSeats :match.standardSeats});
+        return res.status(200).json({VIPSeats: match.seats});
     }catch(error){
         res.status(400).send({message: error.message})
     }

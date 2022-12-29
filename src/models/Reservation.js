@@ -11,14 +11,14 @@ const reservationShema = mongoose.Schema({
         required : true,
         ref : 'Match'
     },
-    seatRow : {
-        type : Array,
-        required : true
-    },
-    seatCol : {
-        type : Array,
-        required : true
-    },
+    // seatRow : {
+    //     type : Array,
+    //     required : true
+    // },
+    // seatCol : {
+    //     type : Array,
+    //     required : true
+    // },
     seats : {
         type :Array,
         required : false
@@ -29,5 +29,6 @@ const reservationShema = mongoose.Schema({
 })
 //reservationShema.index({match : 1, owner : 1}, {unique : true})
 const Reservation = mongoose.model('Reservation', reservationShema)
-Reservation.syncIndexes();
+
+// Reservation.syncIndexes();
 export  {Reservation}

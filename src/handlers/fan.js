@@ -87,9 +87,9 @@ const getAllUserReservations = async(req,res)=>{
 const cancelReservation = async(req,res) =>{
   try{
     // body {
-    //   id : id of the reservation
+    //   _id : id of the reservation
     // }
-    var reservation = await Reservation.find({"_id":req.body.id})
+    var reservation = await Reservation.find({"_id":req.body._id})
     console.log(reservation)
     var matchid = new mongoose.Types.ObjectId(reservation.match)
     if(!reservation) throw new Error('There is no reservation with this id')
