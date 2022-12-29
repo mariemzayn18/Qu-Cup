@@ -91,14 +91,12 @@ export const actions = {
   async editMatch({ commit }, match) {
     console.log(match)
     await axios
-      .post("http://localhost:8888/match", match)
+      .patch(`http://localhost:8888/manager/match/${match.ID}`)
       .then((res) => {
         console.log(res.data);
-        const user = res.data.user;
-        const token = res.data.token;
-        // commit("auth_init", user, token);
       })
       .catch((err) => {
+        console.log("Error in edit match");
         console.log(err);
       });
   },
@@ -116,13 +114,25 @@ export const actions = {
   async getMatch({ commit }, matchID) {
     console.log(stad)
     await axios
-      .get("http://localhost:8888/match/${matchID}")
+      .get(`http://localhost:8888/match/${matchID}`)
       .then((res) => {
         console.log(res.data);
-        // commit("auth_init", user, token);
       })
       .catch((err) => {
         console.log("Error in adding stadium");
+        console.log(err);
+      });
+  },
+  async viewSeats({ commit }, match) {
+    console.log(match)
+    await axios
+      .get(`http://localhost:8888/manager/match/viewseats/${match.ID}`)
+      .then((res) => {
+        console.log("showwwwwwwwwwwwwwwwwww");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error in edit match");
         console.log(err);
       });
   },
