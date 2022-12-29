@@ -1,5 +1,6 @@
-import {mongoose} from 'mongoose'
+import mongoose from 'mongoose'
 import {Match} from './Match.js'
+
 
 const stadiumSchema = mongoose.Schema({
     name : {
@@ -30,4 +31,6 @@ stadiumSchema.virtual('matches', {
  })
 
 const Stadium = mongoose.model('Stadium', stadiumSchema)
+
 export  {Stadium}
+

@@ -1,6 +1,7 @@
 import {Match} from '../models/Match.js'
 import {Stadium} from '../models/Stadium.js'
 
+
 const addMatch =  async (req, res) => {
     try {
         console.log("add match")
@@ -124,7 +125,6 @@ const viewVacantResSeats = async (req,res) =>{
         res.status(400).send({message: error.message})
     }
 }
-
 
 export {
     addMatch,

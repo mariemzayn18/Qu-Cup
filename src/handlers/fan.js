@@ -1,6 +1,7 @@
 import {Match} from '../models/Match.js'
 import { Reservation } from '../models/Reservation.js';
 import mongoose from 'mongoose';
+
 const getAllMatches  = async(req,res) =>{
     try{
         const matchs = await Match.find()
@@ -13,6 +14,10 @@ const getAllMatches  = async(req,res) =>{
 }
 
 
+
+
+export { getAllMatches}
+=======
 const reserveMatch = async(req,res)=>{
   // check if its from a valid user when do this chanch req.body.owner
   // body {
@@ -140,3 +145,4 @@ export {
     getAllUserReservations,
     cancelReservation
 }
+

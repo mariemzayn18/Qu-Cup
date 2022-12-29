@@ -38,7 +38,7 @@ UserSchema.statics.loginCheck = async (username, password) => {
     const existing_user = await userData.findOne({userName: username})
     if(existing_user){
         console.log(existing_user)
-        const matchedPassword = bcrypt.compare(password ,existing_user.password)
+        const matchedPassword = await bcrypt.compare(password ,existing_user.password)
         if(matchedPassword && existing_user.approved ) return existing_user
         throw new Error("Wrong Password or not approved")
     }
