@@ -13,11 +13,6 @@ const getAllMatches  = async(req,res) =>{
     }
 }
 
-
-
-
-export { getAllMatches}
-=======
 const reserveMatch = async(req,res)=>{
   // check if its from a valid user when do this chanch req.body.owner
   // body {

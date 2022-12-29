@@ -8,19 +8,19 @@ const addMatch =  async (req, res) => {
         console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
-        await Match.find({teamOne :req.body.team1, date: req.body.date},async(err,docs)=>{
+        await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
             if(docs)
             throw new Error('team one has match in this date');
             else {
-                await  Match.find({teamOne : req.body.team2, date: req.body.date },async(err,docs)=>{
+                await  Match.find({teamOne : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
                     if(docs)
                      throw new Error('team one has match in this date');
                      else {
-                        await  Match.find({teamTwo : req.body.team1, date: req.body.date },async(err,docs)=>{
+                        await  Match.find({teamTwo : req.body.teamOne, date: req.body.date },async(err,docs)=>{
                             if(docs)
                              throw new Error('team one has match in this date');
                              else {
-                                await  Match.find({teamTwo : req.body.team2, date: req.body.date },async(err,docs)=>{
+                                await  Match.find({teamTwo : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
                                     if(docs)
                                      throw new Error('team one has match in this date');
 
@@ -44,19 +44,11 @@ const addMatch =  async (req, res) => {
         const vipRow = stadium.VIPRows
         const vipSPerR = stadium.VIPSeatsPerRow
 
-        const standardRow = stadium.standardRows
-        const standardCol = stadium.standardSeatsPerRow
-
-
-        const standardSeats =
-        Array.from({ length: standardRow }, () =>
-        Array.from({ length: standardCol }, () => false));
 
         const VIPSeats =
         Array.from({ length: vipRow }, () =>
         Array.from({ length: vipSPerR }, () => false));
 
-        match.set('normal_seats', standardSeats)
         match.set('seats', VIPSeats)
 
         await match.save();

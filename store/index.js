@@ -51,7 +51,7 @@ export const actions = {
       .post("http://localhost:8888/users/signup", user)
       console.log(user)
       .then((res) => {
-        console.log(res) 
+        console.log(res)
             console.log(res.data)
             const user = res.data.user;
               const token = res.data.token
@@ -75,6 +75,7 @@ export const actions = {
   },
   //----------------------- manager actions ---------------------------
   async addMatch({ commit }, match) {
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh")
     console.log(match)
     await axios
       .post("http://localhost:8888/manager/match", match)
