@@ -79,10 +79,10 @@
             </v-row>
             <v-col>
                 <v-alert
-                v-show="showTeamsAlert"
+                v-show="showAlert"
                 shaped
                 type="error"
-                >you can't choose the same team as team1 and team2</v-alert>
+                >{{ alertMsg }}</v-alert>
                 <v-alert
                 v-show="showSuccessAlert"
                 shaped
@@ -93,6 +93,7 @@
             <TheButton
               @clicked="addMatch"
               text="Add"
+              :rules="notEmptyRules"
               :disabled="!isValid" 
               bgColor="#6e1131"
               textColor="#d3d5d5"
@@ -102,6 +103,7 @@
                 <p>Match Date</p>
                 <v-date-picker
                 v-model="date"
+                :rules="notEmptyRules"
                 :min="new Date().toISOString().substr(0, 10)"
                 color="#6e1131 lighten-1"
                 header-color="#6e1131"
@@ -139,11 +141,10 @@
         linesmen2:"",
         time:"",
         date: "",
-        team1:"",
-        team2:"",
         venue:"",
         isValid: false,
-        showTeamsAlert:false,
+        showAlert:false,
+        alertMsg:"",
         showSuccessAlert:false,
         nameRules: [
           (v) => !!v || "required",
@@ -158,12 +159,29 @@
         console.log("new match");
         if (this.team1 == this.team2)
             {
-                this.showTeamsAlert =true
+                this.showAlert =true
                 this.showSuccessAlert=false
+                this.alertMsg="you can't choose the same team as team1 and team2"
+                return
+            }
+            if (! this.date || ! this.time)
+            {
+                this.showAlert =true
+                this.showSuccessAlert=false
+                this.alertMsg="fill time and date of the match"
                 return
             }
             this.showTeamsAlert =false
-            this.showSuccessAlert=true
+            let team1= this.team1
+            let team2 =this.team2
+            let venue= this.venue
+            let mainReferee =this.mainReferee
+            let linesmen1= this.linesmen1
+            let linesmen2 =this.linesmen2
+            let date = this.date
+            let time = this.time
+            this.$store.dispatch('addMatch',{ team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time})
+            this.showAlert=true
       },
     },
     computed: {

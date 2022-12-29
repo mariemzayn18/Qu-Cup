@@ -32,6 +32,7 @@ function newFunction() {
 //---------------------------------------- ACTIONS ---------------------------------------------------
 
 export const actions = {
+  //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
     await axios
       .post("http://localhost:8888/users/login", user)
@@ -60,12 +61,40 @@ export const actions = {
         console.log(err);
       });
   },
+  //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
       .get("http://localhost:8888/fan/allmatches")
       .then((res) => {
         // console.log(res.data.match);
         commit("match_details", res.data.match);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  //----------------------- manager actions ---------------------------
+  async addMatch({ commit }, match) {
+    console.log(match)
+    await axios
+      .post("http://localhost:8888/match", match)
+      .then((res) => {
+        console.log(res.data);
+        const user = res.data.user;
+        const token = res.data.token;
+        // commit("auth_init", user, token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  async addStad({ commit }, stad) {
+    console.log(stad)
+    await axios
+      .post("http://localhost:8888/stadium", stad)
+      .then((res) => {
+        console.log(res.data);
+        // commit("auth_init", user, token);
       })
       .catch((err) => {
         console.log(err);
