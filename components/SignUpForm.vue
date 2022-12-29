@@ -96,7 +96,7 @@
                 <v-date-picker
                 v-show="showDatePicker"
                 v-model="birthDate"
-                color="#6e1131 lighten-1"
+                :min="new Date(2010,1,1).toISOString().substr(0, 10)"                color="#6e1131 lighten-1"
                 header-color="#6e1131"
                 class="date"
                 ></v-date-picker>
