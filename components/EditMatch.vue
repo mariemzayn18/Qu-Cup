@@ -72,8 +72,21 @@
                     ></v-text-field>
                 </v-col>
             </v-row>
+            <v-col>
+                <v-alert
+                v-show="showTeamsAlert"
+                shaped
+                type="error"
+                >you can't choose the same team as team1 and team2</v-alert>
+                <v-alert
+                v-show="showSuccessAlert"
+                shaped
+                type="success"
+                >Match is updated successfully</v-alert>
+
+            </v-col>
             <TheButton
-              @clicked="addMatch"
+              @clicked="editMatch"
               :disabled="!isValid" 
               text="Update"
               bgColor="#6e1131"
@@ -84,6 +97,7 @@
                 <p>Match Date</p>
                 <v-date-picker
                 v-model="date"
+                :min="new Date().toISOString().substr(0, 10)"
                 color="#6e1131 lighten-1"
                 header-color="#6e1131"
                 ></v-date-picker>
@@ -123,14 +137,24 @@
         team2:"",
         venue:"",
         isValid: false,
+        showTeamsAlert:false,
+        showSuccessAlert:false,
         nameRules: [
           (v) => /^[A-Za-z\s ]+$/.test(v) || "Please insert a right name",
         ],
       };
     },
     methods: {
-      addMatch() {
+      editMatch() {
         console.log("new match");
+        if (this.team1 == this.team2)
+            {
+                this.showTeamsAlert =true
+                this.showSuccessAlert=false
+                return
+            }
+            this.showTeamsAlert =false
+            this.showSuccessAlert=true
       },
     },
     computed: {
@@ -138,6 +162,9 @@
         return this.$store.state.user;
       },
     },
+    created(){
+        this.showSuccessAlert=false
+      }
   };
   </script>
   
