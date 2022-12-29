@@ -82,6 +82,18 @@ export const actions = {
         console.log(err);
       });
   },
+    //--------------------------- check btb3ty eh f el body? ----------------------------
+
+  async rerserveMatch({ commit }, match) {
+    await axios
+      .post("http://localhost:8000/fan/reserveMatch", match)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
@@ -174,7 +186,7 @@ export const actions = {
   async getUsers({ commit }) {
     console.log("get userrrr");
     await axios
-      .get(`http://localhost:8000/admin/allusers`)
+      .get("http://localhost:8000/admin/allusers")
       .then((res) => {
         console.log("get users showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -224,6 +236,7 @@ export const mutations = {
     state.user.birthDate = user.birthDate;
     state.user.nationality = user.nationality;
     state.user.role = user.role;
+    // TODO: NEED TO EXRACT THE USER ID FROM THE TOKEN
     state.user.ID = user._id;
   },
 
