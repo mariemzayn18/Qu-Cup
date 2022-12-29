@@ -14,15 +14,7 @@ const stadiumSchema = mongoose.Schema({
     VIPSeatsPerRow : {
         type : Number,
         required : true
-    },
-    standardRows : {
-        type : Number,
-        required : false
-    },
-    standardSeatsPerRow : {
-        type : Number,
-        required : true
-    },
+    }
 })
 
 stadiumSchema.virtual('matches', {
