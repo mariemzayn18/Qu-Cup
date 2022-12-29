@@ -21,8 +21,7 @@ export default {
   css: ["@/assets/css/global.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -44,16 +43,15 @@ export default {
         version: 3,
         size: "invisible",
       },
-      '@nuxtjs/axios',
+      "@nuxtjs/axios",
       // '@nuxtjs/proxy'
     ],
-    
   ],
   axios: {
     // proxy: true
   },
   // proxy: {
-  //   '/api/': { target: 'http://localhost:8888', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+  //   '/api/': { target: 'http://localhost:8000', pathRewrite: {'^/api/': ''}, changeOrigin: true }
   // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

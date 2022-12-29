@@ -13,6 +13,7 @@ const handleApproveUser = async (req,res)=>{
 }
 
 const handlegetAllUser = async (req,res)=>{
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     try{
         const filter = {approved: false}
         const allUsers= await userData.find(filter)
