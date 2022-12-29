@@ -37,17 +37,34 @@
       </v-form>
         <v-row>
             <h4 class="mx-11">Preview</h4>
-
         </v-row>      
         <v-row class="ma-4">
             <v-col v-for="i in (rowsNum*seatsNum)" :key="i" >
-                <v-icon class="seat-icon" size="50" color="#6e1131">mdi-seat</v-icon>   
+                <v-icon class="seat-icon" size="35" color="#6e1131">mdi-seat</v-icon>   
             </v-col>  
+        </v-row>
+        <v-row>
+            <v-col></v-col>
+            <v-col>
+            <v-alert
+                v-show="confirmed"
+                shaped
+                type="success"
+                > Stadium is added successfully
+            </v-alert>
+            <v-alert
+                v-show="alert"
+                shaped
+                type="error"
+                >{{alertMsg }}
+            </v-alert>
+            </v-col>
+            <v-col></v-col>
         </v-row>
         <v-row class="align-center">
             <v-col>
                 <TheButton
-              :clicked="addStadium"
+              @clicked="addStadium"
               text="Add"
               :disabled="!isValid" 
               bgColor="#6e1131"
@@ -65,6 +82,9 @@ export default {
             isReserved:[],
             seatsNum:"",
             rowsNum:"",
+            alert:false,
+            alertMsg:"",
+            confirmed:false,
             numRules:[
             (v) => !!v || "required",
             (v) => /^[\d\s ]+$/.test(v) || "Please insert a right number",
@@ -73,6 +93,27 @@ export default {
     },
     methods:{ 
         addStadium(){
+            if (this.seatsNum > 12)
+            {
+                this.alertMsg="max number of seats per row is 12"
+                this.alert=true
+                return
+            }
+            if (this.rowsNum > 12)
+            {
+                this.alertMsg="max number of rows is 12"
+                this.alert=true
+                return
+            }
+            if (this.rowsNum == 0 || this.seatsNum == 0)
+            {
+                this.alertMsg="number can't be zero!"
+                this.alert=true
+                return
+            }
+            this.alert=false
+            this.confirmed=true
+
             console.log("add new stadium")
         }
     },
@@ -81,6 +122,7 @@ export default {
       this.isReserved[i]= false;
     for (let i =2; i < this.seatsNum ; i+=3)
       this.isReserved[i]= true;
+      this.confirmed=false
   },
 }
 </script>
