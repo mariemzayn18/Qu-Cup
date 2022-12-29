@@ -171,7 +171,7 @@
                 this.alertMsg="fill time and date of the match"
                 return
             }
-            this.showTeamsAlert =false
+            this.showAlert =false
             let team1= this.team1
             let team2 =this.team2
             let venue= this.venue
@@ -181,7 +181,7 @@
             let date = this.date
             let time = this.time
             this.$store.dispatch('addMatch',{ team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time})
-            this.showAlert=true
+            this.showSuccessAlert=true
       },
     },
     computed: {
