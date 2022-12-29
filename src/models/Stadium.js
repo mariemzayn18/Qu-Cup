@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
-const Match = require('./Match')
+import mongoose from 'mongoose'
+import Match from './Match.js'
+
 
 const stadiumSchema = mongoose.Schema({
     name : {
@@ -38,4 +39,4 @@ stadiumSchema.virtual('matches', {
  })
 
 const Stadium = mongoose.model('Stadium', stadiumSchema)
-module.exports = Stadium
+export default Stadium

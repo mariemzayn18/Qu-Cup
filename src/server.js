@@ -2,8 +2,9 @@ import express from "express"
 import bodyParser from "body-parser"
 
 import userRouter from "./routes/User.js"
-import managerRouter from './routers/manager.js'
-import fanRouter from './routers/fan.js'
+import managerRouter from "./routes/manager.js"
+import adminRouter from './routes/admin.js'
+import fanRouter from "./routes/fan.js"
 import cors from "cors"
 
 const app = express()
@@ -23,10 +24,10 @@ app.listen(PORT, () =>{
     console.log("server started at port 8888")
 }) 
 
-app.use("/users", userRouter)
+app.use("", userRouter)
 app.use('/manager',managerRouter)
 app.use('/fan',fanRouter)
-
+app.use('/admin',adminRouter)
 
 
 app.get("/test",(req,res)=>{

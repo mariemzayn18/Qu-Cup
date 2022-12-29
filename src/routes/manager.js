@@ -1,12 +1,13 @@
-const express = require('express')
+import express from "express"
 const router = new express.Router()
-const managerController = require('../controllers/manager')
+import {addMatch,addStadium, getMatch,viewVacantResSeats,editMatch} from "../handlers/manager.js"
+import { managerAuth } from '../middlewares/Guard.js' ;
 
 // should put auth middleware 
-router.post('/match',managerController.addMatch);
-router.post('/stadium',managerController.addStadium);
-router.get('/match/:matchID',managerController.getMatch)
-router.get('/match/viewseats/:matchID',managerController.viewVacantResSeats)
-router.patch('/match/:matchID',managerController.editMatch)
+router.post('/match',[managerAuth],addMatch);
+router.post('/stadium',[managerAuth],addStadium);
+router.get('/match/:matchID',[managerAuth],getMatch)
+router.get('/match/viewseats/:matchID',[managerAuth],viewVacantResSeats)
+router.patch('/match/:matchID',[managerAuth],editMatch)
 
-module.exports = router
+export default router

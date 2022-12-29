@@ -1,9 +1,10 @@
-const express = require('express')
+import express from "express"
 const router = new express.Router()
-const fanController = require('../controllers/fan')
-
+import { getAllMatches} from "../handlers/fan.js"
+import { fanAuth } from '../middlewares/Guard.js'
 // should put auth middleware 
 
-router.get('/allmatches',fanController.getAllMatches)
+router.get('/allmatches',[fanAuth],getAllMatches)
 
-module.exports = router
+
+export default router
