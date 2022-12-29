@@ -32,6 +32,7 @@ function newFunction() {
 //---------------------------------------- ACTIONS ---------------------------------------------------
 
 export const actions = {
+  //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
     await axios
       .post("http://localhost:8888/users/login", user)
@@ -60,6 +61,7 @@ export const actions = {
         console.log(err);
       });
   },
+  //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
       .get("http://localhost:8888/fan/allmatches")
@@ -68,6 +70,69 @@ export const actions = {
         commit("match_details", res.data.match);
       })
       .catch((err) => {
+        console.log(err);
+      });
+  },
+  //----------------------- manager actions ---------------------------
+  async addMatch({ commit }, match) {
+    console.log(match)
+    await axios
+      .post("http://localhost:8888/manager/match", match)
+      .then((res) => {
+        console.log(res.data);
+        const user = res.data.user;
+        const token = res.data.token;
+        // commit("auth_init", user, token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  async editMatch({ commit }, match) {
+    console.log(match)
+    await axios
+      .patch(`http://localhost:8888/manager/match/${match.ID}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error in edit match");
+        console.log(err);
+      });
+  },
+  async addStad({ commit }, stad) {
+    console.log(stad)
+    await axios
+      .post("http://localhost:8888/manager/stadium", stad)
+      .then((res) => {
+      })
+      .catch((err) => {
+        console.log("Error in adding stadium");
+        console.log(err);
+      });
+  },
+  async getMatch({ commit }, matchID) {
+    console.log(stad)
+    await axios
+      .get(`http://localhost:8888/match/${matchID}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error in adding stadium");
+        console.log(err);
+      });
+  },
+  async viewSeats({ commit }, match) {
+    console.log(match)
+    await axios
+      .get(`http://localhost:8888/manager/match/viewseats/${match.ID}`)
+      .then((res) => {
+        console.log("showwwwwwwwwwwwwwwwwww");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error in edit match");
         console.log(err);
       });
   },

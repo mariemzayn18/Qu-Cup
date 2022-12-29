@@ -59,21 +59,6 @@
             autocomplete="off"
             type="password"
           ></v-text-field>
-
-          <v-radio-group v-model="role" :rules="notEmptyRules">
-            <v-row>
-              <v-col md="3" sm="5" cols="5">
-                <v-radio label="fan" value="fan" color="#6e1131"></v-radio>
-              </v-col>
-              <v-col md="3" sm="7" cols="7"
-                ><v-radio
-                  label="manager"
-                  value="manager"
-                  color="#6e1131"
-                ></v-radio
-              ></v-col>
-            </v-row>
-          </v-radio-group>
           <v-col> </v-col>
           <TheButton
             @clicked="update"

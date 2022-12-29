@@ -139,8 +139,9 @@
         isValid: false,
         showTeamsAlert:false,
         showSuccessAlert:false,
+        // TODO make it possible to be empty
         nameRules: [
-          (v) => /^[A-Za-z\s ]+$/.test(v) || "Please insert a right name",
+          (v) => /(\s*|^[A-Za-z\s]+$)/.test(v) || "Please insert a right name",
         ],
       };
     },
@@ -154,7 +155,18 @@
                 return
             }
             this.showTeamsAlert =false
-            this.showSuccessAlert=true
+            let team1= this.team1
+            let team2 =this.team2
+            let venue= this.venue
+            let mainReferee =this.mainReferee
+            let linesmen1= this.linesmen1
+            let linesmen2 =this.linesmen2
+            let date = this.date
+            let time = this.time
+            // TODO send id ad params
+            let ID="63ac638c8a2242b48201c541"
+            this.$store.dispatch('editMatch',{ ID,team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time},ID)
+            this.showAlert=true
       },
     },
     computed: {

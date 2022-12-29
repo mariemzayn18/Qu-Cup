@@ -34,7 +34,7 @@
       </v-row>
     </v-card-text>
     <v-card-actions class="d-flex justify-center py-4">
-      <v-btn id="btn" class="text-center" @click="showDialog = true">
+      <v-btn id="btn" class="text-center" @click="viewDetails">
         VIEW DETAILS</v-btn
       >
       <v-btn v-if='userData.role == "manager"'  id="btn" class="text-center" @click="showEdit = true">
@@ -75,7 +75,7 @@
         
         <button
           v-if='userData.role == "manager"' 
-          @click="showSeats= !showSeats"
+          @click="viewSeats"
           id="btn2"
           class="text-center pa-3"
         >
@@ -124,15 +124,28 @@ export default {
       reserveTicket: false,
       showEdit:false,
       showSeats:false,
+      ID:"",
     };
   },
   methods: {
     ticketReservation() {
       this.reserveTicket = true;
     },
-    hideMe() {
-      // this.showDialog = false;
+    viewDetails() {
+      this.showDialog = true
+      // // TODO get id from props
+      // this.ID="63ac638c8a2242b48201c541"
+      // this.$store.dispatch("getMatch", this.ID);
+
     },
+    viewSeats(){
+      this.showSeats= ! this.showSeats
+       // // TODO get id from props
+      this.ID="63ac638c8a2242b48201c541"
+      let ID= this.ID
+      this.$store.dispatch('viewSeats',{ID})
+
+    }
   },
   computed: {
     userData() {
