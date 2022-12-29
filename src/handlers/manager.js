@@ -3,21 +3,23 @@ import {Stadium} from '../models/Stadium.js'
 
 const addMatch =  async (req, res) => {
     try {
+        console.log("add match")
+        console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
-        await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
+        await Match.find({teamOne :req.body.team1, date: req.body.date},async(err,docs)=>{
             if(docs)
             throw new Error('team one has match in this date');
             else {
-                await  Match.find({teamOne : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
+                await  Match.find({teamOne : req.body.team2, date: req.body.date },async(err,docs)=>{
                     if(docs)
                      throw new Error('team one has match in this date');
                      else {
-                        await  Match.find({teamTwo : req.body.teamOne, date: req.body.date },async(err,docs)=>{
+                        await  Match.find({teamTwo : req.body.team1, date: req.body.date },async(err,docs)=>{
                             if(docs)
                              throw new Error('team one has match in this date');
                              else {
-                                await  Match.find({teamTwo : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
+                                await  Match.find({teamTwo : req.body.team2, date: req.body.date },async(err,docs)=>{
                                     if(docs)
                                      throw new Error('team one has match in this date');
 
