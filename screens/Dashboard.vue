@@ -88,7 +88,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("matchDetails");
+    // this.$store.dispatch("matchDetails");
   },
   computed: {
     matchDetails() {

@@ -36,9 +36,13 @@ const fanAuth = (req,res, next)=>{
 }
 
 const managerAuth = (req,res, next)=>{
+    
+    console.log(req)
     try{
         const bearer = req.headers.authorization;
-        const token = bearer?.split(" ")[0];
+        const token = bearer?.split(" ")[1];
+        console.log("auth manaaaaaaaaaager")
+        console.log(token)
         const payload  = Jwt.decode(token)
         if(payload.role != "manager")
             throw new Error

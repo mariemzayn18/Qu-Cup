@@ -20,9 +20,9 @@ app.use(
   })
 ); // Use this after the variable declaration
 
-const PORT = 8000;
+const PORT = 8888;
 app.listen(PORT, () => {
-  console.log("server started at port 8000");
+  console.log("server started at port 8888");
 });
 
 app.use("", userRouter);

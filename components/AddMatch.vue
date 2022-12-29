@@ -155,7 +155,7 @@
       };
     },
     methods: {
-      async addMatch() {
+      addMatch() {
         console.log("new match");
         if (this.team1 == this.team2)
             {
@@ -172,17 +172,17 @@
                 return
             }
             this.showAlert =false
-            let team1= this.team1
-            let team2 =this.team2
-            let venue= this.venue
+            let teamOne= this.team1
+            let teamTwo =this.team2
+            let matchVenue= this.venue
             let mainReferee =this.mainReferee
-            let linesmen1= this.linesmen1
-            let linesmen2 =this.linesmen2
-            let date = this.date
-            let time = this.time
-            let result =await  this.$store.dispatch('addMatch',{ team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time})
+            let lineMan1= this.linesmen1
+            let lineMan2 =this.linesmen2
+            let date = this.date+'T'+this.time
             console.log("hhhhhhhhhhhhh")
-            console.log(result)
+            console.log(this.token)
+            console.log(this.userData.role)
+            this.$store.dispatch('addMatch',{ teamOne, teamTwo, matchVenue,date, mainReferee, lineMan1, lineMan2})
             //TODO need to print backend errors to user
             this.showSuccessAlert=true
       },
@@ -190,6 +190,9 @@
     computed: {
       userData() {
         return this.$store.state.user;
+      },
+      token() {
+        return this.$store.state.token;
       },
       created(){
         this.showSuccessAlert=false

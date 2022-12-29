@@ -12,7 +12,7 @@ function newFunction() {
     },
     //------------------ user data  ----------------------
     status: "",
-    baseUrl: "https://localhost:8000",
+    baseUrl: "https://localhost:8888",
     token: "",
     user: {
       firstName: "",
@@ -38,19 +38,21 @@ export const actions = {
   //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
     await axios
-      .post("http://localhost:8000/login", user)
+      .post("http://localhost:8888/login", user)
       .then((res) => {
         console.log(res);
         const user = res.data.user;
         const token = res.data.token;
-        commit("auth_init", user, token);
+        console.log("tokkkkkkkkkkken");
+        console.log(token);
+        commit("auth_init", { user, token });
       })
       .catch((err) => {
         console.log(err);
       });
   },
   async signup({ commit }, user) {
-    await axios.post("http://localhost:8000/signup", user);
+    await axios.post("http://localhost:8888/signup", user);
     console
       .log(user)
       .then((res) => {
@@ -67,7 +69,7 @@ export const actions = {
   async editProfile({ commit }, user) {
     console.log("edit profile");
     console.log(this.state.token);
-    await axios.put("http://localhost:8000/edit_profile", user, {
+    await axios.put("http://localhost:8888/edit_profile", user, {
       headers: {
         Authorization: `Basic ${this.state.token}`,
       },
@@ -82,11 +84,11 @@ export const actions = {
         console.log(err);
       });
   },
-    //--------------------------- check btb3ty eh f el body? ----------------------------
+  //--------------------------- check btb3ty eh f el body? ----------------------------
 
   async rerserveMatch({ commit }, match) {
     await axios
-      .post("http://localhost:8000/fan/reserveMatch", match)
+      .post("http://localhost:8888/fan/reserveMatch", match)
       .then((res) => {
         console.log(res.data);
       })
@@ -97,7 +99,7 @@ export const actions = {
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:8000/fan/allmatches")
+      .get("http://localhost:8888/fan/allmatches")
       .then((res) => {
         // console.log(res.data.match);
         commit("match_details", res.data.match);
@@ -108,10 +110,20 @@ export const actions = {
   },
   //----------------------- manager actions ---------------------------
   async addMatch({ commit }, match) {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh")
-    console.log(match)
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    console.log(match);
+    console.log(this.state.token);
+    //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWMwMzIxN2IzZDRiMzc2NGM5ZTdiOCIsInJvbGUiOiJtYW5hZ2VyIiwiaWF0IjoxNjcyMzQ4ODI5fQ.MXYN2gSsPZGDZ0EV5UYY2KKHcol-nQMHFnNRmrneeeY
     await axios
-      .post("http://localhost:8000/manager/match", match)
+      .post("http://localhost:8888/manager/match", 
+        match,
+        {
+          headers: {
+            Authorization: `Bearer ${this.state.token}`,
+          },
+        }         
+       
+      )
       .then((res) => {
         console.log(res.data);
         const user = res.data.user;
@@ -125,7 +137,7 @@ export const actions = {
   async editMatch({ commit }, match) {
     console.log(match);
     await axios
-      .patch(`http://localhost:8000/manager/match/${match.ID}`)
+      .patch(`http://localhost:8888/manager/match/${match.ID}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -137,7 +149,7 @@ export const actions = {
   async addStad({ commit }, stad) {
     console.log(stad);
     await axios
-      .post("http://localhost:8000/manager/stadium", stad)
+      .post("http://localhost:8888/manager/stadium", stad)
       .then((res) => {})
       .catch((err) => {
         console.log("Error in adding stadium");
@@ -147,7 +159,7 @@ export const actions = {
   async getMatch({ commit }, matchID) {
     console.log(stad);
     await axios
-      .get(`http://localhost:8000/match/${matchID}`)
+      .get(`http://localhost:8888/match/${matchID}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -159,7 +171,7 @@ export const actions = {
   async viewSeats({ commit }, match) {
     console.log(match);
     await axios
-      .get(`http://localhost:8000/manager/match/viewseats/${match.ID}`)
+      .get(`http://localhost:8888/manager/match/viewseats/${match.ID}`)
       .then((res) => {
         console.log("showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -173,7 +185,7 @@ export const actions = {
   async approveUser({ commit }, ID) {
     console.log("approve user");
     await axios
-      .post(`http://localhost:8000/admin/approve`, ID)
+      .post(`http://localhost:8888/admin/approve`, ID)
       .then((res) => {
         console.log("approve user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -186,7 +198,7 @@ export const actions = {
   async getUsers({ commit }) {
     console.log("get userrrr");
     await axios
-      .get("http://localhost:8000/admin/allusers")
+      .get("http://localhost:8888/admin/allusers")
       .then((res) => {
         console.log("get users showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -199,7 +211,7 @@ export const actions = {
   async deleteUser({ commit }, ID) {
     console.log("delete user");
     await axios
-      .delete(`http://localhost:8000/admin/${ID}`)
+      .delete(`http://localhost:8888/admin/${ID}`)
       .then((res) => {
         console.log("delete user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -212,18 +224,20 @@ export const actions = {
 };
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {
-  auth_init(state, user, token) {
-    state.token = token;
+  auth_init(state, obj) {
+    console.log(obj);
+    state.token = obj.token;
+    console.log(obj.token);
     console.log("mutation login");
     console.log(state.token);
-    state.user.username = user.userName;
-    state.user.firstName = user.firstName;
-    state.user.lastName = user.lastName;
-    state.user.password = user.password;
-    state.user.email = user.email;
-    state.user.birthDate = user.birthDate;
-    state.user.nationality = user.nationality;
-    state.user.role = user.role;
+    state.user.username = obj.user.userName;
+    state.user.firstName = obj.user.firstName;
+    state.user.lastName = obj.user.lastName;
+    state.user.password = obj.user.password;
+    state.user.email = obj.user.email;
+    state.user.birthDate = obj.user.birthDate;
+    state.user.nationality = obj.user.nationality;
+    state.user.role = obj.user.role;
   },
   sign_up(state, token) {
     console.log("mutation signup");
