@@ -11,9 +11,7 @@ router.get('/match/viewseats/:matchID',[managerAuth],viewVacantResSeats)
 router.patch('/match/:matchID',[managerAuth],editMatch)
 
 export default router
-=======
-import { Router } from "express";
-const router = Router()
+
 import {addMatch,addStadium,getMatch,viewVacantResSeats,editMatch} from '../handlers/manager.js'
 
 // should put auth middleware

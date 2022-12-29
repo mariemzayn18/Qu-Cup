@@ -9,7 +9,7 @@ router.get('/allmatches',[fanAuth],getAllMatches)
 
 
 export default router
-=======
+
 import { Router } from "express";
 const router =Router()
 import {getAllMatches,reserveMatch,cancelReservation,getAllUserReservations} from '../handlers/fan.js'
