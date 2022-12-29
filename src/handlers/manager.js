@@ -69,7 +69,12 @@ const addMatch =  async (req, res) => {
 }
 
 const addStadium = async (req, res) => {
+    console.log("adddddd ")
+console.log(req.body)
+
     try {
+        console.log("add stadium")
+        console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
         const stadium = new Stadium(req.body);

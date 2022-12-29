@@ -88,6 +88,20 @@ export const actions = {
         console.log(err);
       });
   },
+  async editMatch({ commit }, match) {
+    console.log(match)
+    await axios
+      .post("http://localhost:8888/match", match)
+      .then((res) => {
+        console.log(res.data);
+        const user = res.data.user;
+        const token = res.data.token;
+        // commit("auth_init", user, token);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   async addStad({ commit }, stad) {
     console.log(stad)
     await axios
@@ -97,6 +111,7 @@ export const actions = {
         // commit("auth_init", user, token);
       })
       .catch((err) => {
+        console.log("Error in adding stadium");
         console.log(err);
       });
   },
