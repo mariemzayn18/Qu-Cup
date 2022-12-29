@@ -24,7 +24,7 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="firstName"
+            v-model="newFirstName"
             class="input-field mt-7"
             :rules="nameRules"
             name="firstName"
@@ -33,7 +33,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="lastName"
+            v-model="newLastName"
             class="input-field mt-7"
             :rules="nameRules"
             name="lastName"
@@ -42,7 +42,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="nationality"
+            v-model="newNationality"
             class="input-field mt-7"
             :rules="nameRules"
             name="nationality"
@@ -58,6 +58,15 @@
             label="password"
             autocomplete="off"
             type="password"
+          ></v-text-field>
+          <v-text-field
+            v-model="newEmail"
+            class="input-field mt-7"
+            :rules="emailRules"
+            name="email"
+            label="Email"
+            autocomplete="off"
+            type="email"
           ></v-text-field>
           <v-col> </v-col>
           <TheButton
@@ -84,6 +93,10 @@ export default {
       Name: "",
       firstName: "",
       lastName: "",
+      newFirstName: "",
+      newLastName: "",
+      newNationality: "",
+      newEmail: "",
       email: "",
       userName: "",
       password: "",
@@ -104,6 +117,10 @@ export default {
       nameRules: [
         (v) => /^[A-Za-z\s ]+$/.test(v) || "Please insert a right name",
       ],
+      emailRules: [
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        (v) => v.length <= 30 || "E-mail must be less than 30 characters",
+      ],
       notEmptyRules: [(v) => !!v || "required"],
     };
   },
@@ -112,10 +129,15 @@ export default {
       this.showDialog = false;
     },
     update() {
-      console.log("console.log(username)");
-      console.log(this.username);
-    },
-  },
+            let password =this.password
+            let nationality =this.newNationality
+            let firstName =this.newFirstName
+            let lastName =this.newLastName
+            let email =this.newEmail
+            let role =this.role
+            this.$store.dispatch('editProfile',{firstName,lastName, email,password,nationality,email})
+  }
+},
   computed: {
     userData() {
       return this.$store.state.user;

@@ -14,7 +14,7 @@
           align-with-title
           background-color="transparent"
           color="#d3d5d5"
-          v-if="!admin"
+          v-if="!userData.role == 'admin'"
         >
           <v-tab
             v-for="tab in tabs"
@@ -43,10 +43,10 @@
           >
         </v-tabs>
       </v-col>
-      <v-col v-if="auth && admin">
+      <v-col v-if="auth && userData.role == 'admin'">
         <userRequests />
       </v-col>
-      <v-col v-if="auth && !admin">
+      <v-col v-if="auth && !(userData.role == 'admin')">
         <TheButton
           @clicked="showDropdownList = !showDropdownList"
           text="Profile"
@@ -138,7 +138,6 @@ export default {
       showDropdownList: false,
       showProfile: false,
       auth:true,
-      admin: false,
       showAddMatch:false,
       showNewStadium:false,
       tabs: [

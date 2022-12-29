@@ -17,7 +17,6 @@
           </template>
         </v-treeview>
       </v-col>
-
       <v-divider vertical></v-divider>
 
       <v-col class="d-flex text-center">
@@ -127,12 +126,16 @@ export default {
   },
 
   methods: {
-    removeUser() {},
+    removeUser() {
+      this.$store.dispatch("deleteUser", {});
+    },
     async fetchUsers(item) {
-      return fetch("https://jsonplaceholder.typicode.com/users")
-        .then((res) => res.json())
-        .then((json) => item.children.push(...json))
-        .catch((err) => console.warn(err));
+      console.log("getUsers");
+      this.$store.dispatch("getUsers");
+      // return fetch("https://jsonplaceholder.typicode.com/users")
+      //   .then((res) => res.json())
+      //   .then((json) => item.children.push(...json))
+      //   .catch((err) => console.warn(err));
     },
     randomAvatar() {
       this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
