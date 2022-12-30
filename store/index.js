@@ -88,42 +88,6 @@ export const actions = {
   },
   //--------------------------- check btb3ty eh f el body? ----------------------------
   
-  async getReservations({ commit }, _id) {
-    console.log("qqqqqqqqqqq")
-    console.log(_id)
-    console.log(this.state.token)
-    await axios
-      .post("http://localhost:8888/fan/allreservation", _id,
-      {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      }
-      )
-      .then((res) => {
-        console.log("get reserbationsss")
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-  async cancelReservation({ commit }, _id) {
-    await axios
-      .post("http://localhost:8888/fan/cancelreservation", _id,
-      {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      }
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
