@@ -74,6 +74,7 @@
   </v-container>
 </template>
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -96,7 +97,7 @@ export default {
     };
   },
   methods: {
-    addStadium() {
+    async addStadium() {
       if (this.seatsNum > 70) {
         this.alertMsg = "max number of seats per row is 12";
         this.alert = true;
@@ -116,15 +117,31 @@ export default {
       let name = this.name;
       let VIPSeatsPerRow = this.seatsNum;
       let VIPRows = this.rowsNum;
-      this.$store.dispatch("addStad", { name, VIPRows, VIPSeatsPerRow });
-      this.confirmed = true;
-    },
+      await axios
+        .post("http://localhost:8888/manager/stadium", { name, VIPRows, VIPSeatsPerRow },
+        {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        }    )
+        .then((res) => {})
+        .catch((err) => {
+          console.log("Error in adding stadium");
+          console.log(err);
+        });
+        this.confirmed = true;
+      },
   },
   created() {
     for (let i = 0; i < this.seatsNum; i++) this.isReserved[i] = false;
     for (let i = 2; i < this.seatsNum; i += 3) this.isReserved[i] = true;
     this.confirmed = false;
   },
+  computed:{
+    token() {
+      return this.$auth.$storage.getLocalStorage("token") || "";
+    },
+  }
 };
 </script>
 <style>

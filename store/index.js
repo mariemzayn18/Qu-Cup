@@ -187,21 +187,7 @@ export const actions = {
         console.log(err);
       });
   },
-  async addStad({ commit }, stad) {
-    console.log(stad);
-    await axios
-      .post("http://localhost:8888/manager/stadium", stad,
-      {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      }    )
-      .then((res) => {})
-      .catch((err) => {
-        console.log("Error in adding stadium");
-        console.log(err);
-      });
-  },
+ 
   async getMatch({ commit }, matchID) {
     console.log(stad);
     await axios
