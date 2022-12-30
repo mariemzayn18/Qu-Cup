@@ -12,7 +12,7 @@ const matchSchema = mongoose.Schema({
         required : true
     },
     matchVenue : {
-        type : mongoose.Schema.Types.ObjectId,
+        type : String,
         required : true,
         ref : 'Stadium'
     },

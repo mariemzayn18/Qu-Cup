@@ -12,8 +12,8 @@ function newFunction() {
     },
     //------------------ user data  ----------------------
     status: "",
-    baseUrl: "https://localhost:8000",
-    token: "",
+    baseUrl: "https://localhost:8888",
+    token:  "",
     user: {
       firstName: "",
       lastName: "",
@@ -24,7 +24,7 @@ function newFunction() {
       username: "",
       nationality: "",
       gender: "",
-      role: "manager",
+      role: "",
       approved: false,
     },
     matchDetails: [],
@@ -38,19 +38,23 @@ export const actions = {
   //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
     await axios
-      .post("http://localhost:8000/login", user)
+      .post("http://localhost:8888/login", user)
       .then((res) => {
         console.log(res);
         const user = res.data.user;
         const token = res.data.token;
-        commit("auth_init", user, token);
+
+        console.log("tokkkkkkkkkkken");
+        console.log(token);
+      
+        commit("auth_init", { user, token });
       })
       .catch((err) => {
         console.log(err);
       });
   },
   async signup({ commit }, user) {
-    await axios.post("http://localhost:8000/signup", user);
+    await axios.post("http://localhost:8888/signup", user);
     console
       .log(user)
       .then((res) => {
@@ -67,9 +71,9 @@ export const actions = {
   async editProfile({ commit }, user) {
     console.log("edit profile");
     console.log(this.state.token);
-    await axios.put("http://localhost:8000/edit_profile", user, {
+    await axios.put("http://localhost:8888/edit_profile", user, {
       headers: {
-        Authorization: `Basic ${this.state.token}`,
+        Authorization: `Bearer ${this.state.token}`,
       },
     });
     console
@@ -82,60 +86,62 @@ export const actions = {
         console.log(err);
       });
   },
+  //--------------------------- check btb3ty eh f el body? ----------------------------
+  
+  async getReservations({ commit }, _id) {
+    console.log("qqqqqqqqqqq")
+    console.log(_id)
+    console.log(this.state.token)
+    await axios
+      .post("http://localhost:8888/fan/allreservation", _id,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      }
+      )
+      .then((res) => {
+        console.log("get reserbationsss")
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  async cancelReservation({ commit }, _id) {
+    await axios
+      .post("http://localhost:8888/fan/cancelreservation", _id,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:8000/fan/allmatches")
+      .get("http://localhost:8888/fan/allmatches",
+      )
       .then((res) => {
-        // console.log(res.data.match);
         commit("match_details", res.data.match);
       })
       .catch((err) => {
         console.log(err);
       });
   },
-  //----------------------- manager actions ---------------------------
-  async addMatch({ commit }, match) {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh")
-    console.log(match)
-    await axios
-      .post("http://localhost:8000/manager/match", match)
-      .then((res) => {
-        console.log(res.data);
-        const user = res.data.user;
-        const token = res.data.token;
-        // commit("auth_init", user, token);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
-  async editMatch({ commit }, match) {
-    console.log(match);
-    await axios
-      .patch(`http://localhost:8000/manager/match/${match.ID}`)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("Error in edit match");
-        console.log(err);
-      });
-  },
-  async addStad({ commit }, stad) {
-    console.log(stad);
-    await axios
-      .post("http://localhost:8000/manager/stadium", stad)
-      .then((res) => {})
-      .catch((err) => {
-        console.log("Error in adding stadium");
-        console.log(err);
-      });
-  },
+  //----------------------- manager actions --------------------------
+
   async getMatch({ commit }, matchID) {
     console.log(stad);
     await axios
-      .get(`http://localhost:8000/match/${matchID}`)
+      .get(`http://localhost:8888/match/${matchID}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -144,24 +150,17 @@ export const actions = {
         console.log(err);
       });
   },
-  async viewSeats({ commit }, match) {
-    console.log(match);
-    await axios
-      .get(`http://localhost:8000/manager/match/viewseats/${match.ID}`)
-      .then((res) => {
-        console.log("showwwwwwwwwwwwwwwwwww");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("Error in edit match");
-        console.log(err);
-      });
-  },
+  //------- view seats is in the comp
   //------------------------- admin actions ----------------------------
   async approveUser({ commit }, ID) {
     console.log("approve user");
     await axios
-      .post(`http://localhost:8000/admin/approve`, ID)
+      .post(`http://localhost:8888/admin/approve`, ID,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      })
       .then((res) => {
         console.log("approve user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -174,7 +173,11 @@ export const actions = {
   async getUsers({ commit }) {
     console.log("get userrrr");
     await axios
-      .get(`http://localhost:8000/admin/allusers`)
+      .get("http://localhost:8888/admin/allusers", {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      })
       .then((res) => {
         console.log("get users showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -187,7 +190,10 @@ export const actions = {
   async deleteUser({ commit }, ID) {
     console.log("delete user");
     await axios
-      .delete(`http://localhost:8000/admin/${ID}`)
+      .delete(`http://localhost:8888/admin/${ID}`,
+      {headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      }},)
       .then((res) => {
         console.log("delete user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -200,18 +206,21 @@ export const actions = {
 };
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {
-  auth_init(state, user, token) {
-    state.token = token;
-    console.log("mutation login");
-    console.log(state.token);
-    state.user.username = user.userName;
-    state.user.firstName = user.firstName;
-    state.user.lastName = user.lastName;
-    state.user.password = user.password;
-    state.user.email = user.email;
-    state.user.birthDate = user.birthDate;
-    state.user.nationality = user.nationality;
-    state.user.role = user.role;
+  auth_init(state, obj) {
+    state.token = obj.token;
+    state.user.username = obj.user.userName;
+    state.user.firstName = obj.user.firstName;
+    state.user.lastName = obj.user.lastName;
+    state.user.password = obj.user.password;
+    state.user.email = obj.user.email;
+    state.user.birthDate = obj.user.birthDate;
+    state.user.nationality = obj.user.nationality;
+    state.user.role = obj.user.role;
+    state.user.ID = obj.user._id;
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    this.$auth.$storage.setLocalStorage("token",obj.token)
+    this.$auth.$storage.setLocalStorage("user",obj.user)
+    console.log(this.$auth.$storage.getLocalStorage("user"))
   },
   sign_up(state, token) {
     console.log("mutation signup");
@@ -225,6 +234,8 @@ export const mutations = {
     state.user.nationality = user.nationality;
     state.user.role = user.role;
     state.user.ID = user._id;
+    this.$auth.$storage.setLocalStorage("token", token)
+    this.$auth.$storage.setLocalStorage("user",user)
   },
 
   match_details(state, matchDetails) {
@@ -237,6 +248,13 @@ export const mutations = {
       match["mainReferee"] = matchDetails[i].mainReferee;
       match["lineMan1"] = matchDetails[i].lineMan1;
       match["lineMan2"] = matchDetails[i].lineMan2;
+      match["ID"] = matchDetails[i]._id;
+      match["seats"] = matchDetails[i].seats;
+      match["seatsNum"] = matchDetails[i].seats.length;
+      console.log("MATCH DETAILS")
+      console.log(matchDetails[i].seats)
+      console.log( matchDetails[i].seats.length)
+
       state.matchDetails.push(match);
     }
   },

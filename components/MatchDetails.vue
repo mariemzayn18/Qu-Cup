@@ -60,6 +60,7 @@
           :mainReferee="mainReferee"
           :lineMan1="lineMan1"
           :lineMan2="lineMan2"
+          :ID="ID"
         ></matchDetails>
         <!-- :time="time" -->
 
@@ -67,11 +68,11 @@
           @click="ticketReservation"
           id="btn2"
           class="text-center pa-3"
-          v-if='!reserveTicket && userData.role == "fan"' 
+          v-if='userData.role == "fan"' 
         >
           RESERVE TICKET
         </button>
-        <reservationForm class="pt-6" v-show="reserveTicket"> </reservationForm>
+        <reservationForm class="pt-6" v-show="reserveTicket" :ID="ID" :seatsNum="seatsNum" :seats="seats"> </reservationForm>
         
         <button
           v-if='userData.role == "manager"' 
@@ -81,7 +82,13 @@
         >
           SEATS STATUS
         </button>
-        <Seats v-show="showSeats"/>
+        <v-container v-show="showSeats">
+        <v-row class="ma-4">
+            <v-col v-for="i in VIPSeats.length" :key="i" cols="1">
+                <v-icon class="seat-icon" size="30" color="#6e1131" :class="{reserved:VIPSeats[i]}" >mdi-seat</v-icon>   
+            </v-col>
+        </v-row>
+    </v-container>
         
       </v-card>
     </v-dialog>
@@ -91,14 +98,19 @@
           scrollable
           width="1300"
         >
-            <EditMatch v-show="showEdit" />
+            <EditMatch 
+            v-show="showEdit"
+            :ID="ID"
+             />
         </v-dialog>
   </v-card>
 </template>
 <script>
-import matchDetails from "./MatchDetailsCard.vue";
 import reservationForm from "./ReservationForm.vue";
 import EditMatch from "./EditMatch.vue"
+import axios from "axios";
+import matchDetails from "./MatchDetailsCard.vue";
+
 export default {
   components: {
     matchDetails,
@@ -117,6 +129,9 @@ export default {
     mainReferee: String,
     lineMan1: String,
     lineMan2: String,
+    ID:String,
+    seats:Array,
+    seatsNum:Number
   },
   data() {
     return {
@@ -124,7 +139,7 @@ export default {
       reserveTicket: false,
       showEdit:false,
       showSeats:false,
-      ID:"",
+      VIPSeats:[]
     };
   },
   methods: {
@@ -138,18 +153,49 @@ export default {
       // this.$store.dispatch("getMatch", this.ID);
 
     },
-    viewSeats(){
-      this.showSeats= ! this.showSeats
-       // // TODO get id from props
-      this.ID="63ac638c8a2242b48201c541"
-      let ID= this.ID
-      this.$store.dispatch('viewSeats',{ID})
+    // viewSeats(){
+    //   this.showSeats= ! this.showSeats
+    //    // // TODO get id from props
+    //   this.ID="63ac638c8a2242b48201c541"
+    //   let ID= this.ID
+    //   this.$store.dispatch('viewSeats',{ID})
 
-    }
+    // },
+    async viewSeats() {
+    //TODO need to set this id
+    this.showSeats= ! this.showSeats
+       // // TODO get id from props
+      let ID= this.ID
+      console.log("VIEW SEATS")
+      console.log(this.token)
+    await axios
+      .get(`http://localhost:8888/manager/match/viewseats/${ID}`,
+      {
+        headers: {
+          Authorization:  `Bearer ${this.token}`,
+        },
+      } 
+      )
+      .then((res) => {
+        // TODO reflect the vacant seats
+        console.log("$######### showwwwwwwwwwwwwwwwwww");
+       
+        this.VIPSeats=res.data.VIPSeats
+        console.log(this.VIPSeats);
+
+      })
+      .catch((err) => {
+        console.log("Error in edit match");
+        console.log(err);
+      });
+  },
   },
   computed: {
     userData() {
-      return this.$store.state.user;
+      return this.$auth.$storage.getLocalStorage("user") || "";
+    },
+    token() {
+      return this.$auth.$storage.getLocalStorage("token") || "";
     },
   },
 };
@@ -189,5 +235,8 @@ export default {
 .v-card {
   height: max-content;
   border-radius: 2px !important;
+}
+.reserved{
+    color:gray !important;
 }
 </style>

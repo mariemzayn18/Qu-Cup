@@ -3,58 +3,66 @@ import {Stadium} from '../models/Stadium.js'
 
 
 const addMatch =  async (req, res) => {
+    console.log("ay 7aggggggg")
+    console.log(req.body)
     try {
         console.log("add match")
         console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
         await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
-            if(docs)
+            console.log("docs")
+            console.log(docs)
+            if(docs.length != 0)
             throw new Error('team one has match in this date');
             else {
                 await  Match.find({teamOne : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
-                    if(docs)
-                     throw new Error('team one has match in this date');
+                    if(docs.length != 0)
+                     throw new Error('team 1 has match in this date');
                      else {
                         await  Match.find({teamTwo : req.body.teamOne, date: req.body.date },async(err,docs)=>{
-                            if(docs)
-                             throw new Error('team one has match in this date');
+                            if(docs.length != 0)
+                             throw new Error('team two has match in this date');
                              else {
                                 await  Match.find({teamTwo : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
-                                    if(docs)
-                                     throw new Error('team one has match in this date');
+                                    if(docs.length != 0)
+                                     throw new Error('team 2 has match in this date');
 
-                                })
+                                }).clone()
 
                              }
 
-                        })
+                        }).clone()
 
                      }
 
-                })
+                }).clone()
             }
 
-        })
+        }).clone()
+
         const match = new Match(req.body);
+        console.log("Gggggggggggggggggggg")
+        console.log( match.matchVenue)
+        const stadium = await Stadium.find({name: match.matchVenue})
+        console.log(stadium)
 
-        const stadium = await Stadium.findById(match.matchVenue)
-
-
-        const vipRow = stadium.VIPRows
-        const vipSPerR = stadium.VIPSeatsPerRow
-
+        const vipRow = stadium[0].VIPRows
+        const vipSPerR = stadium[0].VIPSeatsPerRow
 
         const VIPSeats =
-        Array.from({ length: vipRow }, () =>
-        Array.from({ length: vipSPerR }, () => false));
-
+        Array.from({ length: vipRow * vipSPerR},() => false);
+        console.log(VIPSeats)
         match.set('seats', VIPSeats)
+        console.log(match)
 
         await match.save();
+        console.log("saved?")
         res.status(201).json({match : match});
     }
     catch(error) {
+        console.log("errrrrrrrrrrrrrrrrrrr")
+        console.log(error)
         res.status(401).send({message: error.message});
     }
 }

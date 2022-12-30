@@ -4,11 +4,14 @@ import mongoose from 'mongoose';
 
 const getAllMatches  = async(req,res) =>{
     try{
+      console.log("handelll")
         const matchs = await Match.find()
-        if(!matchs)
+        console.log(matchs)
+        if(matchs.length == 0)
           return res.status(400).send('No matchs to display');
         return res.status(200).json({match: matchs});
     }catch(error){
+
         res.status(400).send({message: error.message})
     }
 }
@@ -18,7 +21,7 @@ const reserveMatch = async(req,res)=>{
   // body {
   //   match: matchid
   //   owner: userid
-  //   seats:[{row: , col: }]
+  //   seats:[i]
   // }
   var matchid = new mongoose.Types.ObjectId(req.body.match)
 
@@ -61,14 +64,21 @@ const reserveMatch = async(req,res)=>{
     return res.status(200).json({Reservation: reservation });
   }
   catch(e){
+    console.log(e)
     res.status(400).send({error :true , message: e.message})
   }
 }
+ 
+ 
 const getAllUserReservations = async(req,res)=>{
   try{
     // this id should get from the login user not from the body
     allResponseData =[]
+    console.log("before find")
+
     allRes = Reservation.find({"owner": req.body._id})
+    console.log("after find")
+    console.log(allRes)
     for(var i = 0 ;i<allRes.length;i++)
     {
       var match  = Match.find({"_id":allRes[i].match})
@@ -76,10 +86,11 @@ const getAllUserReservations = async(req,res)=>{
       reserve.match = match
       allResponseData.push(reserve)
     }
+    console.log(allResponseData)
     // return all reservation data with all data about the match of this vreservatioms
     return res.status(200).json(allResponseData);
   }catch(error){
-    res.status(400).send({error :true , message: e.message})
+    res.status(400).send({error :true , message: error.message})
   }
 }
 

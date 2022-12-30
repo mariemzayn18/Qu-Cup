@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row class="text-center">
         <v-col
-          v-for="(match, count) in matches"
+          v-for="(match, count) in matchDetails"
           :key="count"
           cols="12"
           sm="6"
@@ -22,6 +22,9 @@
             :mainReferee="match.mainReferee"
             :lineMan1="match.lineMan1"
             :lineMan2="match.lineMan2"
+            :ID="match.ID"
+            :seats="match.seats"
+            :seatsNum="match.seatsNum"
           >
             <!-- :time="match.time" -->
           </matchDetails>
@@ -40,59 +43,71 @@ export default {
   data() {
     return {
       matches: [
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 22",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 22",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 23",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 23",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 23",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
       ],
     };
   },
   created() {
     this.$store.dispatch("matchDetails");
+    // while (this.userData.token)
+    // {
+    //   if( this.userData.token)
+    //   break
+    // }
+    // console.log("get OUT OF THE LOOP")
+    // console.log(this.userData.token)
+    // this.$auth.$storage.setLocalStorage("token", this.userData.token)
+    // console.log(this.$auth.$storage.getLocalStorage("token"))
   },
   computed: {
     matchDetails() {
       return this.$store.state.matchDetails;
+    },
+    userData() {
+      return  this.$auth.$storage.getLocalStorage("user") || "";
     },
   },
 };

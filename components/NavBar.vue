@@ -61,7 +61,7 @@
                 />
               </v-avatar>
               <p class="name">{{userData.firstName}}  {{userData.lastName}}</p>
-              <p class="un">{{userData.username}}</p>
+              <p class="un">{{userData.userName}}</p>
               <TheButton
                 @clicked="showProfile = !showProfile"
                 text="edit profile"
@@ -152,8 +152,20 @@ export default {
   },
   computed: {
     userData() {
-      return this.$store.state.user;
+      return  this.$auth.$storage.getLocalStorage("user") || "";
     },
+  },
+  methods:{
+    res(){
+      // let _id=this.userData.ID;
+      //    this.$store.dispatch('getReservations',{_id})
+      // this.$store.dispatch("getUsers");
+      // this.$auth.$storage.setLocalStorage("token", "666")
+      // console.log("YARAAAAAAAAAAAAAAAAB")
+      // console.log(this.$auth.$storage.getLocalStorage("token"))
+
+
+    }
   },
 };
 </script>

@@ -42,9 +42,12 @@
       </div>
     </v-row>
     <v-row class="ma-4">
+      <!-- TODO neef to show which seats are vacant and reserved -->
       <v-col v-for="i in seatsNum" :key="i" cols="1">
         <!-- <div class="text-center seat" @click="select(i)" :class="{selected:isSelected[i]}">{{i}}</div> -->
-        <v-icon class="seat-icon" size="50" color="#6e1131"  @click="select(i)" :class="{selected:isSelected[i]}" >mdi-seat</v-icon>   
+        <v-btn :disabled="seats[i]" class="seat-icon"  color="#6e1131" icon @click="select(i)" :class="{selected:isSelected[i]}" >
+        <v-icon size="40">mdi-seat</v-icon>
+        </v-btn>   
       </v-col>
     </v-row>
     <v-row v-show="confirmed">
@@ -53,7 +56,7 @@
         <v-alert
             shaped
             type="success"
-            >reservation is done successfully your seat number is {{reservedSeat }}
+            >reservation is done successfully your seat/s number: {{reservedSeats }}
         </v-alert>
       </v-col>
       <v-col></v-col>
@@ -67,15 +70,22 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  props:{
+    ID:String,
+    seats:Array,
+    seatsNum:Number
+  },
   data() {
     return {
       isValid: false,
       showDialog: false,
+      reserved:false,
       confirmed:false,
       isSelected:[],
-      reservedSeat:-1,
-      seatsNum:70,
+      reservedSeats:[],
+      // seatsNum:70,
       pinNumber: "",
       creditCard: "",
       ticketsToBeReserved: "0",
@@ -103,28 +113,60 @@ export default {
       if (this.ticketsToBeReserved > 0) this.ticketsToBeReserved--;
     },
     select(i) {
-      this.isSelected[i]= !this.isSelected[i];
-      console.log("Hh")
+      console.log("SESL")
       console.log(this.isSelected[i])
-      console.log(i)
+      this.isSelected[i]= !this.isSelected[i];
+      console.log(this.isSelected[i])
     },
     confirm(){
       for (let i =0; i < this.seatsNum; i++)
       {
         if (this.isSelected[i])
         {
-          this.reservedSeat=i
-          break
+          this.reservedSeats.push(i)
         }
       }
       this.confirmed=true
-    }
+      let match =this.ID
+      console.log("@HHHHHHHHHsdddddddddd")
+      console.log( this.userData)
+      console.log( this.userData._id)
+      console.log( this.reservedSeats)
+      console.log(match)
+      let owner= this.userData._id
+      let seats=this.reservedSeats
+      this.reserveMatch({match, owner,seats })
+    },
+    async reserveMatch( match) {
+    await axios
+      .post("http://localhost:8888/fan/reservation", match,
+      {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   },
   created(){
     for (let i =0; i < this.seatsNum; i++)
       this.isSelected[i]= false;
     this.confirmed=false
-  }
+  },
+  computed: {
+    userData() {
+      return  this.$auth.$storage.getLocalStorage("user") || "";
+    },
+    token() {
+      return  this.$auth.$storage.getLocalStorage("token") || "";
+    },
+  },
 };
 </script>
 
@@ -179,19 +221,12 @@ p {
   justify-content: center;
   align-content: space-between;
   }
-  .seat:hover {
-    background-color:  #d6e4e5;
-    color:#6e1131;
-  }
   .seat-icon:hover {
     color:rgb(6, 175, 6) !important;
   }
   .selected {
-    background-color:#6e1131 !important;
-    color: #d3d5d5  !important;
+    background-color: #6e1131 !important;
+    color: #d6e4e5 !important;
   }
-  /* .selected {
-    background-color: #d3d5d5  !important;
-    color: #6e1131 !important;
-  } */
+ 
 </style>
