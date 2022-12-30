@@ -114,13 +114,15 @@
     </v-container>
   </template>
   <script>
-  import matchDetails from "./MatchDetailsCard.vue";
   import TheButton from "./TheButton.vue";
+  import axios from "axios";
   export default {
     components: {
-      matchDetails,
       TheButton,
     },
+    props: {
+    ID:String
+  },
     data() {
       return {
         teams:["ahly","zamalek","esmaaley"],
@@ -133,8 +135,6 @@
         linesmen2:"",
         time:"",
         date: "",
-        team1:"",
-        team2:"",
         venue:"",
         isValid: false,
         showTeamsAlert:false,
@@ -155,23 +155,45 @@
                 return
             }
             this.showTeamsAlert =false
-            let team1= this.team1
-            let team2 =this.team2
-            let venue= this.venue
+            let teamOne= this.team1
+            let teamTwo =this.team2
+            let matchVenue= this.venue
             let mainReferee =this.mainReferee
-            let linesmen1= this.linesmen1
-            let linesmen2 =this.linesmen2
-            let date = this.date
-            let time = this.time
+            let lineMan1= this.linesmen1
+            let lineMan2 =this.linesmen2
+            let date = this.date +'T'+this.time
             // TODO send id ad params
-            let ID="63ac638c8a2242b48201c541"
-            this.$store.dispatch('editMatch',{ ID,team1, team2, venue, mainReferee, linesmen1, linesmen2, date,time},ID)
+            let ID=this.ID
+            this.editMatchAction({ teamOne, teamTwo,  matchVenue,date, mainReferee, lineMan1, lineMan2},ID)
             this.showAlert=true
       },
+      async editMatchAction(match,ID){
+        console.log("%%%%%%#############################3")
+        console.log(this.token)
+        await axios
+      .patch(`http://localhost:8888/manager/match/${ID}`,
+      match,
+      {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("Error in edit match");
+        console.log(err);
+      });
+
+      }
     },
     computed: {
       userData() {
         return this.$auth.$storage.getLocalStorage("user");
+      },
+      token() {
+        return this.$auth.$storage.getLocalStorage("token");
       },
     },
     created(){

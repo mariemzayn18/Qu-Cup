@@ -122,12 +122,10 @@
     </v-container>
   </template>
   <script>
-  import matchDetails from "./MatchDetailsCard.vue";
   import TheButton from "./TheButton.vue";
   import axios from "axios";
   export default {
     components: {
-      matchDetails,
       TheButton,
     },
     data() {

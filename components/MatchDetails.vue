@@ -60,6 +60,7 @@
           :mainReferee="mainReferee"
           :lineMan1="lineMan1"
           :lineMan2="lineMan2"
+          :ID="ID"
         ></matchDetails>
         <!-- :time="time" -->
 
@@ -97,15 +98,19 @@
           scrollable
           width="1300"
         >
-            <EditMatch v-show="showEdit" />
+            <EditMatch 
+            v-show="showEdit"
+            :ID="ID"
+             />
         </v-dialog>
   </v-card>
 </template>
 <script>
-import matchDetails from "./MatchDetailsCard.vue";
 import reservationForm from "./ReservationForm.vue";
 import EditMatch from "./EditMatch.vue"
 import axios from "axios";
+import matchDetails from "./MatchDetailsCard.vue";
+
 export default {
   components: {
     matchDetails,
@@ -124,6 +129,7 @@ export default {
     mainReferee: String,
     lineMan1: String,
     lineMan2: String,
+    ID:String
   },
   data() {
     return {
@@ -131,7 +137,6 @@ export default {
       reserveTicket: false,
       showEdit:false,
       showSeats:false,
-      ID:"",
       VIPSeats:[]
     };
   },
@@ -158,7 +163,6 @@ export default {
     //TODO need to set this id
     this.showSeats= ! this.showSeats
        // // TODO get id from props
-      this.ID="63ae12727976b791ac2f50ca"
       let ID= this.ID
       console.log("VIEW SEATS")
       console.log(this.token)
@@ -176,7 +180,7 @@ export default {
        
         this.VIPSeats=res.data.VIPSeats
         console.log(this.VIPSeats);
-        
+
       })
       .catch((err) => {
         console.log("Error in edit match");

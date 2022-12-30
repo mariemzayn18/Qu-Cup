@@ -51,6 +51,7 @@ export default {
     mainReferee: String,
     lineMan1: String,
     lineMan2: String,
+    ID:String
   },
 };
 </script>

@@ -142,7 +142,8 @@ export const actions = {
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:8888/fan/allmatches")
+      .get("http://localhost:8888/fan/allmatches",
+      )
       .then((res) => {
         commit("match_details", res.data.match);
       })
@@ -150,27 +151,8 @@ export const actions = {
         console.log(err);
       });
   },
-  //----------------------- manager actions ---------------------------
-  async addMatch({ commit }, match) {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhh");
-    console.log(match);
-    console.log(this.state.token);
-    //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWMwMzIxN2IzZDRiMzc2NGM5ZTdiOCIsInJvbGUiOiJtYW5hZ2VyIiwiaWF0IjoxNjcyMzQ4ODI5fQ.MXYN2gSsPZGDZ0EV5UYY2KKHcol-nQMHFnNRmrneeeY
-    
-  },
-  async editMatch({ commit }, match) {
-    console.log(match);
-    await axios
-      .patch(`http://localhost:8888/manager/match/${match.ID}`)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("Error in edit match");
-        console.log(err);
-      });
-  },
- 
+  //----------------------- manager actions --------------------------
+
   async getMatch({ commit }, matchID) {
     console.log(stad);
     await axios
@@ -282,6 +264,9 @@ export const mutations = {
       match["lineMan1"] = matchDetails[i].lineMan1;
       match["lineMan2"] = matchDetails[i].lineMan2;
       match["ID"] = matchDetails[i]._id;
+      console.log("MATCH DETAILS")
+      console.log(matchDetails[i]._id)
+
       state.matchDetails.push(match);
     }
   },
