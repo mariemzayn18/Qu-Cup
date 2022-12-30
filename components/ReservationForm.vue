@@ -86,6 +86,8 @@ export default {
   },
   data() {
     return {
+      userData:{},
+      token:"",
       isValid: false,
       showDialog: false,
       reserved: false,
@@ -161,13 +163,10 @@ export default {
     for (let i = 0; i < this.seatsNum; i++) this.isSelected[i] = false;
     this.confirmed = false;
   },
-  computed: {
-    userData() {
-      return this.$auth.$storage.getLocalStorage("user") || "";
-    },
-    token() {
-      return this.$auth.$storage.getLocalStorage("token") || "";
-    },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"));
+    this.token=localStorage.getItem("token")
+
   },
 };
 </script>

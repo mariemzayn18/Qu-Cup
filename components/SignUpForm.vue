@@ -178,6 +178,8 @@ export default {
             let email =this.email
             let role =this.role
             this.$store.dispatch('signup',{username,password, birthDate, gender,nationality,email,role})
+            this.$router.push({path:'/'})
+            window.location.reload(true)  
         }
     }
 

@@ -23,7 +23,6 @@
         <v-col>
           <v-text-field
             v-model.number="rowsNum"
-            type="number"
             :rules="numRules"
             name="rowsNum"
             label="Rows Number"
@@ -34,7 +33,6 @@
         <v-col>
           <v-text-field
             v-model.number="seatsNum"
-            type="number"
             :rules="numRules"
             name="seatsNum"
             label="Seats Number per row"
@@ -91,6 +89,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      token: "",
       name: "",
       isValid: false,
       isReserved: [],
@@ -153,11 +152,11 @@ export default {
     for (let i = 2; i < this.seatsNum; i += 3) this.isReserved[i] = true;
     this.confirmed = false;
   },
-  computed: {
-    token() {
-      return this.$auth.$storage.getLocalStorage("token") || "";
-    },
+  mounted(){
+    this.token=localStorage.getItem("token")
+
   },
+  
 };
 </script>
 <style>

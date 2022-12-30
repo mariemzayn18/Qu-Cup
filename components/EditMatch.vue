@@ -117,6 +117,8 @@ export default {
   },
   data() {
     return {
+      userData: {},
+      token: "",
       teams: ["ahly", "zamalek", "esmaaley"],
       venues: ["stad1", "cairo stad", "m3addy"],
       team1: "",
@@ -179,16 +181,13 @@ export default {
         });
     },
   },
-  computed: {
-    userData() {
-      return this.$auth.$storage.getLocalStorage("user") || "";
-    },
-    token() {
-      return this.$auth.$storage.getLocalStorage("token") || "";
-    },
-  },
   created() {
     this.showSuccessAlert = false;
+  },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"));
+    this.token=localStorage.getItem("token")
+
   },
 };
 </script>

@@ -15,11 +15,11 @@
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-avatar>
           <div class="my-5">
-            <p class="name">{{userData.firstName}} {{userData.lastName}}</p>
-            <p class="un">username: {{userData.userName}}</p>
-            <p class="un">email: {{userData.email}}</p>
-            <p class="un">Nationality: {{userData.nationality}}</p>
-            <p class="un">birth date:{{userData.birthDate}}</p>
+            <p class="name">{{ userData.firstName }} {{ userData.lastName }}</p>
+            <p class="un">username: {{ userData.userName }}</p>
+            <p class="un">email: {{ userData.email }}</p>
+            <p class="un">Nationality: {{ userData.nationality }}</p>
+            <p class="un">birth date:{{ userData.birthDate }}</p>
           </div>
         </v-col>
         <v-col>
@@ -90,6 +90,8 @@ export default {
   },
   data() {
     return {
+      userData:{},
+      token:"",
       Name: "",
       firstName: "",
       lastName: "",
@@ -129,19 +131,26 @@ export default {
       this.showDialog = false;
     },
     update() {
-            let password =this.password
-            let nationality =this.newNationality
-            let firstName =this.newFirstName
-            let lastName =this.newLastName
-            let email =this.newEmail
-            let role =this.role
-            this.$store.dispatch('editProfile',{firstName,lastName, email,password,nationality,email})
-  }
-},
-  computed: {
-    userData() {
-      return  this.$auth.$storage.getLocalStorage("user") || "";
+      let password = this.password;
+      let nationality = this.newNationality;
+      let firstName = this.newFirstName;
+      let lastName = this.newLastName;
+      let email = this.newEmail;
+      let role = this.role;
+      this.$store.dispatch("editProfile", {
+        firstName,
+        lastName,
+        email,
+        password,
+        nationality,
+        email,
+      });
     },
+  },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"));
+    this.token=localStorage.getItem("token")
+
   },
 };
 </script>
