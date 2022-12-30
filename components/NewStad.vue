@@ -22,7 +22,8 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="rowsNum"
+            v-model.number="rowsNum"
+            type="number"
             :rules="numRules"
             name="rowsNum"
             label="Rows Number"
@@ -32,7 +33,8 @@
         </v-col>
         <v-col>
           <v-text-field
-            v-model="seatsNum"
+            v-model.number="seatsNum"
+            type="number"
             :rules="numRules"
             name="seatsNum"
             label="Seats Number per row"
@@ -45,11 +47,22 @@
     <v-row>
       <h4 class="mx-11">Preview</h4>
     </v-row>
-    <v-row class="ma-4">
-      <v-col v-for="i in rowsNum * seatsNum" :key="i">
+    <v-row   v-for="i in rowsNum" :key="i">
+      <v-col></v-col>
+      <v-col v-for="k in  seatsNum" :key="k">
         <v-icon class="seat-icon" size="35" color="#6e1131">mdi-seat</v-icon>
       </v-col>
+      <v-col></v-col>
     </v-row>
+    <!-- <v-row v-for="j in rowsNum" :key="j">
+      <v-col>
+            <v-row class="ma-4">
+          <v-col v-for="i in seatsNum" :key="i">
+            <v-icon class="seat-icon" size="35" color="#6e1131">mdi-seat</v-icon>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row> -->
     <v-row>
       <v-col></v-col>
       <v-col>

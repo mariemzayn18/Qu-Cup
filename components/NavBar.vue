@@ -14,7 +14,7 @@
           align-with-title
           background-color="transparent"
           color="#d3d5d5"
-          v-if="!userData.role == 'admin'"
+          v-if="userData.role == 'fan'"
         >
           <v-tab
             v-for="tab in tabs"
@@ -31,7 +31,7 @@
           align-with-title
           background-color="transparent"
           color="#6e1131"
-          v-else
+          v-if="userData.role == 'admin'"
         >
           <v-tab
             v-for="tab in adminTabs"
