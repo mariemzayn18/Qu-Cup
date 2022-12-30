@@ -62,7 +62,6 @@ const reserveMatch = async(req,res)=>{
 
     await reservation.save()
     return res.status(200).json({Reservation: reservation });
-
   }
   catch(e){
     console.log(e)
