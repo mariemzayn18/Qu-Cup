@@ -3,14 +3,13 @@
     <v-container fluid>
       <v-row class="text-center">
         <v-col v-if="tickets.length == 0">
-          <v-alert
-                shaped
-                color="white"
-                icon="mdi-heart"
-                > you don't have any tickets yet! hurry up and catch your ticket</v-alert>
+          <v-alert shaped color="white" icon="mdi-heart">
+            you don't have any tickets yet! hurry up and catch your
+            ticket</v-alert
+          >
         </v-col>
         <v-col
-        v-else
+          v-else
           v-for="(match, count) in tickets"
           :key="count"
           cols="12"
@@ -68,10 +67,10 @@
 import axios from "axios";
 import matchDetails from "../components/MatchDetails";
 export default {
-  data(){
+  data() {
     return {
-      tickets:[]
-    }
+      tickets: [],
+    };
   },
   components: {
     matchDetails,
@@ -89,43 +88,47 @@ export default {
     },
   },
   methods: {
-      async cancelReservation(){
-        let _id=this.userData.ID;
-        await axios
-      .post("http://localhost:8888/fan/cancelreservation", {_id},
-      {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      }
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      },
+    async cancelReservation() {
+      let _id = this.userData.ID;
+      await axios
+        .post(
+          "http://localhost:8000/fan/cancelreservation",
+          { _id },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-   async created(){
-        let _id=this.userData.ID;
-        await axios
-      .post("http://localhost:8888/fan/allreservation", {_id},
-      {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      }
+  },
+  async created() {
+    let _id = this.userData.ID;
+    await axios
+      .post(
+        "http://localhost:8000/fan/allreservation",
+        { _id },
+        {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        }
       )
       .then((res) => {
-        console.log("get reserbationsss")
+        console.log("get reserbationsss");
         console.log(res.data);
-        this.tickets=res.data.allResponseData
+        this.tickets = res.data.allResponseData;
       })
       .catch((err) => {
         console.log(err);
       });
-   }
+  },
 };
 </script>
 

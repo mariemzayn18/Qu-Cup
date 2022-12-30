@@ -47,9 +47,9 @@
     <v-row>
       <h4 class="mx-11">Preview</h4>
     </v-row>
-    <v-row   v-for="i in rowsNum" :key="i">
+    <v-row v-for="i in rowsNum" :key="i">
       <v-col></v-col>
-      <v-col v-for="k in  seatsNum" :key="k">
+      <v-col v-for="k in seatsNum" :key="k">
         <v-icon class="seat-icon" size="35" color="#6e1131">mdi-seat</v-icon>
       </v-col>
       <v-col></v-col>
@@ -87,7 +87,7 @@
   </v-container>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
@@ -131,30 +131,33 @@ export default {
       let VIPSeatsPerRow = this.seatsNum;
       let VIPRows = this.rowsNum;
       await axios
-        .post("http://localhost:8888/manager/stadium", { name, VIPRows, VIPSeatsPerRow },
-        {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        }    )
+        .post(
+          "http://localhost:8000/manager/stadium",
+          { name, VIPRows, VIPSeatsPerRow },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then((res) => {})
         .catch((err) => {
           console.log("Error in adding stadium");
           console.log(err);
         });
-        this.confirmed = true;
-      },
+      this.confirmed = true;
+    },
   },
   created() {
     for (let i = 0; i < this.seatsNum; i++) this.isReserved[i] = false;
     for (let i = 2; i < this.seatsNum; i += 3) this.isReserved[i] = true;
     this.confirmed = false;
   },
-  computed:{
+  computed: {
     token() {
       return this.$auth.$storage.getLocalStorage("token") || "";
     },
-  }
+  },
 };
 </script>
 <style>

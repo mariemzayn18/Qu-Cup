@@ -36,18 +36,15 @@ export default {
   modules: [
     // TODO dy kant gwa e ana kargtha brar el []w el 7aga fdlt sha8ala
     "@nuxtjs/axios",
-     '@nuxtjs/auth-next'
-
+    "@nuxtjs/auth-next",
   ],
   axios: {
-    baseURL: 'http://localhost:8888',
-    credentials: true
+    baseURL: "http://localhost:8000",
+    credentials: true,
   },
-  auth :{
-    
-  },
+  auth: {},
   // proxy: {
-  //   '/api/': { target: 'http://localhost:8888', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+  //   '/api/': { target: 'http://localhost:8000', pathRewrite: {'^/api/': ''}, changeOrigin: true }
   // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
