@@ -150,23 +150,7 @@ export const actions = {
         console.log(err);
       });
   },
-  async deleteUser({ commit }, ID) {
-    console.log("delete user");
-    await axios
-      .delete(`http://localhost:8080/admin/${ID}`, {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      })
-      .then((res) => {
-        console.log("delete user showwwwwwwwwwwwwwwwwww");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("Error in delete user");
-        console.log(err);
-      });
-  },
+
 };
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {

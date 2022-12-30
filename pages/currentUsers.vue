@@ -63,11 +63,15 @@
                 Birth Date:
               </v-col>
               <v-col>{{ selected.birthDate }}</v-col>
+              <v-col>
+            <v-alert v-show="showAlert" shaped type="success">user deleted successfully</v-alert>
+       
+          </v-col>
               <v-col cols="12 " class="text-center">
                 <button
                   id="btn2"
                   class="text-center pa-3 mt-4"
-                  @click="removeUser"
+                  @click="removeUser(selected.ID)"
                 >
                   REMOVE USER
                 </button>
@@ -92,11 +96,13 @@ const avatars = [
 //   const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 import TheButton from "../components/TheButton.vue";
+import axios from "axios";
 export default {
   components: {
     TheButton,
   },
   data: () => ({
+    showAlert: false,
     token:"",
     active: [],
     avatar: null,
@@ -129,8 +135,21 @@ export default {
   },
 
   methods: {
-    removeUser() {
-      this.$store.dispatch("deleteUser", {});
+   async removeUser( userid ) {
+    
+      await axios
+      .delete(`http://localhost:8080/admin/${userid}`, {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      })
+      .then((res) => {
+        this.showAlert = true;
+      })
+      .catch((err) => {
+        console.log("Error in delete user");
+        console.log(err);
+      });
     },
      fetchUsers(item) {
       console.log("getUsers");
