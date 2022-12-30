@@ -13,7 +13,7 @@ function newFunction() {
     //------------------ user data  ----------------------
     status: "",
     baseUrl: "https://localhost:8888",
-    token: "",
+    token:  "",
     user: {
       firstName: "",
       lastName: "",
@@ -43,8 +43,10 @@ export const actions = {
         console.log(res);
         const user = res.data.user;
         const token = res.data.token;
+
         console.log("tokkkkkkkkkkken");
         console.log(token);
+      
         commit("auth_init", { user, token });
       })
       .catch((err) => {
@@ -212,27 +214,7 @@ export const actions = {
         console.log(err);
       });
   },
-  async viewSeats({ commit }, match) {
-    console.log(match);
-    //TODO need to set this id
-    await axios
-      .get(`http://localhost:8888/manager/match/viewseats/63ae12727976b791ac2f50ca`,
-      {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      } 
-      )
-      .then((res) => {
-        // TODO reflect the vacant seats
-        console.log("showwwwwwwwwwwwwwwwwww");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("Error in edit match");
-        console.log(err);
-      });
-  },
+  //------- view seats is in the comp
   //------------------------- admin actions ----------------------------
   async approveUser({ commit }, ID) {
     console.log("approve user");
@@ -273,9 +255,9 @@ export const actions = {
     console.log("delete user");
     await axios
       .delete(`http://localhost:8888/admin/${ID}`,
-      headers: {
+      {headers: {
         Authorization: `Bearer ${this.state.token}`,
-      },)
+      }},)
       .then((res) => {
         console.log("delete user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -289,11 +271,7 @@ export const actions = {
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {
   auth_init(state, obj) {
-    console.log(obj);
     state.token = obj.token;
-    console.log(obj.token);
-    console.log("mutation login");
-    console.log(state.token);
     state.user.username = obj.user.userName;
     state.user.firstName = obj.user.firstName;
     state.user.lastName = obj.user.lastName;
@@ -303,6 +281,10 @@ export const mutations = {
     state.user.nationality = obj.user.nationality;
     state.user.role = obj.user.role;
     state.user.ID = obj.user._id;
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    this.$auth.$storage.setLocalStorage("token",obj.token)
+    this.$auth.$storage.setLocalStorage("user",obj.user)
+    console.log(this.$auth.$storage.getLocalStorage("user"))
   },
   sign_up(state, token) {
     console.log("mutation signup");
@@ -316,6 +298,8 @@ export const mutations = {
     state.user.nationality = user.nationality;
     state.user.role = user.role;
     state.user.ID = user._id;
+    this.$auth.$storage.setLocalStorage("token", token)
+    this.$auth.$storage.setLocalStorage("user",user)
   },
 
   match_details(state, matchDetails) {
