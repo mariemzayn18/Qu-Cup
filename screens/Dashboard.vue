@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row class="text-center">
         <v-col
-          v-for="(match, count) in matches"
+          v-for="(match, count) in matchDetails"
           :key="count"
           cols="12"
           sm="6"
@@ -40,55 +40,55 @@ export default {
   data() {
     return {
       matches: [
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 22",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
-        {
-          oponent1_flag: "argentina.png",
-          oponent2_flag: "croatia.png",
-          oponent1_name: "Argentina",
-          oponent2_name: "Croatia",
-          date: "Nov 23",
-          time: "9:00pm",
-          stadium: "Qatar",
-          mainReferee: "",
-          linesMen: "",
-        },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 22",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 23",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 23",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
+        // {
+        //   oponent1_flag: "argentina.png",
+        //   oponent2_flag: "croatia.png",
+        //   oponent1_name: "Argentina",
+        //   oponent2_name: "Croatia",
+        //   date: "Nov 23",
+        //   time: "9:00pm",
+        //   stadium: "Qatar",
+        //   mainReferee: "",
+        //   linesMen: "",
+        // },
       ],
     };
   },
   created() {
-    // this.$store.dispatch("matchDetails");
+    this.$store.dispatch("matchDetails");
   },
   computed: {
     matchDetails() {

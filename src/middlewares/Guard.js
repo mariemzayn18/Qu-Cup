@@ -21,15 +21,23 @@ const adminAuth = (req,res, next)=>{
 }
 
 const fanAuth = (req,res, next)=>{
+    console.log("authhh fan")
+    console.log(req)
     try{
+        console.log("authhh fan22")
+        
         const bearer = req.headers.authorization;
-        const token = bearer?.split(" ")[0];
+        const token = bearer?.split(" ")[1];
+        console.log(token)
         const payload  = Jwt.decode(token)
+        console.log(payload)
+        console.log("payload")
         if(payload.role != "fan")
             throw new Error
         next()
     }
     catch(err){
+        console.log("9999999999999999999999999")
     return res.status(401).json({error:"user isn't authorized"})
     }
 

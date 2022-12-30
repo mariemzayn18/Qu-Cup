@@ -5,10 +5,10 @@ import {getAllMatches,reserveMatch,cancelReservation,getAllUserReservations} fro
 import { fanAuth } from '../middlewares/Guard.js'
 // should put auth middleware
 
-router.get('/allmatches',[fanAuth],getAllMatches)
+router.get('/allmatches',getAllMatches)
 router.post('/reservation',[fanAuth],reserveMatch)
 router.post('/cancelreservation',[fanAuth],cancelReservation)
-router.get('/allreservation',[fanAuth],getAllUserReservations)
+router.post('/allreservation',[fanAuth],getAllUserReservations)
 
 
 export default router

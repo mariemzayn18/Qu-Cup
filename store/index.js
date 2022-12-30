@@ -24,7 +24,7 @@ function newFunction() {
       username: "",
       nationality: "",
       gender: "",
-      role: "manager",
+      role: "",
       approved: false,
     },
     matchDetails: [],
@@ -71,7 +71,7 @@ export const actions = {
     console.log(this.state.token);
     await axios.put("http://localhost:8888/edit_profile", user, {
       headers: {
-        Authorization: `Basic ${this.state.token}`,
+        Authorization: `Bearer ${this.state.token}`,
       },
     });
     console
@@ -85,10 +85,51 @@ export const actions = {
       });
   },
   //--------------------------- check btb3ty eh f el body? ----------------------------
-
-  async rerserveMatch({ commit }, match) {
+  async reserveMatch({ commit }, match) {
     await axios
-      .post("http://localhost:8888/fan/reserveMatch", match)
+      .post("http://localhost:8888/fan/reservation", match,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  async getReservations({ commit }, _id) {
+    console.log("qqqqqqqqqqq")
+    console.log(_id)
+    console.log(this.state.token)
+    await axios
+      .post("http://localhost:8888/fan/allreservation", _id,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      }
+      )
+      .then((res) => {
+        console.log("get reserbationsss")
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  async cancelReservation({ commit }, _id) {
+    await axios
+      .post("http://localhost:8888/fan/cancelreservation", _id,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      }
+      )
       .then((res) => {
         console.log(res.data);
       })
@@ -101,7 +142,6 @@ export const actions = {
     await axios
       .get("http://localhost:8888/fan/allmatches")
       .then((res) => {
-        // console.log(res.data.match);
         commit("match_details", res.data.match);
       })
       .catch((err) => {
@@ -122,7 +162,6 @@ export const actions = {
             Authorization: `Bearer ${this.state.token}`,
           },
         }         
-       
       )
       .then((res) => {
         console.log(res.data);
@@ -149,7 +188,12 @@ export const actions = {
   async addStad({ commit }, stad) {
     console.log(stad);
     await axios
-      .post("http://localhost:8888/manager/stadium", stad)
+      .post("http://localhost:8888/manager/stadium", stad,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      }    )
       .then((res) => {})
       .catch((err) => {
         console.log("Error in adding stadium");
@@ -170,9 +214,17 @@ export const actions = {
   },
   async viewSeats({ commit }, match) {
     console.log(match);
+    //TODO need to set this id
     await axios
-      .get(`http://localhost:8888/manager/match/viewseats/${match.ID}`)
+      .get(`http://localhost:8888/manager/match/viewseats/63ae12727976b791ac2f50ca`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      } 
+      )
       .then((res) => {
+        // TODO reflect the vacant seats
         console.log("showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
       })
@@ -238,6 +290,7 @@ export const mutations = {
     state.user.birthDate = obj.user.birthDate;
     state.user.nationality = obj.user.nationality;
     state.user.role = obj.user.role;
+    state.user.ID = obj.user._id;
   },
   sign_up(state, token) {
     console.log("mutation signup");
@@ -250,7 +303,6 @@ export const mutations = {
     state.user.birthDate = user.birthDate;
     state.user.nationality = user.nationality;
     state.user.role = user.role;
-    // TODO: NEED TO EXRACT THE USER ID FROM THE TOKEN
     state.user.ID = user._id;
   },
 
@@ -264,6 +316,7 @@ export const mutations = {
       match["mainReferee"] = matchDetails[i].mainReferee;
       match["lineMan1"] = matchDetails[i].lineMan1;
       match["lineMan2"] = matchDetails[i].lineMan2;
+      match["ID"] = matchDetails[i]._id;
       state.matchDetails.push(match);
     }
   },
