@@ -34,24 +34,20 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    [
-      "@nuxtjs/recaptcha",
-      {
-        // for production use '6LecgPoiAAAAACsO20D6xG_jzP4tkBfPtQmvfoDP'
-        // for localhost development use '6Lf9aZchAAAAAHZ78_QBK-T2jEjyC-x8SdlGT9XK'
-        siteKey: "6LecgPoiAAAAACsO20D6xG_jzP4tkBfPtQmvfoDP",
-        version: 3,
-        size: "invisible",
-      },
-      "@nuxtjs/axios",
-      // '@nuxtjs/proxy'
-    ],
+    // TODO dy kant gwa e ana kargtha brar el []w el 7aga fdlt sha8ala
+    "@nuxtjs/axios",
+     '@nuxtjs/auth-next'
+
   ],
   axios: {
-    // proxy: true
+    baseURL: 'http://localhost:8888',
+    credentials: true
+  },
+  auth :{
+    
   },
   // proxy: {
-  //   '/api/': { target: 'http://localhost:8000', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+  //   '/api/': { target: 'http://localhost:8888', pathRewrite: {'^/api/': ''}, changeOrigin: true }
   // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
