@@ -62,7 +62,6 @@ export default {
   components: {
     matchDetails,
   },
-
   computed: {
     matchDetails() {
       return this.$store.state.matchDetails;
@@ -117,10 +116,20 @@ export default {
     //     ],
     //   };
     // },
-    methods: {
-      cancelReservation() {},
+    userData() {
+        return this.$store.state.user;
     },
   },
+  methods: {
+      cancelReservation(){
+        let _id=this.userData.ID;
+        this.$store.dispatch('cancelReservation',{_id})
+      },
+    },
+   created(){
+        let _id=this.userData.ID;
+        this.$store.dispatch('getReservations',{_id})
+   }
 };
 </script>
 

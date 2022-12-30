@@ -42,6 +42,7 @@
       </div>
     </v-row>
     <v-row class="ma-4">
+      <!-- TODO neef to show which seats are vacant and reserved -->
       <v-col v-for="i in seatsNum" :key="i" cols="1">
         <!-- <div class="text-center seat" @click="select(i)" :class="{selected:isSelected[i]}">{{i}}</div> -->
         <v-icon class="seat-icon" size="50" color="#6e1131"  @click="select(i)" :class="{selected:isSelected[i]}" >mdi-seat</v-icon>   
@@ -118,13 +119,26 @@ export default {
         }
       }
       this.confirmed=true
+      let match ="63ae12727976b791ac2f50ca"
+      // TODO REMOVE HARDCODED this.ID
+      console.log("@HHHHHHHHHsdddddddddd")
+      console.log( this.userData)
+      console.log( this.userData.ID)
+      let owner= this.userData.ID
+      let seats=[this.reservedSeat]
+      this.$store.dispatch('reserveMatch',{match, owner,seats })
     }
   },
   created(){
     for (let i =0; i < this.seatsNum; i++)
       this.isSelected[i]= false;
     this.confirmed=false
-  }
+  },
+  computed: {
+    userData() {
+      return this.$store.state.user;
+    },
+  },
 };
 </script>
 
