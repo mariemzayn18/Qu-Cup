@@ -189,7 +189,7 @@
     },
     computed: {
       userData() {
-        return this.$store.state.user;
+        return  this.$auth.$storage.getLocalStorage("user") || "";
       },
       token() {
         return this.$store.state.token;

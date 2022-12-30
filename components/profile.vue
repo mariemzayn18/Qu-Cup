@@ -16,7 +16,7 @@
           </v-avatar>
           <div class="my-5">
             <p class="name">{{userData.firstName}} {{userData.lastName}}</p>
-            <p class="un">username: {{userData.username}}</p>
+            <p class="un">username: {{userData.userName}}</p>
             <p class="un">email: {{userData.email}}</p>
             <p class="un">Nationality: {{userData.nationality}}</p>
             <p class="un">birth date:{{userData.birthDate}}</p>
@@ -140,7 +140,7 @@ export default {
 },
   computed: {
     userData() {
-      return this.$store.state.user;
+      return  this.$auth.$storage.getLocalStorage("user") || "";
     },
   },
 };

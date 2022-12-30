@@ -117,7 +117,7 @@ export default {
     //   };
     // },
     userData() {
-        return this.$store.state.user;
+        return  this.$auth.$storage.getLocalStorage("user") || "";
     },
   },
   methods: {
