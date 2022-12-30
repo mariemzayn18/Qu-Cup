@@ -26,10 +26,10 @@ const reserveMatch = async(req,res)=>{
     console.log(req.body.seats)
     for( var i =0; i<req.body.seats.length; i++)
     {
-      const r = req.body.seats[i].row
-      const c = req.body.seats[i].col
+      const seat = req.body.seats[i]
+      // const c = req.body.seats[i].col
       var slot = {}
-      var seats = `seats.${r}.${c}`.toString()
+      var seats = `seats.${seat}`.toString()
       // console.log(vipSeats)
       var q = {}
       q["_id"]=matchid
@@ -59,7 +59,6 @@ const reserveMatch = async(req,res)=>{
 
     await reservation.save()
     return res.status(200).json({Reservation: reservation });
-
   }
   catch(e){
     res.status(400).send({error :true , message: e.message})
@@ -92,15 +91,16 @@ const cancelReservation = async(req,res) =>{
     var reservation = await Reservation.find({"_id":req.body._id})
     console.log(reservation)
     var matchid = new mongoose.Types.ObjectId(reservation.match)
-    if(!reservation) throw new Error('There is no reservation with this id')
+    if(reservation.length == 0) throw new Error('There is no reservation with this id')
 
     // before cancelation check if it is before 3 days from the match or not
     var cancelDate = new Date()
     // console.log(cancelDate)
     var match  = Match.find({"_id":matchid})
-    var matchDate = new Date(match.date)
+    var matchDate = new Date(match[0].date)
     // console.log(matchDate)
     dayNum = (matchDate-cancelDate)/(60 * 60 * 24 * 1000)
+    console.log('dayNum: '+ dayNum)
 
     //date check
     if(dayNum<3) res.status(400).send({msg:'Cant be canceled'})
@@ -108,10 +108,9 @@ const cancelReservation = async(req,res) =>{
     // loop for all reservation to free the seats
     for( var i =0; i<reservation.seats.length; i++)
     {
-      const r = reservation.seats[i].row
-      const c = reservation.seats[i].col
+      const seat = reservation.seats[i]
       var slot = {}
-      var seats = `seats.${r}.${c}`.toString()
+      var seats = `seats.${seat}`.toString()
       // console.log(vipSeats)
       var q = {}
       q["_id"]=matchid
@@ -128,6 +127,7 @@ const cancelReservation = async(req,res) =>{
     }
 
   }catch(error){
+    console.log(error)
     res.status(400).send({error :true , message: e.message})
   }
 
