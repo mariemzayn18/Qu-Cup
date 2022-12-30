@@ -132,17 +132,18 @@ export const actions = {
         console.log(err);
       });
   },
-  async getUsers({ commit }) {
+  async getUsers({ commit },token) {
     console.log("get userrrr");
     await axios
       .get("http://localhost:8080/admin/allusers", {
         headers: {
-          Authorization: `Bearer ${this.state.token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         console.log("get users showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
+        commit("all_users", res.data.users);
       })
       .catch((err) => {
         console.log("Error in get user");
@@ -228,6 +229,21 @@ export const mutations = {
       match["seats"] = matchDetails[i].seats;
       match["seatsNum"] = matchDetails[i].seats.length;
       state.matchDetails.push(match);
+    }
+  },
+  all_users(state, users) {
+    state.users = [];
+    for (var i = 0; i < users.length; i++) {
+      var user = {};
+      user["username"] = users[i].userName;
+      user["firstName"] = users[i].firstName;
+      user["lastName"] = users[i].lastName;
+      user["password"] = users[i].password;
+      user["email"] = users[i].email;
+      user["birthDate"] = users[i].birthDate;
+      user["role"] = users[i].role;
+      user["ID"] = users[i]._id;
+      state.users.push(user);
     }
   },
 };

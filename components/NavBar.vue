@@ -30,7 +30,7 @@
           grow
           align-with-title
           background-color="transparent"
-          color="#6e1131"
+          color="#d3d5d5"
           v-if="userData.role && userData.role == 'admin'"
         >
           <v-tab
@@ -116,6 +116,8 @@
         </v-dialog>
       </v-col>
     </v-row>
+    
+
   </v-container>
 </template>
 
@@ -147,7 +149,7 @@ export default {
       ],
       adminTabs: [
         { name: "Users", route: "/currentUsers" },
-        // { name: "Requests", route: "/usersRequests" },
+        { name: "Requests", route: "/usersRequests" },
       ],
     };
   },
@@ -190,10 +192,10 @@ a {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 75px;
+  height: 65px;
   -webkit-backdrop-filter: blur(11px);
-  backdrop-filter: blur(11px);
-  background-color: #d3d5d590;
+  backdrop-filter: blur(17px);
+  background-color: #6e1131;
 }
 .v-tab--exact--active v-tab {
   font-size: 20px !important;

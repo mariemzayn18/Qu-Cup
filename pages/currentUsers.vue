@@ -43,7 +43,7 @@
                 ></v-img>
               </v-avatar>
               <h3 class="text-h5 mb-2">
-                {{ selected.name }}
+                {{ selected.firstName }} {{ selected.lastName}}
               </h3>
               <div class="mb-2 colors">
                 {{ selected.email }}
@@ -55,14 +55,14 @@
             <v-divider></v-divider>
             <v-row class="text-left" tag="v-card-text">
               <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                Company:
+                Nationality:
               </v-col>
-              <v-col>{{ selected.company.name }}</v-col>
+              <v-col>{{ selected.nationality }}</v-col>
 
               <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                Phone:
+                Birth Date:
               </v-col>
-              <v-col>{{ selected.phone }}</v-col>
+              <v-col>{{ selected.birthDate }}</v-col>
               <v-col cols="12 " class="text-center">
                 <button
                   id="btn2"
@@ -97,13 +97,16 @@ export default {
     TheButton,
   },
   data: () => ({
+    token:"",
     active: [],
     avatar: null,
     open: [],
-    users: [],
   }),
 
   computed: {
+    users() {
+      return this.$store.state.users;
+    },
     items() {
       return [
         {
@@ -129,18 +132,20 @@ export default {
     removeUser() {
       this.$store.dispatch("deleteUser", {});
     },
-    async fetchUsers(item) {
+     fetchUsers(item) {
       console.log("getUsers");
-      this.$store.dispatch("getUsers");
-      // return fetch("https://jsonplaceholder.typicode.com/users")
-      //   .then((res) => res.json())
-      //   .then((json) => item.children.push(...json))
-      //   .catch((err) => console.warn(err));
+      this.$store.dispatch("getUsers" ,this.token);
+      console.log("getYYYYYYYYYYYYUsers");
+      console.log(this.$store.state.users);
     },
     randomAvatar() {
       this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
     },
   },
+  mounted(){
+    
+   this.token=localStorage.getItem("token");
+  }
 };
 </script>
 
