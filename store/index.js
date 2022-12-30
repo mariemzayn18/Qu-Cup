@@ -156,24 +156,7 @@ export const actions = {
     console.log(match);
     console.log(this.state.token);
     //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWMwMzIxN2IzZDRiMzc2NGM5ZTdiOCIsInJvbGUiOiJtYW5hZ2VyIiwiaWF0IjoxNjcyMzQ4ODI5fQ.MXYN2gSsPZGDZ0EV5UYY2KKHcol-nQMHFnNRmrneeeY
-    await axios
-      .post("http://localhost:8888/manager/match", 
-        match,
-        {
-          headers: {
-            Authorization: `Bearer ${this.state.token}`,
-          },
-        }         
-      )
-      .then((res) => {
-        console.log(res.data);
-        const user = res.data.user;
-        const token = res.data.token;
-        // commit("auth_init", user, token);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    
   },
   async editMatch({ commit }, match) {
     console.log(match);
