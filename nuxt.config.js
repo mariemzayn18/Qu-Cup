@@ -39,12 +39,17 @@ export default {
     "@nuxtjs/auth-next",
   ],
   axios: {
-    baseURL: "http://localhost:8000",
+    baseURL: "http://localhost:9090",
     credentials: true,
   },
-  auth: {},
+  auth: {
+    token: {
+      prefix: "_token.",
+      global: true,
+    },
+  },
   // proxy: {
-  //   '/api/': { target: 'http://localhost:8000', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+  //   '/api/': { target: 'http://localhost:9090', pathRewrite: {'^/api/': ''}, changeOrigin: true }
   // },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

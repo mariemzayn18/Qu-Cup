@@ -148,6 +148,8 @@ export default {
   },
   data() {
     return {
+      userData:{},
+      token:"",
       showDialog: false,
       reserveTicket: false,
       showEdit: false,
@@ -199,13 +201,10 @@ export default {
         });
     },
   },
-  computed: {
-    userData() {
-      return this.$auth.$storage.getLocalStorage("user") || "";
-    },
-    token() {
-      return this.$auth.$storage.getLocalStorage("token") || "";
-    },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"));
+    this.token=localStorage.getItem("token")
+
   },
 };
 </script>

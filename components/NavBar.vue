@@ -14,7 +14,7 @@
           align-with-title
           background-color="transparent"
           color="#d3d5d5"
-          v-if="userData.role == 'fan'"
+          v-if="userData.role &&  userData.role == 'fan'"
         >
           <v-tab
             v-for="tab in tabs"
@@ -31,7 +31,7 @@
           align-with-title
           background-color="transparent"
           color="#6e1131"
-          v-if="userData.role == 'admin'"
+          v-if="userData.role && userData.role == 'admin'"
         >
           <v-tab
             v-for="tab in adminTabs"
@@ -43,10 +43,10 @@
           >
         </v-tabs>
       </v-col>
-      <v-col v-if="auth && userData.role == 'admin'">
+      <v-col v-if="auth && userData.role && userData.role == 'admin'">
         <userRequests />
       </v-col>
-      <v-col v-if="auth && !(userData.role == 'admin')">
+      <v-col v-if="auth && !( userData.role && userData.role == 'admin')">
         <TheButton
           @clicked="showDropdownList = !showDropdownList"
           text="Profile"
@@ -88,7 +88,7 @@
         <TheButton route="/signup" text="Sign Up" />
       </v-col>
           <!-------------------  Manager ---------------------->
-      <v-col v-if="userData.role == 'manager' && auth">
+      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
         <TheButton
           @clicked="showAddMatch = !showAddMatch"
           text="New match"
@@ -102,7 +102,7 @@
             <AddMatch v-show="showAddMatch" />
         </v-dialog>
       </v-col>
-      <v-col v-if="userData.role == 'manager' && auth">
+      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
         <TheButton
           @clicked="showNewStadium = !showNewStadium"
           text="New stadium"
@@ -135,6 +135,7 @@ export default {
   },
   data() {
     return {
+      userData:{},
       showDropdownList: false,
       showProfile: false,
       auth:true,
@@ -150,10 +151,9 @@ export default {
       ],
     };
   },
-  computed: {
-    userData() {
-      return  this.$auth.$storage.getLocalStorage("user") || "";
-    },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"))|| {};
+
   },
   methods:{
     async res(){

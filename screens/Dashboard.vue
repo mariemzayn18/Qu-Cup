@@ -42,74 +42,25 @@ export default {
 
   data() {
     return {
-      matches: [
-        // {
-        //   oponent1_flag: "argentina.png",
-        //   oponent2_flag: "croatia.png",
-        //   oponent1_name: "Argentina",
-        //   oponent2_name: "Croatia",
-        //   date: "Nov 22",
-        //   time: "9:00pm",
-        //   stadium: "Qatar",
-        //   mainReferee: "",
-        //   linesMen: "",
-        // },
-        // {
-        //   oponent1_flag: "argentina.png",
-        //   oponent2_flag: "croatia.png",
-        //   oponent1_name: "Argentina",
-        //   oponent2_name: "Croatia",
-        //   date: "Nov 23",
-        //   time: "9:00pm",
-        //   stadium: "Qatar",
-        //   mainReferee: "",
-        //   linesMen: "",
-        // },
-        // {
-        //   oponent1_flag: "argentina.png",
-        //   oponent2_flag: "croatia.png",
-        //   oponent1_name: "Argentina",
-        //   oponent2_name: "Croatia",
-        //   date: "Nov 23",
-        //   time: "9:00pm",
-        //   stadium: "Qatar",
-        //   mainReferee: "",
-        //   linesMen: "",
-        // },
-        // {
-        //   oponent1_flag: "argentina.png",
-        //   oponent2_flag: "croatia.png",
-        //   oponent1_name: "Argentina",
-        //   oponent2_name: "Croatia",
-        //   date: "Nov 23",
-        //   time: "9:00pm",
-        //   stadium: "Qatar",
-        //   mainReferee: "",
-        //   linesMen: "",
-        // },
-      ],
+      matches: [],
+      userData:{},
+      token:"",
     };
   },
   created() {
     this.$store.dispatch("matchDetails");
-    // while (this.userData.token)
-    // {
-    //   if( this.userData.token)
-    //   break
-    // }
-    // console.log("get OUT OF THE LOOP")
-    // console.log(this.userData.token)
-    // this.$auth.$storage.setLocalStorage("token", this.userData.token)
-    // console.log(this.$auth.$storage.getLocalStorage("token"))
   },
   computed: {
     matchDetails() {
       return this.$store.state.matchDetails;
     },
-    userData() {
-      return  this.$auth.$storage.getLocalStorage("user") || "";
-    },
   },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"));
+    this.token=localStorage.getItem("token")
+
+  },
+
 };
 </script>
 
