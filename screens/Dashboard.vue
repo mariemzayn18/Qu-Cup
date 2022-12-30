@@ -22,6 +22,7 @@
             :mainReferee="match.mainReferee"
             :lineMan1="match.lineMan1"
             :lineMan2="match.lineMan2"
+            :ID="match.ID"
           >
             <!-- :time="match.time" -->
           </matchDetails>
@@ -89,10 +90,22 @@ export default {
   },
   created() {
     this.$store.dispatch("matchDetails");
+    // while (this.userData.token)
+    // {
+    //   if( this.userData.token)
+    //   break
+    // }
+    // console.log("get OUT OF THE LOOP")
+    // console.log(this.userData.token)
+    // this.$auth.$storage.setLocalStorage("token", this.userData.token)
+    // console.log(this.$auth.$storage.getLocalStorage("token"))
   },
   computed: {
     matchDetails() {
       return this.$store.state.matchDetails;
+    },
+    userData() {
+      return  this.$auth.$storage.getLocalStorage("user") || "";
     },
   },
 };
