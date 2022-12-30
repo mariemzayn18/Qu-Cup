@@ -72,7 +72,7 @@
         >
           RESERVE TICKET
         </button>
-        <reservationForm class="pt-6" v-show="reserveTicket"> </reservationForm>
+        <reservationForm class="pt-6" v-show="reserveTicket" :ID="ID" :seatsNum="seatsNum" :seats="seats"> </reservationForm>
         
         <button
           v-if='userData.role == "manager"' 
@@ -129,7 +129,9 @@ export default {
     mainReferee: String,
     lineMan1: String,
     lineMan2: String,
-    ID:String
+    ID:String,
+    seats:Array,
+    seatsNum:Number
   },
   data() {
     return {

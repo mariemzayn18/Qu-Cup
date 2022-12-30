@@ -23,6 +23,8 @@
             :lineMan1="match.lineMan1"
             :lineMan2="match.lineMan2"
             :ID="match.ID"
+            :seats="match.seats"
+            :seatsNum="match.seatsNum"
           >
             <!-- :time="match.time" -->
           </matchDetails>

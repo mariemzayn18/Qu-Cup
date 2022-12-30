@@ -122,12 +122,12 @@ export default {
   },
   methods: {
       cancelReservation(){
-        let _id=this.userData.ID;
+        let _id=this.userData._id;
         this.$store.dispatch('cancelReservation',{_id})
       },
     },
    created(){
-        let _id=this.userData.ID;
+        let _id=this.userData._id;
         this.$store.dispatch('getReservations',{_id})
    }
 };

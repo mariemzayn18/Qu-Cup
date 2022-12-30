@@ -87,22 +87,7 @@ export const actions = {
       });
   },
   //--------------------------- check btb3ty eh f el body? ----------------------------
-  async reserveMatch({ commit }, match) {
-    await axios
-      .post("http://localhost:8888/fan/reservation", match,
-      {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      }
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+  
   async getReservations({ commit }, _id) {
     console.log("qqqqqqqqqqq")
     console.log(_id)
@@ -264,8 +249,11 @@ export const mutations = {
       match["lineMan1"] = matchDetails[i].lineMan1;
       match["lineMan2"] = matchDetails[i].lineMan2;
       match["ID"] = matchDetails[i]._id;
+      match["seats"] = matchDetails[i].seats;
+      match["seatsNum"] = matchDetails[i].seats.length;
       console.log("MATCH DETAILS")
-      console.log(matchDetails[i]._id)
+      console.log(matchDetails[i].seats)
+      console.log( matchDetails[i].seats.length)
 
       state.matchDetails.push(match);
     }
