@@ -16,15 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "http://localhost:3000",
-    methods: ["GET", "POST", "DELETE", "PUT","PATCH"],
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   })
 ); // Use this after the variable declaration
 
-const PORT = 8888;
-app.listen(PORT, async () => {
-  var d = await bcrypt.hash("1234567", 12)
-  console.log(d)
-  console.log("server started at port 8888");
+const PORT = 8000;
+app.listen(PORT, () => {
+  console.log("server started at port 8000");
 });
 
 app.use("", userRouter);

@@ -19,8 +19,7 @@
             class="flag"
             :src="require(`~/assets/icons/${oponent1_flag}`)"
             alt="oponent 1"
-        /></v-col> 
-        </v-row
+        /></v-col> </v-row
       ><v-row>
         <v-col class="d-flex align-center">
           <p class="teams">{{ oponent2_name }}</p>
@@ -37,11 +36,16 @@
       <v-btn id="btn" class="text-center" @click="viewDetails">
         VIEW DETAILS</v-btn
       >
-      <v-btn v-if='userData.role == "manager"'  id="btn" class="text-center" @click="showEdit = true">
+      <v-btn
+        v-if="userData.role == 'manager'"
+        id="btn"
+        class="text-center"
+        @click="showEdit = true"
+      >
         EDIT MATCH</v-btn
       >
     </v-card-actions>
-    <v-dialog 
+    <v-dialog
       v-model="showDialog"
       transition="dialog-bottom-transition"
       scrollable
@@ -68,14 +72,21 @@
           @click="ticketReservation"
           id="btn2"
           class="text-center pa-3"
-          v-if='userData.role == "fan"' 
+          v-if="userData.role == 'fan'"
         >
           RESERVE TICKET
         </button>
-        <reservationForm class="pt-6" v-show="reserveTicket" :ID="ID" :seatsNum="seatsNum" :seats="seats"> </reservationForm>
-        
+        <reservationForm
+          class="pt-6"
+          v-show="reserveTicket"
+          :ID="ID"
+          :seatsNum="seatsNum"
+          :seats="seats"
+        >
+        </reservationForm>
+
         <button
-          v-if='userData.role == "manager"' 
+          v-if="userData.role == 'manager'"
           @click="viewSeats"
           id="btn2"
           class="text-center pa-3"
@@ -83,31 +94,33 @@
           SEATS STATUS
         </button>
         <v-container v-show="showSeats">
-        <v-row class="ma-4">
+          <v-row class="ma-4">
             <v-col v-for="i in VIPSeats.length" :key="i" cols="1">
-                <v-icon class="seat-icon" size="30" color="#6e1131" :class="{reserved:VIPSeats[i]}" >mdi-seat</v-icon>   
+              <v-icon
+                class="seat-icon"
+                size="30"
+                color="#6e1131"
+                :class="{ reserved: VIPSeats[i] }"
+                >mdi-seat</v-icon
+              >
             </v-col>
-        </v-row>
-    </v-container>
-        
+          </v-row>
+        </v-container>
       </v-card>
     </v-dialog>
     <v-dialog
-          v-model="showEdit"
-          transition="dialog-bottom-transition"
-          scrollable
-          width="1300"
-        >
-            <EditMatch 
-            v-show="showEdit"
-            :ID="ID"
-             />
-        </v-dialog>
+      v-model="showEdit"
+      transition="dialog-bottom-transition"
+      scrollable
+      width="1300"
+    >
+      <EditMatch v-show="showEdit" :ID="ID" />
+    </v-dialog>
   </v-card>
 </template>
 <script>
 import reservationForm from "./ReservationForm.vue";
-import EditMatch from "./EditMatch.vue"
+import EditMatch from "./EditMatch.vue";
 import axios from "axios";
 import matchDetails from "./MatchDetailsCard.vue";
 
@@ -129,17 +142,17 @@ export default {
     mainReferee: String,
     lineMan1: String,
     lineMan2: String,
-    ID:String,
-    seats:Array,
-    seatsNum:Number
+    ID: String,
+    seats: Array,
+    seatsNum: Number,
   },
   data() {
     return {
       showDialog: false,
       reserveTicket: false,
-      showEdit:false,
-      showSeats:false,
-      VIPSeats:[]
+      showEdit: false,
+      showSeats: false,
+      VIPSeats: [],
     };
   },
   methods: {
@@ -147,11 +160,10 @@ export default {
       this.reserveTicket = true;
     },
     viewDetails() {
-      this.showDialog = true
+      this.showDialog = true;
       // // TODO get id from props
       // this.ID="63ac638c8a2242b48201c541"
       // this.$store.dispatch("getMatch", this.ID);
-
     },
     // viewSeats(){
     //   this.showSeats= ! this.showSeats
@@ -162,33 +174,30 @@ export default {
 
     // },
     async viewSeats() {
-    //TODO need to set this id
-    this.showSeats= ! this.showSeats
-       // // TODO get id from props
-      let ID= this.ID
-      console.log("VIEW SEATS")
-      console.log(this.token)
-    await axios
-      .get(`http://localhost:8888/manager/match/viewseats/${ID}`,
-      {
-        headers: {
-          Authorization:  `Bearer ${this.token}`,
-        },
-      } 
-      )
-      .then((res) => {
-        // TODO reflect the vacant seats
-        console.log("$######### showwwwwwwwwwwwwwwwwww");
-       
-        this.VIPSeats=res.data.VIPSeats
-        console.log(this.VIPSeats);
+      //TODO need to set this id
+      this.showSeats = !this.showSeats;
+      // // TODO get id from props
+      let ID = this.ID;
+      console.log("VIEW SEATS");
+      console.log(this.token);
+      await axios
+        .get(`http://localhost:8000/manager/match/viewseats/${ID}`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((res) => {
+          // TODO reflect the vacant seats
+          console.log("$######### showwwwwwwwwwwwwwwwwww");
 
-      })
-      .catch((err) => {
-        console.log("Error in edit match");
-        console.log(err);
-      });
-  },
+          this.VIPSeats = res.data.VIPSeats;
+          console.log(this.VIPSeats);
+        })
+        .catch((err) => {
+          console.log("Error in edit match");
+          console.log(err);
+        });
+    },
   },
   computed: {
     userData() {
@@ -236,7 +245,7 @@ export default {
   height: max-content;
   border-radius: 2px !important;
 }
-.reserved{
-    color:gray !important;
+.reserved {
+  color: gray !important;
 }
 </style>

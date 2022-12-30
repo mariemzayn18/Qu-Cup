@@ -2,8 +2,15 @@
   <div class="home px-6 px-md-10 my-16">
     <v-container fluid>
       <v-row class="text-center">
+        <v-col v-if="tickets.length == 0">
+          <v-alert shaped color="white" icon="mdi-heart">
+            you don't have any tickets yet! hurry up and catch your
+            ticket</v-alert
+          >
+        </v-col>
         <v-col
-          v-for="(match, count) in matchDetails"
+          v-else
+          v-for="(match, count) in tickets"
           :key="count"
           cols="12"
           sm="6"
@@ -57,8 +64,14 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import matchDetails from "../components/MatchDetails";
 export default {
+  data() {
+    return {
+      tickets: [],
+    };
+  },
   components: {
     matchDetails,
   },
@@ -66,70 +79,56 @@ export default {
     matchDetails() {
       return this.$store.state.matchDetails;
     },
-    // data() {
-    //   return {
-    //     matches: [
-    //       {
-    //         oponent1_flag: "argentina.png",
-    //         oponent2_flag: "croatia.png",
-    //         oponent1_name: "Argentina",
-    //         oponent2_name: "Croatia",
-    //         date: "Nov 22",
-    //         time: "9:00pm",
-    //         stadium: "Qatar",
-    //         mainReferee: "",
-    //         linesMen: "",
-    //       },
-    //       {
-    //         oponent1_flag: "argentina.png",
-    //         oponent2_flag: "croatia.png",
-    //         oponent1_name: "Argentina",
-    //         oponent2_name: "Croatia",
-    //         date: "Nov 23",
-    //         time: "9:00pm",
-    //         stadium: "Qatar",
-    //         mainReferee: "",
-    //         linesMen: "",
-    //       },
-    //       {
-    //         oponent1_flag: "argentina.png",
-    //         oponent2_flag: "croatia.png",
-    //         oponent1_name: "Argentina",
-    //         oponent2_name: "Croatia",
-    //         date: "Nov 23",
-    //         time: "9:00pm",
-    //         stadium: "Qatar",
-    //         mainReferee: "",
-    //         linesMen: "",
-    //       },
-    //       {
-    //         oponent1_flag: "argentina.png",
-    //         oponent2_flag: "croatia.png",
-    //         oponent1_name: "Argentina",
-    //         oponent2_name: "Croatia",
-    //         date: "Nov 23",
-    //         time: "9:00pm",
-    //         stadium: "Qatar",
-    //         mainReferee: "",
-    //         linesMen: "",
-    //       },
-    //     ],
-    //   };
-    // },
+
     userData() {
-        return  this.$auth.$storage.getLocalStorage("user") || "";
+      return this.$auth.$storage.getLocalStorage("user") || "";
+    },
+    token() {
+      return this.$auth.$storage.getLocalStorage("token") || "";
     },
   },
   methods: {
-      cancelReservation(){
-        let _id=this.userData._id;
-        this.$store.dispatch('cancelReservation',{_id})
-      },
+    async cancelReservation() {
+      let _id = this.userData.ID;
+      await axios
+        .post(
+          "http://localhost:8000/fan/cancelreservation",
+          { _id },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-   created(){
-        let _id=this.userData._id;
-        this.$store.dispatch('getReservations',{_id})
-   }
+  },
+  async created() {
+    let _id = this.userData.ID;
+    await axios
+      .post(
+        "http://localhost:8000/fan/allreservation",
+        { _id },
+        {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("get reserbationsss");
+        console.log(res.data);
+        this.tickets = res.data.allResponseData;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
 </script>
 
