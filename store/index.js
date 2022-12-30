@@ -237,7 +237,12 @@ export const actions = {
   async approveUser({ commit }, ID) {
     console.log("approve user");
     await axios
-      .post(`http://localhost:8888/admin/approve`, ID)
+      .post(`http://localhost:8888/admin/approve`, ID,
+      {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      })
       .then((res) => {
         console.log("approve user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -250,7 +255,11 @@ export const actions = {
   async getUsers({ commit }) {
     console.log("get userrrr");
     await axios
-      .get("http://localhost:8888/admin/allusers")
+      .get("http://localhost:8888/admin/allusers", {
+        headers: {
+          Authorization: `Bearer ${this.state.token}`,
+        },
+      })
       .then((res) => {
         console.log("get users showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
@@ -263,7 +272,10 @@ export const actions = {
   async deleteUser({ commit }, ID) {
     console.log("delete user");
     await axios
-      .delete(`http://localhost:8888/admin/${ID}`)
+      .delete(`http://localhost:8888/admin/${ID}`,
+      headers: {
+        Authorization: `Bearer ${this.state.token}`,
+      },)
       .then((res) => {
         console.log("delete user showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
