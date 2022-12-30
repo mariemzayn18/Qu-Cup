@@ -190,10 +190,10 @@
     },
     computed: {
       userData() {
-        return this.$auth.$storage.getLocalStorage("user");
+        return this.$auth.$storage.getLocalStorage("user") || "";
       },
       token() {
-        return this.$auth.$storage.getLocalStorage("token");
+        return this.$auth.$storage.getLocalStorage("token") || "";
       },
     },
     created(){
