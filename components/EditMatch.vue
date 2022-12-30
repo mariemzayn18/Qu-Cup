@@ -87,13 +87,13 @@
             </v-col>
             <TheButton
               @clicked="editMatch"
-              :disabled="!isValid" 
+              :disabled="!isValid"
               text="Update"
               bgColor="#6e1131"
               textColor="#d3d5d5"
             />
           </v-col>
-          <v-col cols="3"> 
+          <v-col cols="3">
                 <p>Match Date</p>
                 <v-date-picker
                 v-model="date"
@@ -148,11 +148,14 @@
     methods: {
       editMatch() {
         console.log("new match");
-        if (this.team1 == this.team2)
+        if (this.team1 == this.team2 )
             {
+              if(this.team1)
+              {
                 this.showTeamsAlert =true
                 this.showSuccessAlert=false
                 return
+              }
             }
             this.showTeamsAlert =false
             let teamOne= this.team1
@@ -163,15 +166,15 @@
             let lineMan2 =this.linesmen2
             let date = this.date +'T'+this.time
             // TODO send id ad params
-            let ID=this.ID
-            this.editMatchAction({ teamOne, teamTwo,  matchVenue,date, mainReferee, lineMan1, lineMan2},ID)
+            let matchID=this.ID
+            this.editMatchAction({ teamOne, teamTwo,  matchVenue,date, mainReferee, lineMan1, lineMan2},matchID)
             this.showAlert=true
       },
-      async editMatchAction(match,ID){
+      async editMatchAction(match,matchID){
         console.log("%%%%%%#############################3")
         console.log(this.token)
         await axios
-      .patch(`http://localhost:8888/manager/match/${ID}`,
+      .patch(`http://localhost:8888/manager/match/${matchID}`,
       match,
       {
         headers: {
@@ -201,7 +204,7 @@
       }
   };
   </script>
-  
+
   <style scoped>
   .v-text-field--outlined:deep(fieldset) {
     border: 1px solid #e5e5e5;
@@ -237,4 +240,3 @@
     color:#6e1131;
   }
   </style>
-  

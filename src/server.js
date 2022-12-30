@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-
+import bcrypt from "bcryptjs"
 import userRouter from "./routes/User.js";
 import managerRouter from "./routes/manager.js";
 import adminRouter from "./routes/admin.js";
@@ -21,7 +21,9 @@ app.use(
 ); // Use this after the variable declaration
 
 const PORT = 8888;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  var d = await bcrypt.hash("1234567", 12)
+  console.log(d)
   console.log("server started at port 8888");
 });
 

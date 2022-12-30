@@ -3,11 +3,7 @@ import {Stadium} from '../models/Stadium.js'
 
 
 const addMatch =  async (req, res) => {
-    console.log("ay 7aggggggg")
-    console.log(req.body)
     try {
-        console.log("add match")
-        console.log(req.body)
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
         await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
@@ -68,12 +64,10 @@ const addMatch =  async (req, res) => {
 }
 
 const addStadium = async (req, res) => {
-    console.log("adddddd ")
-console.log(req.body)
+
 
     try {
-        console.log("add stadium")
-        console.log(req.body)
+
         // if (!req.user.role)
         //     throw new Error('User does not have manager credentials');
         const stadium = new Stadium(req.body);
@@ -93,10 +87,20 @@ const editMatch = async (req, res) => {
         const match = await Match.findById(req.params.matchID);
         if (!match)
             throw new Error('No match was found with this id');
-        const updatedMatch = await Match.findOneAndUpdate({_id: req.params.matchID}, req.body, {new: true});
+        var matchedit = {}
+        if (req.body.teamOne) matchedit["teamOne"]=req.body.teamOne
+        if (req.body.teamTwo) matchedit["teamTwo"]= req.body.teamTwo
+        if (req.body.matchVenue) matchedit["matchVenue"] = req.body.matchVenue
+        if (req.body.date) if(req.body.date != 'T') matchedit["date"] = req.body.date
+        if (req.body.mainReferee) matchedit["mainReferee"] = req.body.mainReferee
+        if (req.body.lineMan1) matchedit["lineMan1"] = req.body.lineMan1
+        if (req.body.lineMan2) matchedit["lineMan2"]=req.body.lineMan2
+        const updatedMatch = await Match.findOneAndUpdate({_id: req.params.matchID}, matchedit, {new: true});
         res.status(200).json({match: updatedMatch});
     }
     catch(error) {
+      console.log("from edit match error")
+      console.log(error)
         res.status(400).send({message: error.message})
     }
 }

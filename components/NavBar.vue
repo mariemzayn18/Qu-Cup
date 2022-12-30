@@ -112,7 +112,7 @@
           scrollable
           width="1300"
         >
-         <NewStad v-show="showNewStadium" /> 
+         <NewStad v-show="showNewStadium" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -156,13 +156,14 @@ export default {
     },
   },
   methods:{
-    res(){
+    async res(){
       // let _id=this.userData.ID;
       //    this.$store.dispatch('getReservations',{_id})
       // this.$store.dispatch("getUsers");
       // this.$auth.$storage.setLocalStorage("token", "666")
       // console.log("YARAAAAAAAAAAAAAAAAB")
       // console.log(this.$auth.$storage.getLocalStorage("token"))
+      // var d = await bcrypt.hash("1234567", 12)
 
 
     }
