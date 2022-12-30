@@ -148,7 +148,7 @@ export default {
   },
   data() {
     return {
-      userData:{},
+      userData:{role:""},
       token:"",
       showDialog: false,
       reserveTicket: false,
@@ -202,6 +202,7 @@ export default {
     },
   },
   mounted(){
+    if (JSON.parse(localStorage.getItem("user")))
     this.userData=JSON.parse(localStorage.getItem("user"));
     this.token=localStorage.getItem("token")
 

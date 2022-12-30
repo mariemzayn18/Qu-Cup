@@ -48,7 +48,7 @@
       </v-col>
       <v-col v-if="auth && !( userData.role && userData.role == 'admin')">
         <TheButton
-          @clicked="showDropdownList = !showDropdownList"
+          @clicked="profile"
           text="Profile"
         />
         <transition name="fade">
@@ -112,7 +112,7 @@
           scrollable
           width="1300"
         >
-         <NewStad v-show="showNewStadium" />
+         <NewStad v-show="showNewStadium" /> 
         </v-dialog>
       </v-col>
     </v-row>
@@ -135,7 +135,7 @@ export default {
   },
   data() {
     return {
-      userData:{},
+      userData:{role:""},
       showDropdownList: false,
       showProfile: false,
       auth:true,
@@ -152,19 +152,16 @@ export default {
     };
   },
   mounted(){
-    this.userData=JSON.parse(localStorage.getItem("user"))|| {};
+console.log("user dattta");
+console.log(JSON.parse(localStorage.getItem("user"))) ;
+if (JSON.parse(localStorage.getItem("user")) != null)
+   this.userData=JSON.parse(localStorage.getItem("user"));
 
   },
   methods:{
-    async res(){
-      // let _id=this.userData.ID;
-      //    this.$store.dispatch('getReservations',{_id})
-      // this.$store.dispatch("getUsers");
-      // this.$auth.$storage.setLocalStorage("token", "666")
-      // console.log("YARAAAAAAAAAAAAAAAAB")
-      // console.log(this.$auth.$storage.getLocalStorage("token"))
-      // var d = await bcrypt.hash("1234567", 12)
-
+    profile(){
+      this.showDropdownList = !this.showDropdownList;
+      this.userData=JSON.parse(localStorage.getItem("user"));
 
     }
   },
