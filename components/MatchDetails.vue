@@ -18,7 +18,7 @@
         <v-col>
           <img
             class="flag"
-            :src="require(`~/assets/icons/${oponent1_flag}`)"
+            :src="require(`~/assets/icons/${randomFlags()}`)"
             alt="oponent 1"
         /></v-col> </v-row
       ><v-row>
@@ -28,7 +28,7 @@
         <v-col
           ><img
             class="flag"
-            :src="require(`~/assets/icons/${oponent2_flag}`)"
+            :src="require(`~/assets/icons/${randomFlags()}`)"
             alt="oponent 1"
         /></v-col>
       </v-row>
@@ -56,8 +56,6 @@
       <v-card class="round py-5 px-2">
         <matchDetails
           :group_number="group_number"
-          :oponent1_flag="oponent1_flag"
-          :oponent2_flag="oponent2_flag"
           :oponent1_name="oponent1_name"
           :oponent2_name="oponent2_name"
           :date="date"
@@ -133,8 +131,6 @@ export default {
   },
   props: {
     group_number: Number,
-    oponent1_flag: String,
-    oponent2_flag: String,
     oponent1_name: String,
     oponent2_name: String,
     date: String,
@@ -146,6 +142,11 @@ export default {
     ID: String,
     seats: Array,
     seatsNum: Number,
+  },
+  computed:{
+    flags() {
+      return this.$store.state.flags;
+    },
   },
   data() {
     return {
@@ -159,8 +160,13 @@ export default {
     };
   },
   methods: {
+    randomFlags() {
+      let flag = this.flags[Math.floor(Math.random() * this.flags.length)];
+      return flag;
+    },
     ticketReservation() {
       this.reserveTicket = true;
+     
     },
     viewDetails() {
       this.showDialog = true;

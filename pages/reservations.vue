@@ -33,15 +33,15 @@
               <v-row>
                 <v-col
                   ><img
-                    class="flag"
-                    :src="require(`~/assets/icons/${flag1}`)"
+                    class="flag ma-3"
+                    :src="require(`~/assets/icons/${randomFlags()}`)"
                     alt="oponent 1"
                   />
                 </v-col>
                 <v-col
                   ><img
-                    class="flag"
-                    :src="require(`~/assets/icons/${flag2}`)"
+                    class="flag ma-3"
+                    :src="require(`~/assets/icons/${randomFlags()}`)"
                     alt="oponent 1"
                   />
                 </v-col>
@@ -110,7 +110,6 @@ export default {
       token: "",
       flag1: "",
       flag2: "",
-      flags: ["argentina.png", "croatia.png"],
     };
   },
   components: {
@@ -120,9 +119,11 @@ export default {
     matchDetails() {
       return this.$store.state.matchDetails;
     },
+    flags() {
+      return this.$store.state.flags;
+    },
   },
   async mounted() {
-    this.randomFlags();
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
     console.log(" reservation");
@@ -171,8 +172,8 @@ export default {
         });
     },
     randomFlags() {
-      this.flag1 = this.flags[Math.floor(Math.random() * this.flags.length)];
-      this.flag2 = this.flags[Math.floor(Math.random() * this.flags.length)];
+      let flag = this.flags[Math.floor(Math.random() * this.flags.length)];
+      return flag;
     },
   },
 };
