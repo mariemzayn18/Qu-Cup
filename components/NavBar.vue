@@ -159,18 +159,23 @@ export default {
     };
   },
   mounted(){
-console.log("user dattta");
-console.log(JSON.parse(localStorage.getItem("user"))) ;
-if (JSON.parse(localStorage.getItem("user")) != null)
+    // check if token exists in local storage
+if (JSON.parse(localStorage.getItem("user")) !== null)
    this.userData=JSON.parse(localStorage.getItem("user"));
-   if (localStorage.getItem("token") != null)
+   // check if token in local storage is null
+   if (localStorage.getItem("token") !== null)
    {
+    console.log("not null");
       this.auth=true;
       this.token=localStorage.getItem("token")
    }
-
    else
    this.auth=false;
+
+   console.log("auth");
+   console.log(this.auth);
+   console.log(typeof( localStorage.getItem("token")));
+   console.log(localStorage.getItem("user") );
 
   },
   methods:{
@@ -185,6 +190,8 @@ if (JSON.parse(localStorage.getItem("user")) != null)
       console.log("logout");
 
       this.$router.push("/");
+         // this.$router.push({path:'/'})
+            window.location.reload(true)  
     }
   },
 };

@@ -37,6 +37,7 @@ function newFunction() {
 export const actions = {
   //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
+    console.log("LOGINNNNNNNNNNNNNNNNNN")
     await axios
       .post("http://localhost:9090/login", user)
       .then((res) => {
@@ -60,7 +61,7 @@ export const actions = {
         console.log(res.data);
         const user = res.data.user;
         const token = res.data.token;
-        commit("sign_up", user, token);
+        commit("sign_up",{ user, token});
       })
       .catch((err) => {
         console.log(err);
@@ -165,6 +166,7 @@ export const mutations = {
   sign_up(state, obj) {
     console.log("mutation signup");
     state.token = obj.token;
+    console.log(obj);
     state.user.username = obj.user.userName;
     state.user.firstName = obj.user.firstName;
     state.user.lastName = obj.user.lastName;

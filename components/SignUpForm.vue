@@ -170,7 +170,7 @@ export default {
             console.log(this.birthDate)
             console.log(this.username)
             console.log(this.password)
-            let userName= this.username
+            let username= this.username
             let password =this.password
             let firstName= this.firstName
             let lastName =this.lastName
@@ -179,7 +179,7 @@ export default {
             let nationality =this.nationality
             let email =this.email
             let role =this.role
-            this.$store.dispatch('signup',{firstName, lastName,userName,password, birthDate, gender,nationality,email,role})
+            this.$store.dispatch('signup',{firstName, lastName,username,password, birthDate, gender,nationality,email,role})
             // this.$router.push({path:'/'})
             // window.location.reload(true)  
         }
