@@ -68,7 +68,7 @@
           scrollable
           width="1300"
         >
-         <NewStad v-show="showNewStadium" /> 
+         <NewStad v-show="showNewStadium" />
         </v-dialog>
       </v-col>
       <!-- <v-col v-if="auth && userData.role && userData.role == 'admin'">
@@ -115,12 +115,12 @@
       <v-col v-if="!auth">
         <TheButton route="/signup" text="Sign Up" />
       </v-col>
-    
+
       <v-col v-if="auth">
         <TheButton text="Log out" @clicked="logout" />
-      </v-col>      
+      </v-col>
     </v-row>
-    
+
 
   </v-container>
 </template>
@@ -168,7 +168,7 @@ if (JSON.parse(localStorage.getItem("user")) != null)
       this.auth=true;
       this.token=localStorage.getItem("token")
    }
-   
+
    else
    this.auth=false;
 

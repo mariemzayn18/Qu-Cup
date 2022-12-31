@@ -23,13 +23,14 @@ const reserveMatch = async(req,res)=>{
   //   owner: userid
   //   seats:[i]
   // }
+  console.log('heloo from reserve match')
+  console.log(req.body)
   var matchid = new mongoose.Types.ObjectId(req.body.match)
-
   try{
     console.log(req.body.seats)
     for( var i =0; i<req.body.seats.length; i++)
     {
-      const seat = req.body.seats[i]
+      var seat = req.body.seats[i]
       // const c = req.body.seats[i].col
       var slot = {}
       var seats = `seats.${seat}`.toString()
@@ -42,6 +43,7 @@ const reserveMatch = async(req,res)=>{
       update[seats]=true
 
       var slot = await Match.findOneAndUpdate(q, {$set: update}, { useFindAndModify: false})
+
       if(!slot){
         return res.status(400).send('Seat is not available,Please choose another one')
       }
@@ -68,22 +70,21 @@ const reserveMatch = async(req,res)=>{
     res.status(400).send({error :true , message: e.message})
   }
 }
- 
- 
+
+
 const getAllUserReservations = async(req,res)=>{
   try{
-    // this id should get from the login user not from the body
-    allResponseData =[]
-    console.log("before find")
+    var allResponseData =[]
 
-    allRes = Reservation.find({"owner": req.body._id})
-    console.log("after find")
+
+    var allRes = await Reservation.find({"owner": req.body._id})
+
     console.log(allRes)
     for(var i = 0 ;i<allRes.length;i++)
     {
-      var match  = Match.find({"_id":allRes[i].match})
+      var matchObj  =await Match.find({"_id":allRes[i].match})
       var reserve = JSON.parse(JSON.stringify(allRes[i]))
-      reserve.match = match
+      reserve.match = matchObj
       allResponseData.push(reserve)
     }
     console.log(allResponseData)
@@ -99,19 +100,21 @@ const cancelReservation = async(req,res) =>{
     // body {
     //   _id : id of the reservation
     // }
-    var reservation = await Reservation.find({"_id":req.body._id})
-    console.log(reservation)
-    var matchid = new mongoose.Types.ObjectId(reservation.match)
+    var reservation = await Reservation.findById(req.body._id)
+
+    var matchid = reservation.match
+
     if(reservation.length == 0) throw new Error('There is no reservation with this id')
 
     // before cancelation check if it is before 3 days from the match or not
     var cancelDate = new Date()
-    // console.log(cancelDate)
-    var match  = Match.find({"_id":matchid})
-    var matchDate = new Date(match[0].date)
-    // console.log(matchDate)
-    dayNum = (matchDate-cancelDate)/(60 * 60 * 24 * 1000)
-    console.log('dayNum: '+ dayNum)
+
+    var match  = await Match.findById(matchid.valueOf())
+
+    var matchDate = new Date(match.date)
+
+    var dayNum = Math.abs(matchDate-cancelDate)/(60 * 60 * 24 * 1000)
+
 
     //date check
     if(dayNum<3) res.status(400).send({msg:'Cant be canceled'})
@@ -122,7 +125,6 @@ const cancelReservation = async(req,res) =>{
       const seat = reservation.seats[i]
       var slot = {}
       var seats = `seats.${seat}`.toString()
-      // console.log(vipSeats)
       var q = {}
       q["_id"]=matchid
 
@@ -131,14 +133,12 @@ const cancelReservation = async(req,res) =>{
 
       var slot = await Match.findOneAndUpdate(q, {$set: update}, { useFindAndModify: false})
       if(!slot) throw Error("Failed to free slots")
-
-      //delete reservation
-      await Reservation.deleteOne({"_id":id})
+      await Reservation.deleteOne({"_id":req.body._id})
       return res.status(200).send({msg:"Successfully deleted"})
     }
 
-  }catch(error){
-    console.log(error)
+  }catch(e){
+    console.log(e)
     res.status(400).send({error :true , message: e.message})
   }
 

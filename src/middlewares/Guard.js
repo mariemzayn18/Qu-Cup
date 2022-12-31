@@ -9,7 +9,7 @@ const adminAuth = (req,res, next)=>{
         console.log(token);
         const payload  = Jwt.verify(token,SECRET_KEY)
         console.log(payload);
-        
+
         if(payload.role != "admin")
             throw new Error
         next()
@@ -21,11 +21,9 @@ const adminAuth = (req,res, next)=>{
 }
 
 const fanAuth = (req,res, next)=>{
-    console.log("authhh fan")
-    console.log(req)
     try{
         console.log("authhh fan22")
-        
+
         const bearer = req.headers.authorization;
         const token = bearer?.split(" ")[1];
         console.log(token)
@@ -44,7 +42,7 @@ const fanAuth = (req,res, next)=>{
 }
 
 const managerAuth = (req,res, next)=>{
-    
+
     console.log(req)
     try{
         const bearer = req.headers.authorization;
@@ -69,7 +67,7 @@ const userAuth = (req,res, next)=>{
         const token = bearer?.split(" ")[1];
         const payload  = Jwt.decode(token)
         if(payload.role == 'fan' || payload.role == "manager" || payload.role == "admin")
-            next() 
+            next()
         else throw new Error
     }
     catch(err){
