@@ -17,6 +17,7 @@
           </template>
         </v-treeview>
       </v-col>
+
       <v-divider vertical></v-divider>
 
       <v-col class="d-flex text-center">
@@ -60,23 +61,36 @@
               <v-col>{{ selected.nationality }}</v-col>
 
               <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                Birth Date:
+                BirthDate:
               </v-col>
               <v-col>{{ selected.birthDate }}</v-col>
-              <v-col>
-                <v-alert v-show="showAlert" shaped type="success"
-                  >user deleted successfully</v-alert
+              <v-row>
+                <v-col cols="6 " class="text-center">
+                  <button
+                    id="btn1"
+                    class="text-center pa-3 mt-4"
+                    @click="approveUser(selected.ID)"
+                  >
+                    APPROVE
+                  </button>
+                </v-col>
+                <v-col cols="6" class="text-center">
+                  <button
+                    id="btn2"
+                    class="text-center pa-3 mt-4"
+                    @click="removeUser"
+                  >
+                    DISAPPROVE
+                  </button>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                  ><v-alert v-show="showAlert" shaped type="success"
+                    >user approved successfully</v-alert
+                  ></v-col
                 >
-              </v-col>
-              <v-col cols="12 " class="text-center">
-                <button
-                  id="btn2"
-                  class="text-center pa-3 mt-4"
-                  @click="removeUser(selected.ID)"
-                >
-                  REMOVE USER
-                </button>
-              </v-col>
+              </v-row>
             </v-row>
           </v-card>
         </v-scroll-y-transition>
@@ -108,12 +122,10 @@ export default {
     active: [],
     avatar: null,
     open: [],
+    users: [],
   }),
 
   computed: {
-    users() {
-      return this.$store.state.users;
-    },
     items() {
       return [
         {
@@ -129,6 +141,9 @@ export default {
 
       return this.users.find((user) => user.id === id);
     },
+    // users() {
+    //   return this.$store.state.users;
+    // },
   },
 
   watch: {
@@ -136,26 +151,32 @@ export default {
   },
 
   methods: {
-    async removeUser(userid) {
+    removeUser() {},
+    async approveUser(ID) {
+      //TODOmake it equal to ID
+      let userId = "63ae17b2b1174f3dc8f4d0fc";
       await axios
-        .delete(`http://localhost:9090/admin/${userid}`, {
+        .post(`http://localhost:9090/admin/approve`, {userId}, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {
+          console.log("approve user showwwwwwwwwwwwwwwwwww");
+          console.log(res.data);
           this.showAlert = true;
         })
         .catch((err) => {
-          console.log("Error in delete user");
+          console.log("Error in approve user");
           console.log(err);
         });
     },
-    fetchUsers(item) {
-      console.log("getUsers");
-      this.$store.dispatch("getUsers", this.token);
-      console.log("getYYYYYYYYYYYYUsers");
-      console.log(this.$store.state.users);
+    async fetchUsers(item) {
+      // this.$store.dispatch("getRequests", this.token);
+      return fetch("https://jsonplaceholder.typicode.com/users")
+        .then((res) => res.json())
+        .then((json) => item.children.push(...json))
+        .catch((err) => console.warn(err));
     },
     randomAvatar() {
       this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
@@ -179,6 +200,16 @@ export default {
   cursor: pointer;
   color: white;
   background-color: red;
+  margin: auto;
+  padding: auto;
+}
+#btn1 {
+  text-transform: unset !important;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(8, 187, 8);
   margin: auto;
   padding: auto;
 }

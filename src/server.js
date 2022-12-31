@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import userRouter from "./routes/User.js";
 import managerRouter from "./routes/manager.js";
 import adminRouter from "./routes/admin.js";

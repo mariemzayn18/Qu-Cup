@@ -43,10 +43,10 @@
           >
         </v-tabs>
       </v-col>
-      <v-col v-if="auth && userData.role && userData.role == 'admin'">
+      <!-- <v-col v-if="auth && userData.role && userData.role == 'admin'">
         <userRequests />
-      </v-col>
-      <v-col v-if="auth && !( userData.role && userData.role == 'admin')">
+      </v-col> -->
+      <v-col v-if="token">
         <TheButton
           @clicked="profile"
           text="Profile"
@@ -138,6 +138,7 @@ export default {
   data() {
     return {
       userData:{role:""},
+      token: null,
       showDropdownList: false,
       showProfile: false,
       auth:true,
@@ -158,6 +159,7 @@ console.log("user dattta");
 console.log(JSON.parse(localStorage.getItem("user"))) ;
 if (JSON.parse(localStorage.getItem("user")) != null)
    this.userData=JSON.parse(localStorage.getItem("user"));
+   this.token=localStorage.getItem("token")
 
   },
   methods:{

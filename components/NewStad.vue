@@ -131,7 +131,7 @@ export default {
       let VIPRows = this.rowsNum;
       await axios
         .post(
-          "http://localhost:8000/manager/stadium",
+          "http://localhost:9090/manager/stadium",
           { name, VIPRows, VIPSeatsPerRow },
           {
             headers: {
@@ -152,11 +152,9 @@ export default {
     for (let i = 2; i < this.seatsNum; i += 3) this.isReserved[i] = true;
     this.confirmed = false;
   },
-  mounted(){
-    this.token=localStorage.getItem("token")
-
+  mounted() {
+    this.token = localStorage.getItem("token");
   },
-  
 };
 </script>
 <style>

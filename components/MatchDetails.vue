@@ -148,8 +148,8 @@ export default {
   },
   data() {
     return {
-      userData:{role:""},
-      token:"",
+      userData: { role: "" },
+      token: "",
       showDialog: false,
       reserveTicket: false,
       showEdit: false,
@@ -183,7 +183,7 @@ export default {
       console.log("VIEW SEATS");
       console.log(this.token);
       await axios
-        .get(`http://localhost:8000/manager/match/viewseats/${ID}`, {
+        .get(`http://localhost:9090/manager/match/viewseats/${ID}`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -201,11 +201,10 @@ export default {
         });
     },
   },
-  mounted(){
+  mounted() {
     if (JSON.parse(localStorage.getItem("user")))
-    this.userData=JSON.parse(localStorage.getItem("user"));
-    this.token=localStorage.getItem("token")
-
+      this.userData = JSON.parse(localStorage.getItem("user"));
+    this.token = localStorage.getItem("token");
   },
 };
 </script>

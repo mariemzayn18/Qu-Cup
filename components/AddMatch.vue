@@ -192,7 +192,7 @@ export default {
       console.log("FFFFFFFFFFFFFFF");
       console.log(this.token);
       await axios
-        .post("http://localhost:8000/manager/match", match, {
+        .post("http://localhost:9090/manager/match", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -202,11 +202,10 @@ export default {
           console.log(err);
         });
     },
-  }, 
-  mounted(){
-    this.userData=JSON.parse(localStorage.getItem("user"));
-    this.token=localStorage.getItem("token")
-
+  },
+  mounted() {
+    this.userData = JSON.parse(localStorage.getItem("user"));
+    this.token = localStorage.getItem("token");
   },
   created() {
     this.showSuccessAlert = false;
