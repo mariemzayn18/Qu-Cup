@@ -2,7 +2,7 @@
   <!-- <MobNavBarVue v-if="$vuetify.breakpoint.smAndDown" /> -->
   <v-container fluid class="navbar">
     <v-row class="nav-bar justify-center align-center">
-      <v-col cols="3">
+      <v-col cols="2">
         <nuxt-link to="/">
           <div class="logo">
             <img src="~assets/icons/ball.png" alt="" />
@@ -121,7 +121,7 @@
       </v-col>
 
       <v-col v-if="auth">
-        <TheButton text="Log out" @clicked="logout" />
+        <TheButton text="Log out" @clicked="logout" route="/" />
       </v-col>
     </v-row>
 
