@@ -29,6 +29,7 @@ function newFunction() {
     },
     matchDetails: [],
     teams:['England','Holland','Morocco','France','Argentina','Portugal','Japan','Switzerland','Senegal','Brazil','Poland','South Korea','Cameroon','Ecuador','Spain','Germany','USA','Australia','Croatia','Iran','Saudi Arabia','Belgium','Ghana','Mexico','Tunisia','Uruguay','Qatar',' Wales',' Canada','Serbia','Denmark','Costa Rica'],
+    flags: ["argentina.png", "croatia.png","flag.png","football.png","pennant.png","soccer.png","1.png","2.png","3.png","4.png","5.png"],
     //------------------------ admin data ----------------------
     users: [],
     requests: [],

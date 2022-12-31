@@ -13,8 +13,6 @@
           <!-- TODO: ADD VACANT SEATS -->
           <matchDetails
             :group_number="count + 1"
-            oponent1_flag="argentina.png"
-            oponent2_flag="croatia.png"
             :oponent1_name="match.teamOne"
             :oponent2_name="match.teamTwo"
             :date="match.date"
