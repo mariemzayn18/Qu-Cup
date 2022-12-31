@@ -2,9 +2,13 @@
   <!-- <MobNavBarVue v-if="$vuetify.breakpoint.smAndDown" /> -->
   <v-container fluid class="navbar">
     <v-row class="nav-bar justify-center align-center">
-      <v-col cols="2">
+      <v-col cols="3">
         <nuxt-link to="/">
-          <img src="~assets/icons/ball.png" alt="" />
+          <div class="logo">
+            <img src="~assets/icons/ball.png" alt="" />
+            <p class="name">QuCup</p>
+          </div>
+        
         </nuxt-link>
       </v-col>
 
@@ -259,5 +263,17 @@ img {
 .un {
   color: #475050;
 }
-
+.name {
+  font-weight: 700;
+  font-size: 40px;
+  color: #d3d5d5;;
+}
+.logo {
+ display: flex;
+  flex-direction: row;
+  /* align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center; */
+}
 </style>
