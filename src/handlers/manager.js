@@ -4,8 +4,6 @@ import {Stadium} from '../models/Stadium.js'
 
 const addMatch =  async (req, res) => {
     try {
-        // if (!req.user.role)
-        //     throw new Error('User does not have manager credentials');
         await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
             console.log("docs")
             console.log(docs)
@@ -23,18 +21,12 @@ const addMatch =  async (req, res) => {
                                 await  Match.find({teamTwo : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
                                     if(docs.length != 0)
                                      throw new Error('team 2 has match in this date');
-
                                 }).clone()
-
                              }
-
                         }).clone()
-
                      }
-
                 }).clone()
             }
-
         }).clone()
 
         const match = new Match(req.body);
@@ -67,9 +59,6 @@ const addStadium = async (req, res) => {
 
 
     try {
-
-        // if (!req.user.role)
-        //     throw new Error('User does not have manager credentials');
         const stadium = new Stadium(req.body);
         await stadium.save();
         res.status(201).json({stadium: stadium});
@@ -80,10 +69,20 @@ const addStadium = async (req, res) => {
     }
 }
 
+const allStadium = async (req, res) => {
+
+  try {
+      const stads = await Stadium.find();
+      if(stads.length == 0)
+        res.status(200).send({message: "No stadiums to view"})
+      return res.status(200).json({stads});
+  }catch(error){
+      res.status(400).send({message: error.message})
+  }
+}
+
 const editMatch = async (req, res) => {
     try {
-        // if (!req.user.role)
-        //     throw new Error('User does not have manager credentials');
         const match = await Match.findById(req.params.matchID);
         if (!match)
             throw new Error('No match was found with this id');
@@ -133,5 +132,6 @@ export {
     addStadium,
     editMatch,
     getMatch,
-    viewVacantResSeats
+    viewVacantResSeats,
+    allStadium
 }
