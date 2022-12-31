@@ -43,7 +43,7 @@
     </v-row>
     <v-row class="ma-4">
       <!-- TODO neef to show which seats are vacant and reserved -->
-      <v-col v-for="i in seatsNum" :key="i" cols="1">
+      <v-col v-for="i in this.seats.length" :key="i" cols="1">
         <!-- <div class="text-center seat" @click="select(i)" :class="{selected:isSelected[i]}">{{i}}</div> -->
         <v-btn
           :disabled="seats[i]"
@@ -128,7 +128,7 @@ export default {
       console.log(this.isSelected[i]);
     },
     confirm() {
-      for (let i = 0; i < this.seatsNum; i++) {
+      for (let i = 0; i < this.seats.length; i++) {
         if (this.isSelected[i]) {
           this.reservedSeats.push(i);
         }
@@ -160,7 +160,9 @@ export default {
     },
   },
   created() {
-    for (let i = 0; i < this.seatsNum; i++) this.isSelected[i] = false;
+    for (let i = 0; i < this.seats.length; i++) {
+      this.isSelected.push(false) 
+    }
     this.confirmed = false;
   },
   mounted() {
