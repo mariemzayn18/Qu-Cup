@@ -44,14 +44,12 @@
             v-model="newNationality"
             :items="countries"
             class="input-field mt-7"
-            :rules="notEmptyRules"
             label="Your Nationality"
           ></v-select>
           <v-row> </v-row>
           <v-text-field
             v-model="password"
             class="input-field mt-7"
-            :rules="passwordRules"
             name="password"
             label="password"
             autocomplete="off"
@@ -107,22 +105,12 @@ export default {
       birthDate: "",
       isValid: false,
       showProfile: false,
-      passwordRules: [
-        (v) => v.length <= 15 || "Password must be less than 15 characters",
-        (v) => v.length >= 5 || "Password must be at least 5 characters",
-      ],
-      usernameRules: [
-        (v) => v.length <= 15 || "Username must be less than 15 characters",
-        (v) => v.length >= 5 || "Username must be at least 5 characters",
-      ],
       nameRules: [
-        (v) => /^[A-Za-z\s ]+$/.test(v) || "Please insert a right name",
+      (v) => /(\s*|^[A-Za-z\s]+$)/.test(v) || "Please insert a right name",
       ],
       emailRules: [
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-        (v) => v.length <= 30 || "E-mail must be less than 30 characters",
+        (v) => /(\s*|.+@.+\..+)/.test(v) || "E-mail must be valid",
       ],
-      notEmptyRules: [(v) => !!v || "required"],
       countries: [
         "Afghanistan",
         "Albania",
@@ -344,7 +332,7 @@ export default {
       let email = this.newEmail;
       await axios
         .put(
-          "http://localhost:8080/edit_profile",
+          "http://localhost:9090/edit_profile",
           {
             firstName,
             lastName,

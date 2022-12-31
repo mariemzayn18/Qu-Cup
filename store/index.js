@@ -12,8 +12,9 @@ function newFunction() {
     },
     //------------------ user data  ----------------------
     status: "",
-    baseUrl: "https://localhost:8080",
+    baseUrl: "https://localhost:9090",
     token: "",
+    errorMessage: "",
     user: {
       firstName: "",
       lastName: "",
@@ -28,8 +29,53 @@ function newFunction() {
       approved: false,
     },
     matchDetails: [],
-    teams:['England','Holland','Morocco','France','Argentina','Portugal','Japan','Switzerland','Senegal','Brazil','Poland','South Korea','Cameroon','Ecuador','Spain','Germany','USA','Australia','Croatia','Iran','Saudi Arabia','Belgium','Ghana','Mexico','Tunisia','Uruguay','Qatar',' Wales',' Canada','Serbia','Denmark','Costa Rica'],
-    flags: ["argentina.png", "croatia.png","flag.png","football.png","pennant.png","soccer.png","1.png","2.png","3.png","4.png","5.png"],
+    teams: [
+      "England",
+      "Holland",
+      "Morocco",
+      "France",
+      "Argentina",
+      "Portugal",
+      "Japan",
+      "Switzerland",
+      "Senegal",
+      "Brazil",
+      "Poland",
+      "South Korea",
+      "Cameroon",
+      "Ecuador",
+      "Spain",
+      "Germany",
+      "USA",
+      "Australia",
+      "Croatia",
+      "Iran",
+      "Saudi Arabia",
+      "Belgium",
+      "Ghana",
+      "Mexico",
+      "Tunisia",
+      "Uruguay",
+      "Qatar",
+      " Wales",
+      " Canada",
+      "Serbia",
+      "Denmark",
+      "Costa Rica",
+    ],
+    flags: [
+      "argentina.png",
+      "croatia.png",
+      "flag.png",
+      "football.png",
+      "pennant.png",
+      "soccer.png",
+      "1.png",
+      "2.png",
+      "3.png",
+      "4.png",
+      "5.png",
+    ],
     //------------------------ admin data ----------------------
     users: [],
     requests: [],
@@ -44,7 +90,7 @@ export const actions = {
   async login({ commit }, user) {
     console.log("LOGINNNNNNNNNNNNNNNNNN");
     await axios
-      .post("http://localhost:8080/login", user)
+      .post("http://localhost:9090/login", user)
       .then((res) => {
         console.log(res);
         const user = res.data.user;
@@ -56,12 +102,15 @@ export const actions = {
         commit("auth_init", { user, token });
       })
       .catch((err) => {
-        console.log(err);
+        commit("err_msg","Username or password is incorrect");
+      
+        console.log("Error in login");
+        console.log(err.message);
       });
   },
   async signup({ commit }, user) {
     await axios
-      .post("http://localhost:8080/signup", user)
+      .post("http://localhost:9090/signup", user)
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -79,7 +128,7 @@ export const actions = {
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:8080/fan/allmatches")
+      .get("http://localhost:9090/fan/allmatches")
       .then((res) => {
         commit("match_details", res.data.match);
       })
@@ -89,10 +138,8 @@ export const actions = {
   },
   //----------------------- manager actions --------------------------
   async getAllStads({ commit }, token) {
-
     await axios
-      .get(`http://localhost:8080/manager/allstadium`,
-      {
+      .get(`http://localhost:9090/manager/allstadium`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -111,7 +158,7 @@ export const actions = {
   async getUsers({ commit }, token) {
     console.log("get userrrr");
     await axios
-      .get("http://localhost:8080/admin/allusers", {
+      .get("http://localhost:9090/admin/allusers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,7 +176,7 @@ export const actions = {
   async getRequests({ commit }, token) {
     console.log("get requests");
     await axios
-      .get("http://localhost:8080/admin/allrequests", {
+      .get("http://localhost:9090/admin/allrequests", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -253,5 +300,9 @@ export const mutations = {
     }
     console.log("stadiums");
     console.log(state.stadiums);
+  },
+  err_msg(state, msg) {
+    state.errorMessage= msg;
   }
+ 
 };

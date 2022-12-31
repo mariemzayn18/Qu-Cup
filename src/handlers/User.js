@@ -55,7 +55,10 @@ const handleUpdateData  = async(req,res) =>{
         const userId = payload.id
         let update = { ...req.body }
         console.log(req.body)
+
+        Object.keys(update).forEach((k) => update[k] == '' && delete update[k]);
         
+        Object.keys(update).forEach((k) => update[k] == '' && delete update[k]);
         if(update.password != null) {
             update.password = await bcrypt.hash(update.password, 12);
         }
@@ -66,5 +69,19 @@ const handleUpdateData  = async(req,res) =>{
     }
 }
 
+const handleGetUserData  = async(req,res) =>{
+    try{
+        const bearer = req.headers.authorization;
+        const token = bearer?.split(" ")[1];
+        const payload  = Jwt.decode(token)
+        const userId = payload.id
+        
+        const user = await userData.findById(userId,)
+        return res.status(200).json({user: user});
+    }catch(error){
+        res.status(400).send({message: error.message})
+    }
+}
 
-export { handleUserSignUp, handleLogin ,handleUpdateData}
+
+export { handleUserSignUp, handleLogin ,handleUpdateData, handleGetUserData}
