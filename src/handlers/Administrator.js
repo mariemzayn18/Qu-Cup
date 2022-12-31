@@ -12,8 +12,28 @@ const handleApproveUser = async (req,res)=>{
     }
 }
 
-const handlegetAllUser = async (req,res)=>{
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+const handlegetAllFans = async (req,res)=>{
+    try{
+        const filter = {approved: true, role:"fan"}
+        const allUsers= await userData.find(filter)
+        res.status(200).json({users: allUsers})
+    }catch(err){
+        res.status(401).send({message: "cann't approve user"})
+    }
+}
+
+const handlegetAllManagers = async (req,res)=>{
+    try{
+        const filter = {approved: true, role:"manager"}
+        const allUsers= await userData.find(filter)
+        res.status(200).json({users: allUsers})
+    }catch(err){
+        res.status(401).send({message: "cann't approve user"})
+    }
+}
+
+
+const handlegetAllRequests = async (req,res)=>{
     try{
         const filter = {approved: false}
         const allUsers= await userData.find(filter)
@@ -23,6 +43,7 @@ const handlegetAllUser = async (req,res)=>{
         res.status(401).send({message: "cann't approve user"})
     }
 }
+
 
 const handleDeleteUser = async (req,res)=>{
     try{
@@ -35,4 +56,4 @@ const handleDeleteUser = async (req,res)=>{
 }
 
 
-export { handleApproveUser, handlegetAllUser, handleDeleteUser}
+export { handleApproveUser, handlegetAllFans, handleDeleteUser, handlegetAllRequests, handlegetAllManagers}
