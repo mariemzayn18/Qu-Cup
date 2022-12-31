@@ -12,7 +12,7 @@ function newFunction() {
     },
     //------------------ user data  ----------------------
     status: "",
-    baseUrl: "https://localhost:8080",
+    baseUrl: "https://localhost:9090",
     token: "",
     user: {
       firstName: "",
@@ -38,7 +38,7 @@ export const actions = {
   //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
     await axios
-      .post("http://localhost:8080/login", user)
+      .post("http://localhost:9090/login", user)
       .then((res) => {
         console.log(res);
         const user = res.data.user;
@@ -54,7 +54,7 @@ export const actions = {
       });
   },
   async signup({ commit }, user) {
-    await axios.post("http://localhost:8080/signup", user);
+    await axios.post("http://localhost:9090/signup", user);
     console
       .log(user)
       .then((res) => {
@@ -71,7 +71,7 @@ export const actions = {
   async editProfile({ commit }, user) {
     console.log("edit profile");
     console.log(this.state.token);
-    await axios.put("http://localhost:8080/edit_profile", user, {
+    await axios.put("http://localhost:9090/edit_profile", user, {
       headers: {
         Authorization: `Bearer ${this.state.token}`,
       },
@@ -91,7 +91,7 @@ export const actions = {
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:8080/fan/allmatches")
+      .get("http://localhost:9090/fan/allmatches")
       .then((res) => {
         commit("match_details", res.data.match);
       })
@@ -104,7 +104,7 @@ export const actions = {
   async getMatch({ commit }, matchID) {
     console.log(stad);
     await axios
-      .get(`http://localhost:8080/match/${matchID}`)
+      .get(`http://localhost:9090/match/${matchID}`)
       .then((res) => {
         console.log(res.data);
       })
@@ -115,27 +115,10 @@ export const actions = {
   },
   //------- view seats is in the comp
   //------------------------- admin actions ----------------------------
-  async approveUser({ commit }, ID) {
-    console.log("approve user");
-    await axios
-      .post(`http://localhost:8080/admin/approve`, ID, {
-        headers: {
-          Authorization: `Bearer ${this.state.token}`,
-        },
-      })
-      .then((res) => {
-        console.log("approve user showwwwwwwwwwwwwwwwwww");
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log("Error in approve user");
-        console.log(err);
-      });
-  },
-  async getUsers({ commit },token) {
+  async getUsers({ commit }, token) {
     console.log("get userrrr");
     await axios
-      .get("http://localhost:8080/admin/allusers", {
+      .get("http://localhost:9090/admin/allusers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -150,7 +133,24 @@ export const actions = {
         console.log(err);
       });
   },
-
+  async getRequests({ commit }, token) {
+    console.log("get requests");
+    await axios
+      .get("http://localhost:9090/admin/allrequests", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("get requests showwwwwwwwwwwwwwwwwww");
+        console.log(res.data);
+        commit("all_users", res.data.users);
+      })
+      .catch((err) => {
+        console.log("Error in get user");
+        console.log(err);
+      });
+  },
 };
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {
@@ -170,7 +170,7 @@ export const mutations = {
     // store user object in local storage for page refresh
     localStorage.setItem("user", JSON.stringify(obj.user));
     localStorage.setItem("token", obj.token);
-   
+
     console.log(obj);
     console.log(localStorage.getItem("token"));
     console.log(localStorage.getItem("user"));
@@ -193,7 +193,7 @@ export const mutations = {
     state.user.nationality = obj.user.nationality;
     state.user.role = obj.user.role;
     state.user.ID = obj.user._id;
-    
+
     localStorage.setItem("user", JSON.stringify(obj.user));
     localStorage.setItem("token", obj.token);
   },
