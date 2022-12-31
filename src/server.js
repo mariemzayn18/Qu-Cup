@@ -21,10 +21,11 @@ app.use(
 ); // Use this after the variable declaration
 
 const PORT = 8000;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  var b = await bcrypt.hash("n12345", 12)
+  console.log(b)
   console.log("server started at port 8000");
 });
-
 app.use("", userRouter);
 app.use("/manager", managerRouter);
 app.use("/fan", fanRouter);
