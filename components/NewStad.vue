@@ -112,16 +112,19 @@ export default {
     async addStadium() {
       if (this.seatsNum > 19) {
         this.alertMsg = "max number of seats per row is 19";
+        this.confirmed = false;
         this.alert = true;
         return;
       }
       if (this.rowsNum > 200) {
         this.alertMsg = "max number of rows is 200";
+        this.confirmed = false;
         this.alert = true;
         return;
       }
       if (this.rowsNum == 0 || this.seatsNum == 0) {
         this.alertMsg = "number can't be zero!";
+        this.confirmed = false;
         this.alert = true;
         return;
       }

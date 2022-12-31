@@ -3,9 +3,10 @@
     <v-card-text>
       <v-row>
         <v-col>
-          <p class="text-left date">Group {{ group_number }}</p> </v-col
-        ><v-col
-          ><p class="text-right date">{{ date }}</p>
+          <p class="text-right date">{{ date.substring(0, 10) }}</p>
+        </v-col>
+        <v-col
+          ><p class="text-right date">{{ date.substring(12, 16) }}</p>
         </v-col>
       </v-row>
       <v-divider light></v-divider>
@@ -183,7 +184,7 @@ export default {
       console.log("VIEW SEATS");
       console.log(this.token);
       await axios
-        .get(`http://localhost:9090/manager/match/viewseats/${ID}`, {
+        .get(`http://localhost:8080/manager/match/viewseats/${ID}`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },

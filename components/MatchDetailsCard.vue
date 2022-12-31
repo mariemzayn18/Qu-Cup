@@ -12,7 +12,10 @@
         </v-col>
 
         <v-col class="d-flex align-center justify-center" cols="12">
-          <p><strong> Date: </strong> {{ date }}</p>
+          <p><strong> Date: </strong> {{ date.substring(0,10) }}</p>
+        </v-col>
+        <v-col class="d-flex align-center justify-center" cols="12">
+          <p><strong> Time: </strong> {{ date.substring(12,16) }}</p>
         </v-col>
         <!-- <v-col class="d-flex align-center justify-center" cols="12">
           <p><strong> Time: </strong>{{ time }}</p>
