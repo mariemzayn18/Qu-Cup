@@ -70,8 +70,8 @@ export default {
   data() {
     return {
       tickets: [],
-      userData:{},
-      token:"",
+      userData: {},
+      token: "",
     };
   },
   components: {
@@ -82,37 +82,15 @@ export default {
       return this.$store.state.matchDetails;
     },
   },
-  mounted(){
-    this.userData=JSON.parse(localStorage.getItem("user"));
-    this.token=localStorage.getItem("token")
-
-  },
-  methods: {
-    async cancelReservation() {
-      let _id = this.userData.ID;
-      await axios
-        .post(
-          "http://localhost:8000/fan/cancelreservation",
-          { _id },
-          {
-            headers: {
-              Authorization: `Bearer ${this.token}`,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-  async created() {
+  async mounted() {
+    this.userData = JSON.parse(localStorage.getItem("user"));
+    this.token = localStorage.getItem("token");
+    console.log(" reservation")
+    console.log(this.token)
     let _id = this.userData.ID;
     await axios
       .post(
-        "http://localhost:8000/fan/allreservation",
+        "http://localhost:9090/fan/allreservation",
         { _id },
         {
           headers: {
@@ -128,6 +106,27 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+  },
+  methods: {
+    async cancelReservation() {
+      let _id = this.userData.ID;
+      await axios
+        .post(
+          "http://localhost:9090/fan/cancelreservation",
+          { _id },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
