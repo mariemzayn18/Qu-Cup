@@ -104,7 +104,7 @@ export const actions = {
       .catch((err) => {
         commit("err_msg","Username or password is incorrect");
       
-        console.log("Error in login");
+        console.log("Error in looogin");
         console.log(err.message);
       });
   },
@@ -191,6 +191,24 @@ export const actions = {
         console.log(err);
       });
   },
+  async getUser({ commit }, token) {
+    console.log("get user");
+    await axios
+      .get("http://localhost:9090/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("get user showwwwwwwwwwwwwwwwwww");
+        console.log(res.data);
+        commit("set_user", res.data.user);
+      })
+      .catch((err) => {
+        console.log("Error in get user");
+        console.log(err);
+      });
+  },
 };
 //---------------------------------------- MUTATIONS ---------------------------------------------------
 export const mutations = {
@@ -212,6 +230,27 @@ export const mutations = {
     localStorage.setItem("token", obj.token);
 
     console.log(obj);
+    console.log(localStorage.getItem("token"));
+    console.log(localStorage.getItem("user"));
+
+    // this.$auth.$storage.setUniversal("token", obj.token);
+    // this.$auth.$storage.setUniversal("user", obj.user);
+
+    // this.$store.state.localStorage.token = obj.token;
+    // console.log(this.$store.state.localStorage.token);
+  },
+  set_user(state, user) {
+    state.user.username = user.userName;
+    state.user.firstName = user.firstName;
+    state.user.lastName = user.lastName;
+    state.user.password = user.password;
+    state.user.email = user.email;
+    state.user.birthDate = user.birthDate;
+    state.user.nationality = user.nationality;
+    state.user.role = user.role;
+    state.user.ID = user._id;
+   
+    localStorage.setItem("user", JSON.stringify(user));
     console.log(localStorage.getItem("token"));
     console.log(localStorage.getItem("user"));
 

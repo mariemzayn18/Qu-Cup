@@ -19,7 +19,7 @@
             <p class="un">username: {{ userData.userName }}</p>
             <p class="un">email: {{ userData.email }}</p>
             <p class="un">Nationality: {{ userData.nationality }}</p>
-            <p class="un">birth date:{{ userData.birthDate }}</p>
+            <p class="un">birth date: {{ userData.birthDate.substring(0,10) }}</p>
           </div>
         </v-col>
         <v-col>
@@ -359,6 +359,7 @@ export default {
   mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
+    this.$store.dispatch("getUser", this.token);
   },
 };
 </script>
