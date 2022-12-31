@@ -143,11 +143,10 @@ export default {
     editMatch() {
       console.log("new match");
       if (this.team1 == this.team2) {
-        if(this.team1)
-        {
-        this.showTeamsAlert = true;
-        this.showSuccessAlert = false;
-        return;
+        if (this.team1) {
+          this.showTeamsAlert = true;
+          this.showSuccessAlert = false;
+          return;
         }
       }
       this.showTeamsAlert = false;
@@ -170,7 +169,7 @@ export default {
       console.log("%%%%%%#############################3");
       console.log(this.token);
       await axios
-        .patch(`http://localhost:8000/manager/match/${matchID}`, match, {
+        .patch(`http://localhost:9090/manager/match/${matchID}`, match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -187,10 +186,9 @@ export default {
   created() {
     this.showSuccessAlert = false;
   },
-  mounted(){
-    this.userData=JSON.parse(localStorage.getItem("user"));
-    this.token=localStorage.getItem("token")
-
+  mounted() {
+    this.userData = JSON.parse(localStorage.getItem("user"));
+    this.token = localStorage.getItem("token");
   },
 };
 </script>

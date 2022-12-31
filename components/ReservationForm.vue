@@ -86,8 +86,8 @@ export default {
   },
   data() {
     return {
-      userData:{},
-      token:"",
+      userData: {},
+      token: "",
       isValid: false,
       showDialog: false,
       reserved: false,
@@ -146,7 +146,7 @@ export default {
     },
     async reserveMatch(match) {
       await axios
-        .post("http://localhost:8000/fan/reservation", match, {
+        .post("http://localhost:9090/fan/reservation", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -163,10 +163,9 @@ export default {
     for (let i = 0; i < this.seatsNum; i++) this.isSelected[i] = false;
     this.confirmed = false;
   },
-  mounted(){
-    this.userData=JSON.parse(localStorage.getItem("user"));
-    this.token=localStorage.getItem("token")
-
+  mounted() {
+    this.userData = JSON.parse(localStorage.getItem("user"));
+    this.token = localStorage.getItem("token");
   },
 };
 </script>

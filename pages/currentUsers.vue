@@ -43,7 +43,7 @@
                 ></v-img>
               </v-avatar>
               <h3 class="text-h5 mb-2">
-                {{ selected.firstName }} {{ selected.lastName}}
+                {{ selected.firstName }} {{ selected.lastName }}
               </h3>
               <div class="mb-2 colors">
                 {{ selected.email }}
@@ -64,9 +64,10 @@
               </v-col>
               <v-col>{{ selected.birthDate }}</v-col>
               <v-col>
-            <v-alert v-show="showAlert" shaped type="success">user deleted successfully</v-alert>
-       
-          </v-col>
+                <v-alert v-show="showAlert" shaped type="success"
+                  >user deleted successfully</v-alert
+                >
+              </v-col>
               <v-col cols="12 " class="text-center">
                 <button
                   id="btn2"
@@ -103,7 +104,7 @@ export default {
   },
   data: () => ({
     showAlert: false,
-    token:"",
+    token: "",
     active: [],
     avatar: null,
     open: [],
@@ -135,25 +136,24 @@ export default {
   },
 
   methods: {
-   async removeUser( userid ) {
-    
+    async removeUser(userid) {
       await axios
-      .delete(`http://localhost:8080/admin/${userid}`, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      })
-      .then((res) => {
-        this.showAlert = true;
-      })
-      .catch((err) => {
-        console.log("Error in delete user");
-        console.log(err);
-      });
+        .delete(`http://localhost:9090/admin/${userid}`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
+        .then((res) => {
+          this.showAlert = true;
+        })
+        .catch((err) => {
+          console.log("Error in delete user");
+          console.log(err);
+        });
     },
-     fetchUsers(item) {
+    fetchUsers(item) {
       console.log("getUsers");
-      this.$store.dispatch("getUsers" ,this.token);
+      this.$store.dispatch("getUsers", this.token);
       console.log("getYYYYYYYYYYYYUsers");
       console.log(this.$store.state.users);
     },
@@ -161,10 +161,9 @@ export default {
       this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
     },
   },
-  mounted(){
-    
-   this.token=localStorage.getItem("token");
-  }
+  mounted() {
+    this.token = localStorage.getItem("token");
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 import userRouter from "./routes/User.js";
 import managerRouter from "./routes/manager.js";
 import adminRouter from "./routes/admin.js";
@@ -20,11 +20,11 @@ app.use(
   })
 ); // Use this after the variable declaration
 
-const PORT = 8000;
+const PORT = 9090;
 app.listen(PORT, async () => {
-  var b = await bcrypt.hash("n12345", 12)
-  console.log(b)
-  console.log("server started at port 8000");
+  var b = await bcrypt.hash("n12345", 12);
+  console.log(b);
+  console.log("server started at port 9090");
 });
 app.use("", userRouter);
 app.use("/manager", managerRouter);
