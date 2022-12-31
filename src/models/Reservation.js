@@ -11,14 +11,15 @@ const reservationShema = mongoose.Schema({
         required : true,
         ref : 'Match'
     },
-    // seatRow : {
-    //     type : Array,
-    //     required : true
-    // },
-    // seatCol : {
-    //     type : Array,
-    //     required : true
-    // },
+    pinNumber:
+    {
+      type : Number,
+      required : true
+  },
+  creditCard:{
+    type : Number,
+    required : true
+   },
     seats : {
         type :Array,
         required : false
