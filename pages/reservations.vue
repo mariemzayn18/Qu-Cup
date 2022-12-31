@@ -92,12 +92,18 @@
               <v-btn
                 id="btn"
                 class="text-center"
-                @click="cancelReservation(ticket._id)"
+                @click="cancelReservation(ticket._id,count)"
               >
                 CANCEL RESERVATION</v-btn
               >
             </v-card-actions>
+            <v-row>
+              <v-col class="ma-3">
+                <v-alert v-show="showAlert[count]" type="error" shaped>{{ errMsg }}</v-alert>
+              </v-col>
+            </v-row>
           </v-card>
+          
         </v-col>
       </v-row>
     </v-container>
@@ -114,7 +120,10 @@ export default {
       token: "",
       flag1: "",
       flag2: "",
+      errMsg: "",
+      showAlert: [],
     };
+
   },
   components: {
     matchDetails,
@@ -154,7 +163,7 @@ export default {
       });
   },
   methods: {
-    async cancelReservation(id) {
+    async cancelReservation(id,count) {
       let _id = id;
       console.log("cancel reservation");
       console.log(_id);
@@ -172,6 +181,9 @@ export default {
           console.log(res.data);
         })
         .catch((err) => {
+          console.log("error");
+          this.showAlert[count] = true;
+          this.errMsg="can't cancel this reservation"
           console.log(err);
         });
     },
@@ -180,6 +192,12 @@ export default {
       return flag;
     },
   },
+  created(){
+    // initialize array of showAlert with false
+    this.tickets.forEach(() => {
+      this.showAlert.push(false);
+    });
+  }
 };
 </script>
 

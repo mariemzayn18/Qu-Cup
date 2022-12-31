@@ -94,7 +94,7 @@ export default {
       confirmed: false,
       isSelected: [],
       reservedSeats: [],
-      alertMsg: "",
+      alertMsg: "reservation is done successfully! check your ticket.",
       // seatsNum:70,
       pinNumber: "",
       creditCard: "",
@@ -157,9 +157,9 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
-          this.alertMsg = res.data.msg;
         })
         .catch((err) => {
+          this.alertMsg = res.data.msg;
           console.log(err);
         });
     },
