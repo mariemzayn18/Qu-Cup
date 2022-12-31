@@ -23,8 +23,29 @@ const reserveMatch = async(req,res)=>{
   //   owner: userid
   //   seats:[i]
   // }
-  console.log('heloo from reserve match')
-  console.log(req.body)
+  // get all reservations for this user
+  var matchToReserve = await Match.findById(req.body.match)
+
+  var allRes = await Reservation.find({"owner": req.body.owner})
+
+  for(var i = 0 ;i<allRes.length;i++)
+    {
+
+      var matchObj  =await Match.findById(allRes[i].match.valueOf())
+
+      var matchData = matchObj.date
+
+
+      if(matchData.toString() == matchToReserve.date.toString())
+      {
+        if(allRes[i].match.valueOf() != req.body.match.valueOf())
+        {
+        console.log("can not reserve")
+        return res.status(200).send('You can not reserve tickets as you have match in this time')
+        }
+    }
+    }
+  
   var matchid = new mongoose.Types.ObjectId(req.body.match)
   try{
     console.log(req.body.seats)
@@ -75,7 +96,6 @@ const reserveMatch = async(req,res)=>{
 const getAllUserReservations = async(req,res)=>{
   try{
     var allResponseData =[]
-
 
     var allRes = await Reservation.find({"owner": req.body._id})
 

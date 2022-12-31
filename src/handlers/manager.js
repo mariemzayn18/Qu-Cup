@@ -56,8 +56,6 @@ const addMatch =  async (req, res) => {
 }
 
 const addStadium = async (req, res) => {
-
-
     try {
         const stadium = new Stadium(req.body);
         await stadium.save();
