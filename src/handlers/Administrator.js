@@ -16,7 +16,11 @@ const handlegetAllFans = async (req,res)=>{
     try{
         const filter = {approved: true, role:"fan"}
         const allUsers= await userData.find(filter)
-        res.status(200).json({users: allUsers})
+        const filter2 = {approved: true, role:"manager"}
+        const allUManagers= await userData.find(filter2)
+        // concat all users and managers
+        const allUsersAndManagers = allUsers.concat(allUManagers)
+        res.status(200).json({users: allUsersAndManagers})
     }catch(err){
         res.status(401).send({message: "cann't approve user"})
     }
