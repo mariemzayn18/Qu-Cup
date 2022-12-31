@@ -89,7 +89,11 @@
               </v-row>
             </v-card-text>
             <v-card-actions class="d-flex justify-center py-4">
-              <v-btn id="btn" class="text-center" @click="cancelReservation(ticket._id)">
+              <v-btn
+                id="btn"
+                class="text-center"
+                @click="cancelReservation(ticket._id)"
+              >
                 CANCEL RESERVATION</v-btn
               >
             </v-card-actions>
@@ -131,7 +135,7 @@ export default {
     let _id = this.userData._id;
     await axios
       .post(
-        "http://localhost:8080/fan/allreservation",
+        "http://localhost:9090/fan/allreservation",
         { _id },
         {
           headers: {
@@ -156,7 +160,7 @@ export default {
       console.log(_id);
       await axios
         .post(
-          "http://localhost:8080/fan/cancelreservation",
+          "http://localhost:9090/fan/cancelreservation",
           { _id },
           {
             headers: {
