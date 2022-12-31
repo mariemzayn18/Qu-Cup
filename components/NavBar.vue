@@ -182,6 +182,7 @@ if (JSON.parse(localStorage.getItem("user")) !== null)
     profile(){
       this.showDropdownList = !this.showDropdownList;
       this.userData=JSON.parse(localStorage.getItem("user"));
+      console.log(this.userData._id)
 
     },
     logout(){
