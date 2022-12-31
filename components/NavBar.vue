@@ -43,6 +43,34 @@
           >
         </v-tabs>
       </v-col>
+      <!-------------------  Manager ---------------------->
+      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
+        <TheButton
+          @clicked="showAddMatch = !showAddMatch"
+          text="New match"
+        />
+        <v-dialog
+          v-model="showAddMatch"
+          transition="dialog-bottom-transition"
+          scrollable
+          width="1300"
+        >
+            <AddMatch v-show="showAddMatch" />
+        </v-dialog>
+      </v-col>
+      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
+        <TheButton
+          @clicked="showNewStadium = !showNewStadium"
+          text="New stadium"
+        />
+        <v-dialog
+          v-model="showNewStadium"
+          scrollable
+          width="1300"
+        >
+         <NewStad v-show="showNewStadium" /> 
+        </v-dialog>
+      </v-col>
       <!-- <v-col v-if="auth && userData.role && userData.role == 'admin'">
         <userRequests />
       </v-col> -->
@@ -87,34 +115,10 @@
       <v-col v-if="!auth">
         <TheButton route="/signup" text="Sign Up" />
       </v-col>
-          <!-------------------  Manager ---------------------->
-      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
-        <TheButton
-          @clicked="showAddMatch = !showAddMatch"
-          text="New match"
-        />
-        <v-dialog
-          v-model="showAddMatch"
-          transition="dialog-bottom-transition"
-          scrollable
-          width="1300"
-        >
-            <AddMatch v-show="showAddMatch" />
-        </v-dialog>
-      </v-col>
-      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
-        <TheButton
-          @clicked="showNewStadium = !showNewStadium"
-          text="New stadium"
-        />
-        <v-dialog
-          v-model="showNewStadium"
-          scrollable
-          width="1300"
-        >
-         <NewStad v-show="showNewStadium" /> 
-        </v-dialog>
-      </v-col>
+    
+      <v-col v-if="auth">
+        <TheButton text="Log out" @clicked="logout" />
+      </v-col>      
     </v-row>
     
 
@@ -141,7 +145,7 @@ export default {
       token: null,
       showDropdownList: false,
       showProfile: false,
-      auth:true,
+      auth:false,
       showAddMatch:false,
       showNewStadium:false,
       tabs: [
@@ -159,7 +163,14 @@ console.log("user dattta");
 console.log(JSON.parse(localStorage.getItem("user"))) ;
 if (JSON.parse(localStorage.getItem("user")) != null)
    this.userData=JSON.parse(localStorage.getItem("user"));
-   this.token=localStorage.getItem("token")
+   if (localStorage.getItem("token") != null)
+   {
+      this.auth=true;
+      this.token=localStorage.getItem("token")
+   }
+   
+   else
+   this.auth=false;
 
   },
   methods:{
@@ -167,6 +178,13 @@ if (JSON.parse(localStorage.getItem("user")) != null)
       this.showDropdownList = !this.showDropdownList;
       this.userData=JSON.parse(localStorage.getItem("user"));
 
+    },
+    logout(){
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      console.log("logout");
+
+      this.$router.push("/");
     }
   },
 };
@@ -194,7 +212,7 @@ a {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 65px;
+  height: 72px;
   -webkit-backdrop-filter: blur(11px);
   backdrop-filter: blur(17px);
   background-color: #6e1131;
