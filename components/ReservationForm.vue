@@ -142,8 +142,8 @@ export default {
       console.log(match);
       let owner = this.userData._id;
       let seats = this.reservedSeats;
-      let pinNumber = this.creditCard;
-      let creditCard = this.reservedSeats;
+      let pinNumber = this.pinNumber;
+      let creditCard = this.creditCard;
       this.reserveMatch({ match, owner, seats,pinNumber,creditCard });
     },
     async reserveMatch(match) {
