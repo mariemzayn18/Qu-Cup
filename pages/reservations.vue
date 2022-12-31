@@ -70,6 +70,8 @@ export default {
   data() {
     return {
       tickets: [],
+      userData:{},
+      token:"",
     };
   },
   components: {
@@ -79,13 +81,11 @@ export default {
     matchDetails() {
       return this.$store.state.matchDetails;
     },
+  },
+  mounted(){
+    this.userData=JSON.parse(localStorage.getItem("user"));
+    this.token=localStorage.getItem("token")
 
-    userData() {
-      return this.$auth.$storage.getLocalStorage("user") || "";
-    },
-    token() {
-      return this.$auth.$storage.getLocalStorage("token") || "";
-    },
   },
   methods: {
     async cancelReservation() {

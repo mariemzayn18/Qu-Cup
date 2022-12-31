@@ -14,7 +14,7 @@
           align-with-title
           background-color="transparent"
           color="#d3d5d5"
-          v-if="userData.role == 'fan'"
+          v-if="userData.role &&  userData.role == 'fan'"
         >
           <v-tab
             v-for="tab in tabs"
@@ -30,8 +30,8 @@
           grow
           align-with-title
           background-color="transparent"
-          color="#6e1131"
-          v-if="userData.role == 'admin'"
+          color="#d3d5d5"
+          v-if="userData.role && userData.role == 'admin'"
         >
           <v-tab
             v-for="tab in adminTabs"
@@ -43,12 +43,12 @@
           >
         </v-tabs>
       </v-col>
-      <v-col v-if="auth && userData.role == 'admin'">
+      <v-col v-if="auth && userData.role && userData.role == 'admin'">
         <userRequests />
       </v-col>
-      <v-col v-if="auth && !(userData.role == 'admin')">
+      <v-col v-if="auth && !( userData.role && userData.role == 'admin')">
         <TheButton
-          @clicked="showDropdownList = !showDropdownList"
+          @clicked="profile"
           text="Profile"
         />
         <transition name="fade">
@@ -88,7 +88,7 @@
         <TheButton route="/signup" text="Sign Up" />
       </v-col>
           <!-------------------  Manager ---------------------->
-      <v-col v-if="userData.role == 'manager' && auth">
+      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
         <TheButton
           @clicked="showAddMatch = !showAddMatch"
           text="New match"
@@ -102,7 +102,7 @@
             <AddMatch v-show="showAddMatch" />
         </v-dialog>
       </v-col>
-      <v-col v-if="userData.role == 'manager' && auth">
+      <v-col v-if="userData.role &&  userData.role == 'manager' && auth">
         <TheButton
           @clicked="showNewStadium = !showNewStadium"
           text="New stadium"
@@ -112,10 +112,12 @@
           scrollable
           width="1300"
         >
-         <NewStad v-show="showNewStadium" />
+         <NewStad v-show="showNewStadium" /> 
         </v-dialog>
       </v-col>
     </v-row>
+    
+
   </v-container>
 </template>
 
@@ -135,6 +137,7 @@ export default {
   },
   data() {
     return {
+      userData:{role:""},
       showDropdownList: false,
       showProfile: false,
       auth:true,
@@ -146,25 +149,21 @@ export default {
       ],
       adminTabs: [
         { name: "Users", route: "/currentUsers" },
-        // { name: "Requests", route: "/usersRequests" },
+        { name: "Requests", route: "/usersRequests" },
       ],
     };
   },
-  computed: {
-    userData() {
-      return  this.$auth.$storage.getLocalStorage("user") || "";
-    },
+  mounted(){
+console.log("user dattta");
+console.log(JSON.parse(localStorage.getItem("user"))) ;
+if (JSON.parse(localStorage.getItem("user")) != null)
+   this.userData=JSON.parse(localStorage.getItem("user"));
+
   },
   methods:{
-    async res(){
-      // let _id=this.userData.ID;
-      //    this.$store.dispatch('getReservations',{_id})
-      // this.$store.dispatch("getUsers");
-      // this.$auth.$storage.setLocalStorage("token", "666")
-      // console.log("YARAAAAAAAAAAAAAAAAB")
-      // console.log(this.$auth.$storage.getLocalStorage("token"))
-      // var d = await bcrypt.hash("1234567", 12)
-
+    profile(){
+      this.showDropdownList = !this.showDropdownList;
+      this.userData=JSON.parse(localStorage.getItem("user"));
 
     }
   },
@@ -193,10 +192,10 @@ a {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 75px;
+  height: 65px;
   -webkit-backdrop-filter: blur(11px);
-  backdrop-filter: blur(11px);
-  background-color: #d3d5d590;
+  backdrop-filter: blur(17px);
+  background-color: #6e1131;
 }
 .v-tab--exact--active v-tab {
   font-size: 20px !important;
