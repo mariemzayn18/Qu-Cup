@@ -12,7 +12,7 @@ function newFunction() {
     },
     //------------------ user data  ----------------------
     status: "",
-    baseUrl: "https://localhost:9090",
+    baseUrl: "https://localhost:8080",
     token: "",
     user: {
       firstName: "",
@@ -28,8 +28,11 @@ function newFunction() {
       approved: false,
     },
     matchDetails: [],
+    teams:['England','Holland','Morocco','France','Argentina','Portugal','Japan','Switzerland','Senegal','Brazil','Poland','South Korea','Cameroon','Ecuador','Spain','Germany','USA','Australia','Croatia','Iran','Saudi Arabia','Belgium','Ghana','Mexico','Tunisia','Uruguay','Qatar',' Wales',' Canada','Serbia','Denmark','Costa Rica'],
     //------------------------ admin data ----------------------
     users: [],
+    //------------------------ manager data ----------------------
+    stadiums: [],
   });
 }
 //---------------------------------------- ACTIONS ---------------------------------------------------
@@ -37,9 +40,9 @@ function newFunction() {
 export const actions = {
   //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
-    console.log("LOGINNNNNNNNNNNNNNNNNN")
+    console.log("LOGINNNNNNNNNNNNNNNNNN");
     await axios
-      .post("http://localhost:9090/login", user)
+      .post("http://localhost:8080/login", user)
       .then((res) => {
         console.log(res);
         const user = res.data.user;
@@ -55,25 +58,26 @@ export const actions = {
       });
   },
   async signup({ commit }, user) {
-    await axios.post("http://localhost:9090/signup", user)
+    await axios
+      .post("http://localhost:8080/signup", user)
       .then((res) => {
         console.log(res);
         console.log(res.data);
         const user = res.data.user;
         const token = res.data.token;
-        commit("sign_up",{ user, token});
+        commit("sign_up", { user, token });
       })
       .catch((err) => {
         console.log(err);
       });
   },
-  
+
   //--------------------------- check btb3ty eh f el body? ----------------------------
 
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:9090/fan/allmatches")
+      .get("http://localhost:8080/fan/allmatches")
       .then((res) => {
         commit("match_details", res.data.match);
       })
@@ -82,13 +86,18 @@ export const actions = {
       });
   },
   //----------------------- manager actions --------------------------
+  async getAllStads({ commit }, token) {
 
-  async getMatch({ commit }, matchID) {
-    console.log(stad);
     await axios
-      .get(`http://localhost:9090/match/${matchID}`)
+      .get(`http://localhost:8080/manager/allstadium`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
+        commit("all_stads", res.data.stads);
       })
       .catch((err) => {
         console.log("Error in adding stadium");
@@ -100,7 +109,7 @@ export const actions = {
   async getUsers({ commit }, token) {
     console.log("get userrrr");
     await axios
-      .get("http://localhost:9090/admin/allusers", {
+      .get("http://localhost:8080/admin/allusers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -118,7 +127,7 @@ export const actions = {
   async getRequests({ commit }, token) {
     console.log("get requests");
     await axios
-      .get("http://localhost:9090/admin/allrequests", {
+      .get("http://localhost:8080/admin/allrequests", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -213,4 +222,17 @@ export const mutations = {
       state.users.push(user);
     }
   },
+  all_stads(state, stads) {
+    state.stadiums = [];
+    for (var i = 0; i < stads.length; i++) {
+      var stad = {};
+      stad["ID"] = stads[i]._id;
+      stad["name"] = stads[i].name;
+      stad["VIPSeatsPerRow"] = stads[i].VIPSeatsPerRow;
+      stad["VIPRows"] = stads[i].VIPRows;
+      state.stadiums.push(stads[i].name);
+    }
+    console.log("stadiums");
+    console.log(state.stadiums);
+  }
 };

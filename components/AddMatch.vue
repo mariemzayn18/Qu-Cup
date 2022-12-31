@@ -127,7 +127,6 @@ export default {
     return {
       userData: {},
       token: "",
-      teams: ["ahly", "zamalek", "esmaaley", "da", "ge", "ew"],
       team1: "",
       team2: "",
       venueNames: [],
@@ -216,6 +215,9 @@ export default {
   computed:{
     venues(){
       return this.$store.state.stadiums
+    },
+    teams(){
+      return this.$store.state.teams
     }
   }
 };
