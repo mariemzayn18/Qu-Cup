@@ -21,7 +21,9 @@
             <v-card-text>
               <v-row>
                 <v-col
-                  ><p class="text-left date">ticket number: {{ ticket.ticketNumber }}</p>
+                  ><p class="text-left date">
+                    ticket number: {{ ticket.ticketNumber }}
+                  </p>
                 </v-col>
                 <!-- <v-col>
                   <p class="text-right date">{{ match.time }}</p>
@@ -29,23 +31,22 @@
               </v-row>
               <v-divider light></v-divider>
               <v-row>
-                
                 <v-col
                   ><img
                     class="flag"
                     :src="require(`~/assets/icons/${flag1}`)"
                     alt="oponent 1"
-                />
-              </v-col>
-              <v-col
+                  />
+                </v-col>
+                <v-col
                   ><img
                     class="flag"
                     :src="require(`~/assets/icons/${flag2}`)"
                     alt="oponent 1"
-                />
-              </v-col>
+                  />
+                </v-col>
               </v-row>
-  
+
               <v-row class="pt-5">
                 <v-col class="d-flex align-center">
                   <p class="teams">{{ ticket.match[0].teamOne }}</p>
@@ -54,37 +55,41 @@
                   <p class="teams">VS</p>
                 </v-col>
                 <v-col class="d-flex align-center">
-                  <p class="teams">{{  ticket.match[0].teamTwo }}</p>
+                  <p class="teams">{{ ticket.match[0].teamTwo }}</p>
                 </v-col>
-                 </v-row>
-                 <!-- time -->
-                 <v-row>
-                  <v-col cols="2">
-                    <v-icon size="20" class="d-flex align-center" color="#6e1131">mdi-clock</v-icon>
-                  </v-col>
+              </v-row>
+              <!-- time -->
+              <v-row>
+                <v-col cols="2">
+                  <v-icon size="20" class="d-flex align-center" color="#6e1131"
+                    >mdi-clock</v-icon
+                  >
+                </v-col>
                 <v-col class="d-flex align-center">
-                  <p class="time">{{ticket.match[0].date.substring(12,16)}} ,</p>
+                  <p class="time">
+                    {{ ticket.match[0].date.substring(12, 16) }} ,
+                  </p>
                 </v-col>
-                  <v-col class="d-flex align-center">
-                  <p class="time"> {{  ticket.match[0].date.substring(0,10) }}</p>
-                </v-col>
-
-                 </v-row>
-                    <!-- seats -->
-                    <v-row>
-                  <v-col cols="2">
-                    <v-icon size="20" class="d-flex align-center" color="#6e1131">mdi-seat</v-icon>
-                  </v-col>
                 <v-col class="d-flex align-center">
-                  <p class="time">your seats: {{ticket.seats}} </p>
+                  <p class="time">
+                    {{ ticket.match[0].date.substring(0, 10) }}
+                  </p>
                 </v-col>
-              
-                 </v-row>
-                 
-                 
+              </v-row>
+              <!-- seats -->
+              <v-row>
+                <v-col cols="2">
+                  <v-icon size="20" class="d-flex align-center" color="#6e1131"
+                    >mdi-seat</v-icon
+                  >
+                </v-col>
+                <v-col class="d-flex align-center">
+                  <p class="time">your seats: {{ ticket.seats }}</p>
+                </v-col>
+              </v-row>
             </v-card-text>
             <v-card-actions class="d-flex justify-center py-4">
-              <v-btn id="btn" class="text-center" @click="cancelReservation">
+              <v-btn id="btn" class="text-center" @click="cancelReservation(ticket._id)">
                 CANCEL RESERVATION</v-btn
               >
             </v-card-actions>
@@ -103,9 +108,9 @@ export default {
       tickets: [],
       userData: {},
       token: "",
-      flag1:"",
-      flag2:"",
-      flags:["argentina.png","croatia.png"]
+      flag1: "",
+      flag2: "",
+      flags: ["argentina.png", "croatia.png"],
     };
   },
   components: {
@@ -120,12 +125,12 @@ export default {
     this.randomFlags();
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
-    console.log(" reservation")
-    console.log(this.token)
+    console.log(" reservation");
+    console.log(this.token);
     let _id = this.userData._id;
     await axios
       .post(
-        "http://localhost:9090/fan/allreservation",
+        "http://localhost:8080/fan/allreservation",
         { _id },
         {
           headers: {
@@ -144,13 +149,13 @@ export default {
       });
   },
   methods: {
-    async cancelReservation() {
-      let _id = this.userData._id;
-      console.log("cancel reservation")
-      console.log(_id)
+    async cancelReservation(id) {
+      let _id = id;
+      console.log("cancel reservation");
+      console.log(_id);
       await axios
         .post(
-          "http://localhost:9090/fan/cancelreservation",
+          "http://localhost:8080/fan/cancelreservation",
           { _id },
           {
             headers: {
@@ -211,7 +216,7 @@ export default {
   font-weight: 700;
   font-size: 15px;
 }
-.time{
+.time {
   color: #6e1131;
   font-weight: 500;
   font-size: 15px;
@@ -226,6 +231,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%; 
+  width: 100%;
 }
 </style>
