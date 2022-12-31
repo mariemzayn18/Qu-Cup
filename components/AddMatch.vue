@@ -190,13 +190,16 @@ export default {
       console.log("FFFFFFFFFFFFFFF");
       console.log(this.token);
       await axios
-        .post("http://localhost:8080/manager/match", match, {
+        .post("http://localhost:9090/manager/match", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
         })
         .then((res) => {})
         .catch((err) => {
+          this.showAlert = true;
+        this.showSuccessAlert = false;
+        this.alertMsg = "this team has another match in the same time";
           console.log(err);
         });
     },
@@ -204,7 +207,7 @@ export default {
   mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
-    this.$store.dispatch('getAllStads',this.token)
+    this.$store.dispatch("getAllStads", this.token);
   },
   created() {
     this.showSuccessAlert = false;
@@ -212,14 +215,14 @@ export default {
     //   this.venueNames.push(this.venues[i].name);
     // }
   },
-  computed:{
-    venues(){
-      return this.$store.state.stadiums
+  computed: {
+    venues() {
+      return this.$store.state.stadiums;
     },
-    teams(){
-      return this.$store.state.teams
-    }
-  }
+    teams() {
+      return this.$store.state.teams;
+    },
+  },
 };
 </script>
 
