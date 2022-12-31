@@ -93,7 +93,7 @@
                 <v-date-picker
                 v-show="showDatePicker"
                 v-model="birthDate"
-                :min="new Date(2010,1,1).toISOString().substr(0, 10)"                color="#6e1131 lighten-1"
+                :max="new Date(2010,1,1).toISOString().substr(0, 10)"                color="#6e1131 lighten-1"
                 header-color="#6e1131"
                 class="date"
                 ></v-date-picker>
@@ -170,16 +170,18 @@ export default {
             console.log(this.birthDate)
             console.log(this.username)
             console.log(this.password)
-            let username= this.username
+            let userName= this.username
             let password =this.password
+            let firstName= this.firstName
+            let lastName =this.lastName
             let birthDate =this.birthDate
             let gender =this.gender
             let nationality =this.nationality
             let email =this.email
             let role =this.role
-            this.$store.dispatch('signup',{username,password, birthDate, gender,nationality,email,role})
-            this.$router.push({path:'/'})
-            window.location.reload(true)  
+            this.$store.dispatch('signup',{firstName, lastName,userName,password, birthDate, gender,nationality,email,role})
+            // this.$router.push({path:'/'})
+            // window.location.reload(true)  
         }
     }
 

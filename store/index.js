@@ -54,9 +54,7 @@ export const actions = {
       });
   },
   async signup({ commit }, user) {
-    await axios.post("http://localhost:9090/signup", user);
-    console
-      .log(user)
+    await axios.post("http://localhost:9090/signup", user)
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -68,24 +66,7 @@ export const actions = {
         console.log(err);
       });
   },
-  async editProfile({ commit }, user) {
-    console.log("edit profile");
-    console.log(this.state.token);
-    await axios.put("http://localhost:9090/edit_profile", user, {
-      headers: {
-        Authorization: `Bearer ${this.state.token}`,
-      },
-    });
-    console
-      .log(user)
-      .then((res) => {
-        console.log(res);
-        // TODO need to reflict this change ? need commit or get user data
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+  
   //--------------------------- check btb3ty eh f el body? ----------------------------
 
   //------------------------- match actions ----------------------------
