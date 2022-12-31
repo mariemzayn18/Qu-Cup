@@ -127,7 +127,7 @@ export default {
     return {
       userData: {},
       token: "",
-      teams: ["ahly", "zamalek", "esmaaley"],
+      teams: ["ahly", "zamalek", "esmaaley","da","ge","ew"],
       venues: ["kaak", "cairo stad", "uuu"],
       team1: "",
       team2: "",
