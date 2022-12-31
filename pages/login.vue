@@ -94,8 +94,8 @@ export default {
             let username= this.username
             let password =this.password
             this.$store.dispatch('login',{username,password})
-            this.$router.push({path:'/'})
-            window.location.reload(true)  
+            // this.$router.push({path:'/'})
+            // window.location.reload(true)  
         
         }
     }
