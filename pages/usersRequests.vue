@@ -174,7 +174,7 @@ export default {
 <style scoped>
 .divv {
   background-color: white;
-  height: 100vh;
+  height: max-content;
 
 }
 .colors {
