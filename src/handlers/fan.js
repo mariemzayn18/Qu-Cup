@@ -24,9 +24,13 @@ const reserveMatch = async(req,res)=>{
   //   seats:[i]
   // }
   // get all reservations for this user
+  console.log("reserve match")
+  console.log(req.body.match)
   var matchToReserve = await Match.findById(req.body.match)
+  console.log(matchToReserve)
 
   var allRes = await Reservation.find({"owner": req.body.owner})
+  console.log(allRes)
 
   for(var i = 0 ;i<allRes.length;i++)
     {
@@ -35,13 +39,12 @@ const reserveMatch = async(req,res)=>{
 
       var matchData = matchObj.date
 
-
       if(matchData.toString() == matchToReserve.date.toString())
       {
         if(allRes[i].match.valueOf() != req.body.match.valueOf())
         {
         console.log("can not reserve")
-        return res.status(200).send('You can not reserve tickets as you have match in this time')
+        return res.status(200).send({msg:'You can not reserve tickets as you have match in this time'})
         }
     }
     }
@@ -63,10 +66,10 @@ const reserveMatch = async(req,res)=>{
       var update ={}
       update[seats]=true
 
-      var slot = await Match.findOneAndUpdate(q, {$set: update}, { useFindAndModify: false})
-
+      var slot = await Match.findOneAndUpdate(q, {$set: update}, {new:true})
+      console.log(slot)
       if(!slot){
-        return res.status(400).send('Seat is not available,Please choose another one')
+        return res.status(400).send({msg:'Seat is not available,Please choose another one'})
       }
     }
     const reservation = await new Reservation()
@@ -155,9 +158,9 @@ const cancelReservation = async(req,res) =>{
 
       var slot = await Match.findOneAndUpdate(q, {$set: update}, { useFindAndModify: false})
       if(!slot) throw Error("Failed to free slots")
-      await Reservation.deleteOne({"_id":req.body._id})
-      return res.status(200).send({msg:"Successfully deleted"})
     }
+    await Reservation.deleteOne({"_id":req.body._id})
+    return res.status(200).send({msg:"Successfully deleted"})
 
   }catch(e){
     console.log(e)
