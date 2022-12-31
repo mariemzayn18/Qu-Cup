@@ -127,11 +127,9 @@ export default {
     return {
       userData: {},
       token: "",
-      teams: ["ahly", "zamalek", "esmaaley"],
-      venues: ["kaak", "cairo stad", "uuu"],
       team1: "",
       team2: "",
-      venue: "",
+      venueNames: [],
       mainReferee: "",
       linesmen1: "",
       linesmen2: "",
@@ -199,6 +197,9 @@ export default {
         })
         .then((res) => {})
         .catch((err) => {
+          this.showAlert = true;
+        this.showSuccessAlert = false;
+        this.alertMsg = "this team has another match in the same time";
           console.log(err);
         });
     },
@@ -206,9 +207,21 @@ export default {
   mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
+    this.$store.dispatch("getAllStads", this.token);
   },
   created() {
     this.showSuccessAlert = false;
+    // for (let i = 0; i < this.venues.length; i++) {
+    //   this.venueNames.push(this.venues[i].name);
+    // }
+  },
+  computed: {
+    venues() {
+      return this.$store.state.stadiums;
+    },
+    teams() {
+      return this.$store.state.teams;
+    },
   },
 };
 </script>

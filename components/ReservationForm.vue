@@ -42,16 +42,14 @@
       </div>
     </v-row>
     <v-row class="ma-4">
-      <!-- TODO neef to show which seats are vacant and reserved -->
-      <v-col v-for="i in this.seats.length" :key="i" cols="1">
-        <!-- <div class="text-center seat" @click="select(i)" :class="{selected:isSelected[i]}">{{i}}</div> -->
+      <v-col v-for="(seat, index) in seats" :key="index" cols="1">
         <v-btn
-          :disabled="seats[i]"
+          :disabled="seat"
           class="seat-icon"
           color="#6e1131"
           icon
-          @click="select(i)"
-          :class="{ selected: isSelected[i] }"
+          @click="select(index)"
+          :class="{ selected: isSelected[index] }"
         >
           <v-icon size="40">mdi-seat</v-icon>
         </v-btn>
@@ -60,17 +58,19 @@
     <v-row v-show="confirmed">
       <v-col></v-col>
       <v-col cols="7">
-        <v-alert shaped type="success"
-          >reservation is done successfully your seat/s number:
-          {{ reservedSeats }}
-        </v-alert>
+        <v-alert shaped type="success">{{ alertMsg }} </v-alert>
       </v-col>
       <v-col></v-col>
     </v-row>
     <v-row>
-      <button id="btn2" class="text-center pa-3 mt-4" @click="confirm">
+      <v-btn
+        :disabled="!isValid"
+        id="btn2"
+        class="text-center pa-3 mt-4"
+        @click="confirm"
+      >
         Confirm
-      </button>
+      </v-btn>
     </v-row>
     <v-row> </v-row>
   </v-container>
@@ -94,6 +94,7 @@ export default {
       confirmed: false,
       isSelected: [],
       reservedSeats: [],
+      alertMsg: "reservation is done successfully! check your ticket.",
       // seatsNum:70,
       pinNumber: "",
       creditCard: "",
@@ -122,27 +123,30 @@ export default {
       if (this.ticketsToBeReserved > 0) this.ticketsToBeReserved--;
     },
     select(i) {
-      console.log("SESL");
-      console.log(this.isSelected[i]);
       this.isSelected[i] = !this.isSelected[i];
-      console.log(this.isSelected[i]);
     },
     confirm() {
+      console.log(this.isSelected);
+      console.log("confirm");
+      console.log(this.reservedSeats);
       for (let i = 0; i < this.seats.length; i++) {
         if (this.isSelected[i]) {
           this.reservedSeats.push(i);
         }
       }
+      console.log(this.reservedSeats);
       this.confirmed = true;
       let match = this.ID;
-      console.log("@HHHHHHHHHsdddddddddd");
-      console.log(this.userData);
-      console.log(this.userData._id);
-      console.log(this.reservedSeats);
-      console.log(match);
       let owner = this.userData._id;
       let seats = this.reservedSeats;
-      this.reserveMatch({ match, owner, seats });
+      // clear all reserved seats array
+      let pinNumber = this.pinNumber;
+      let creditCard = this.creditCard;
+      this.reserveMatch({ match, owner, seats, pinNumber, creditCard });
+      this.reservedSeats = [];
+      for (let i = 0; i < this.seats.length; i++) {
+        this.isSelected[i] = false;
+      }
     },
     async reserveMatch(match) {
       await axios
@@ -155,14 +159,19 @@ export default {
           console.log(res.data);
         })
         .catch((err) => {
+          this.alertMsg = res.data.msg;
           console.log(err);
         });
     },
   },
   created() {
     for (let i = 0; i < this.seats.length; i++) {
-      this.isSelected.push(false) 
+      this.isSelected[i] = false;
     }
+    console.log("SEATS");
+    console.log(this.seats[0]);
+    console.log(this.seats);
+    console.log(this.ID);
     this.confirmed = false;
   },
   mounted() {

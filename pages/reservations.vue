@@ -10,7 +10,7 @@
         </v-col>
         <v-col
           v-else
-          v-for="(match, count) in tickets"
+          v-for="(ticket, count) in tickets"
           :key="count"
           cols="12"
           sm="6"
@@ -21,43 +21,89 @@
             <v-card-text>
               <v-row>
                 <v-col
-                  ><p class="text-left date">{{ match.date }}</p>
+                  ><p class="text-left date">
+                    ticket number: {{ ticket.ticketNumber }}
+                  </p>
                 </v-col>
                 <!-- <v-col>
                   <p class="text-right date">{{ match.time }}</p>
                 </v-col> -->
               </v-row>
               <v-divider light></v-divider>
+              <v-row>
+                <v-col
+                  ><img
+                    class="flag ma-3"
+                    :src="require(`~/assets/icons/${randomFlags()}`)"
+                    alt="oponent 1"
+                  />
+                </v-col>
+                <v-col
+                  ><img
+                    class="flag ma-3"
+                    :src="require(`~/assets/icons/${randomFlags()}`)"
+                    alt="oponent 1"
+                  />
+                </v-col>
+              </v-row>
 
               <v-row class="pt-5">
                 <v-col class="d-flex align-center">
-                  <p class="teams">{{ match.teamOne }}</p>
+                  <p class="teams">{{ ticket.match[0].teamOne }}</p>
                 </v-col>
-                <!-- <v-col>
-                  <img
-                    class="flag"
-                    :src="require(`~/assets/icons/${match.oponent1_flag}`)"
-                    alt="oponent 1"
-                /></v-col> --> </v-row
-              ><v-row>
                 <v-col class="d-flex align-center">
-                  <p class="teams">{{ match.teamTwo }}</p>
+                  <p class="teams">VS</p>
                 </v-col>
-                <!-- <v-col
-                  ><img
-                    class="flag"
-                    :src="require(`~/assets/icons/${match.oponent2_flag}`)"
-                    alt="oponent 1"
-                />
-              </v-col> -->
+                <v-col class="d-flex align-center">
+                  <p class="teams">{{ ticket.match[0].teamTwo }}</p>
+                </v-col>
+              </v-row>
+              <!-- time -->
+              <v-row>
+                <v-col cols="2">
+                  <v-icon size="20" class="d-flex align-center" color="#6e1131"
+                    >mdi-clock</v-icon
+                  >
+                </v-col>
+                <v-col class="d-flex align-center">
+                  <p class="time">
+                    {{ ticket.match[0].date.substring(12, 16) }} ,
+                  </p>
+                </v-col>
+                <v-col class="d-flex align-center">
+                  <p class="time">
+                    {{ ticket.match[0].date.substring(0, 10) }}
+                  </p>
+                </v-col>
+              </v-row>
+              <!-- seats -->
+              <v-row>
+                <v-col cols="2">
+                  <v-icon size="20" class="d-flex align-center" color="#6e1131"
+                    >mdi-seat</v-icon
+                  >
+                </v-col>
+                <v-col class="d-flex align-center">
+                  <p class="time">your seats: {{ ticket.seats }}</p>
+                </v-col>
               </v-row>
             </v-card-text>
             <v-card-actions class="d-flex justify-center py-4">
-              <v-btn id="btn" class="text-center" @click="cancelReservation">
+              <v-btn
+                id="btn"
+                class="text-center"
+                @click="cancelReservation(ticket._id,count)"
+              >
                 CANCEL RESERVATION</v-btn
               >
             </v-card-actions>
+            <v-row>
+              <v-col class="ma-3">
+                <v-alert v-show="showAlert[count]" type="error" shaped>{{ errMsg }}</v-alert>
+              </v-col>
+            </v-row>
           </v-card>
+          
         </v-col>
       </v-row>
     </v-container>
@@ -72,7 +118,12 @@ export default {
       tickets: [],
       userData: {},
       token: "",
+      flag1: "",
+      flag2: "",
+      errMsg: "",
+      showAlert: [],
     };
+
   },
   components: {
     matchDetails,
@@ -81,13 +132,16 @@ export default {
     matchDetails() {
       return this.$store.state.matchDetails;
     },
+    flags() {
+      return this.$store.state.flags;
+    },
   },
   async mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
-    console.log(" reservation")
-    console.log(this.token)
-    let _id = this.userData.ID;
+    console.log(" reservation");
+    console.log(this.token);
+    let _id = this.userData._id;
     await axios
       .post(
         "http://localhost:9090/fan/allreservation",
@@ -101,15 +155,18 @@ export default {
       .then((res) => {
         console.log("get reserbationsss");
         console.log(res.data);
-        this.tickets = res.data.allResponseData;
+        this.tickets = res.data;
+        console.log(this.tickets[0].match[0]);
       })
       .catch((err) => {
         console.log(err);
       });
   },
   methods: {
-    async cancelReservation() {
-      let _id = this.userData.ID;
+    async cancelReservation(id,count) {
+      let _id = id;
+      console.log("cancel reservation");
+      console.log(_id);
       await axios
         .post(
           "http://localhost:9090/fan/cancelreservation",
@@ -124,10 +181,23 @@ export default {
           console.log(res.data);
         })
         .catch((err) => {
+          console.log("error");
+          this.showAlert[count] = true;
+          this.errMsg="can't cancel this reservation"
           console.log(err);
         });
     },
+    randomFlags() {
+      let flag = this.flags[Math.floor(Math.random() * this.flags.length)];
+      return flag;
+    },
   },
+  created(){
+    // initialize array of showAlert with false
+    this.tickets.forEach(() => {
+      this.showAlert.push(false);
+    });
+  }
 };
 </script>
 
@@ -164,14 +234,26 @@ export default {
   font-size: 20px;
   font-weight: 400;
 }
-
 .date {
   color: #6e1131;
   font-weight: 700;
+  font-size: 15px;
+}
+.time {
+  color: #6e1131;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .v-card {
   height: max-content;
   border-radius: 2px !important;
+}
+.rowt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 </style>

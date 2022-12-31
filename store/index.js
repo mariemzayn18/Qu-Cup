@@ -14,6 +14,7 @@ function newFunction() {
     status: "",
     baseUrl: "https://localhost:9090",
     token: "",
+    errorMessage: "",
     user: {
       firstName: "",
       lastName: "",
@@ -28,8 +29,58 @@ function newFunction() {
       approved: false,
     },
     matchDetails: [],
+    teams: [
+      "England",
+      "Holland",
+      "Morocco",
+      "France",
+      "Argentina",
+      "Portugal",
+      "Japan",
+      "Switzerland",
+      "Senegal",
+      "Brazil",
+      "Poland",
+      "South Korea",
+      "Cameroon",
+      "Ecuador",
+      "Spain",
+      "Germany",
+      "USA",
+      "Australia",
+      "Croatia",
+      "Iran",
+      "Saudi Arabia",
+      "Belgium",
+      "Ghana",
+      "Mexico",
+      "Tunisia",
+      "Uruguay",
+      "Qatar",
+      " Wales",
+      " Canada",
+      "Serbia",
+      "Denmark",
+      "Costa Rica",
+    ],
+    flags: [
+      "argentina.png",
+      "croatia.png",
+      "flag.png",
+      "football.png",
+      "pennant.png",
+      "soccer.png",
+      "1.png",
+      "2.png",
+      "3.png",
+      "4.png",
+      "5.png",
+    ],
     //------------------------ admin data ----------------------
     users: [],
+    requests: [],
+    //------------------------ manager data ----------------------
+    stadiums: [],
   });
 }
 //---------------------------------------- ACTIONS ---------------------------------------------------
@@ -37,6 +88,7 @@ function newFunction() {
 export const actions = {
   //------------------------------- user actions --------------------------------
   async login({ commit }, user) {
+    console.log("LOGINNNNNNNNNNNNNNNNNN");
     await axios
       .post("http://localhost:9090/login", user)
       .then((res) => {
@@ -50,23 +102,27 @@ export const actions = {
         commit("auth_init", { user, token });
       })
       .catch((err) => {
-        console.log(err);
+        commit("err_msg","Username or password is incorrect");
+      
+        console.log("Error in login");
+        console.log(err.message);
       });
   },
   async signup({ commit }, user) {
-    await axios.post("http://localhost:9090/signup", user)
+    await axios
+      .post("http://localhost:9090/signup", user)
       .then((res) => {
         console.log(res);
         console.log(res.data);
         const user = res.data.user;
         const token = res.data.token;
-        commit("sign_up", user, token);
+        commit("sign_up", { user, token });
       })
       .catch((err) => {
         console.log(err);
       });
   },
-  
+
   //--------------------------- check btb3ty eh f el body? ----------------------------
 
   //------------------------- match actions ----------------------------
@@ -81,13 +137,16 @@ export const actions = {
       });
   },
   //----------------------- manager actions --------------------------
-
-  async getMatch({ commit }, matchID) {
-    console.log(stad);
+  async getAllStads({ commit }, token) {
     await axios
-      .get(`http://localhost:9090/match/${matchID}`)
+      .get(`http://localhost:9090/manager/allstadium`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
+        commit("all_stads", res.data.stads);
       })
       .catch((err) => {
         console.log("Error in adding stadium");
@@ -125,7 +184,7 @@ export const actions = {
       .then((res) => {
         console.log("get requests showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
-        commit("all_users", res.data.users);
+        commit("all_requests", res.data.users);
       })
       .catch((err) => {
         console.log("Error in get user");
@@ -165,6 +224,7 @@ export const mutations = {
   sign_up(state, obj) {
     console.log("mutation signup");
     state.token = obj.token;
+    console.log(obj);
     state.user.username = obj.user.userName;
     state.user.firstName = obj.user.firstName;
     state.user.lastName = obj.user.lastName;
@@ -211,4 +271,38 @@ export const mutations = {
       state.users.push(user);
     }
   },
+  all_requests(state, users) {
+    state.requests = [];
+    for (var i = 0; i < users.length; i++) {
+      var user = {};
+      user["username"] = users[i].userName;
+      user["firstName"] = users[i].firstName;
+      user["lastName"] = users[i].lastName;
+      user["password"] = users[i].password;
+      user["email"] = users[i].email;
+      user["birthDate"] = users[i].birthDate;
+      user["role"] = users[i].role;
+      user["ID"] = users[i]._id;
+      console.log("user");
+      console.log(users[i]);
+      state.requests.push(user);
+    }
+  },
+  all_stads(state, stads) {
+    state.stadiums = [];
+    for (var i = 0; i < stads.length; i++) {
+      var stad = {};
+      stad["ID"] = stads[i]._id;
+      stad["name"] = stads[i].name;
+      stad["VIPSeatsPerRow"] = stads[i].VIPSeatsPerRow;
+      stad["VIPRows"] = stads[i].VIPRows;
+      state.stadiums.push(stads[i].name);
+    }
+    console.log("stadiums");
+    console.log(state.stadiums);
+  },
+  err_msg(state, msg) {
+    state.errorMessage= msg;
+  }
+ 
 };

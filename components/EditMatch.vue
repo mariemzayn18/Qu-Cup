@@ -119,8 +119,6 @@ export default {
     return {
       userData: {},
       token: "",
-      teams: ["ahly", "zamalek", "esmaaley"],
-      venues: ["stad1", "cairo stad", "m3addy"],
       team1: "",
       team2: "",
       venue: "",
@@ -169,7 +167,7 @@ export default {
       console.log("%%%%%%#############################3");
       console.log(this.token);
       await axios
-        .patch(`http://localhost:9090/manager/match/${matchID}`, match, {
+        .patch(`http://localhost:8080/manager/match/${matchID}`, match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -189,7 +187,17 @@ export default {
   mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
+    this.$store.dispatch('getAllStads',this.token)
+
   },
+  computed:{
+    venues(){
+      return this.$store.state.stadiums
+    },
+    teams(){
+      return this.$store.state.teams
+    }
+  }
 };
 </script>
 

@@ -4,7 +4,11 @@
     <v-row class="nav-bar justify-center align-center">
       <v-col cols="2">
         <nuxt-link to="/">
-          <img src="~assets/icons/ball.png" alt="" />
+          <div class="logo">
+            <img src="~assets/icons/ball.png" alt="" />
+            <p class="logoName">QuCup</p>
+          </div>
+        
         </nuxt-link>
       </v-col>
 
@@ -117,7 +121,7 @@
       </v-col>
 
       <v-col v-if="auth">
-        <TheButton text="Log out" @clicked="logout" />
+        <TheButton text="Log out" @clicked="logout" route="/" />
       </v-col>
     </v-row>
 
@@ -159,24 +163,28 @@ export default {
     };
   },
   mounted(){
-console.log("user dattta");
-console.log(JSON.parse(localStorage.getItem("user"))) ;
-if (JSON.parse(localStorage.getItem("user")) != null)
-   this.userData=JSON.parse(localStorage.getItem("user"));
-   if (localStorage.getItem("token") != null)
+   // check if token in local storage is null
+   if (localStorage.getItem("token") !== null)
    {
+    console.log("not null");
       this.auth=true;
       this.token=localStorage.getItem("token")
+      this.userData=JSON.parse(localStorage.getItem("user"));
    }
-
    else
    this.auth=false;
 
+   console.log("auth");
+   console.log(this.auth);
+   console.log(typeof( localStorage.getItem("token")));
+   console.log(localStorage.getItem("user") );
+   console.log(this.userData.firstName)
   },
   methods:{
     profile(){
       this.showDropdownList = !this.showDropdownList;
       this.userData=JSON.parse(localStorage.getItem("user"));
+      console.log(this.userData._id)
 
     },
     logout(){
@@ -185,6 +193,8 @@ if (JSON.parse(localStorage.getItem("user")) != null)
       console.log("logout");
 
       this.$router.push("/");
+         // this.$router.push({path:'/'})
+            window.location.reload(true)  
     }
   },
 };
@@ -251,5 +261,17 @@ img {
 .un {
   color: #475050;
 }
-
+.logoName {
+  font-weight: 700;
+  font-size: 40px;
+  color: #d3d5d5;;
+}
+.logo {
+ display: flex;
+  flex-direction: row;
+  /* align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center; */
+}
 </style>

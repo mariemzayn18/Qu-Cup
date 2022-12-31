@@ -25,17 +25,9 @@
                 autocomplete="off"
                 type="password"
                 ></v-text-field>
-            <!-- <v-radio-group v-model="role" :rules="notEmptyRules">
-              <v-row>
-                <v-col md="3" sm="5" cols="5"> 
-                    <v-radio label="fan" value="fan" color="#6e1131"></v-radio>
-                </v-col>
-                <v-col md="3" sm="7" cols="7"
-                ><v-radio label="manager" value="manager" color="#6e1131"></v-radio
-                ></v-col>
-              </v-row>
-            </v-radio-group> -->
-            <TheButton @clicked="login" route="/" :disabled="!isValid" text="Log in" bgColor="#6e1131" textColor="#d3d5d5"/>
+                <p v-show="showErr" class="err-msg"> {{errMsg }}</p>
+                
+            <TheButton @clicked="login" :disabled="!isValid" text="Log in" bgColor="#6e1131" textColor="#d3d5d5"/>
             </v-col>  
       </v-row>
         </v-form>
@@ -61,6 +53,7 @@ export default {
         username:'',
         isValid: false,
         showDialog: false,
+        showErr:false,
         emailRules: [
             (v) => !!v || 'E-mail is required',
             (v) =>
@@ -88,15 +81,26 @@ export default {
     },
     methods:{
         login(){
+
             console.log("login")
             console.log(this.username)
             console.log(this.password)
             let username= this.username
             let password =this.password
             this.$store.dispatch('login',{username,password})
-            // this.$router.push({path:'/'})
+            console.log(this.errMsg)
+            this.showErr=true
+            if (this.errMsg !== ""){
+                this.$router.push({path:'/'})
+            }
+            // // this.$router.push({path:'/'})
             // window.location.reload(true)  
         
+        }
+    },
+    computed:{
+        errMsg() {
+            return this.$store.state.errorMessage
         }
     }
 
@@ -121,6 +125,11 @@ export default {
   widows: 30%;
   border-radius: 20px;
   background-color: #d3d5d5;
+}
+.err-msg {
+    color: #6e1131;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 </style>

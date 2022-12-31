@@ -55,6 +55,8 @@ const handleUpdateData  = async(req,res) =>{
         const userId = payload.id
         let update = { ...req.body }
         console.log(req.body)
+
+        Object.keys(update).forEach((k) => update[k] == '' && delete update[k]);
         
         Object.keys(update).forEach((k) => update[k] == '' && delete update[k]);
         if(update.password != null) {
