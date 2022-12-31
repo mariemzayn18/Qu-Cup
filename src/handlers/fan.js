@@ -45,7 +45,7 @@ const reserveMatch = async(req,res)=>{
         }
     }
     }
-  
+
   var matchid = new mongoose.Types.ObjectId(req.body.match)
   try{
     console.log(req.body.seats)
@@ -82,6 +82,8 @@ const reserveMatch = async(req,res)=>{
     reservation.set('ticketNumber', ticketNumber)
     reservation.set('seats', req.body.seats)
     reservation.set('owner',req.body.owner)
+    reservation.set('pinNumber', req.body.pinNumber)
+    reservation.set('creditCard',req.body.creditCard)
 
     await reservation.save()
     return res.status(200).json({Reservation: reservation });
