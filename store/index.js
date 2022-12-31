@@ -31,6 +31,7 @@ function newFunction() {
     teams:['England','Holland','Morocco','France','Argentina','Portugal','Japan','Switzerland','Senegal','Brazil','Poland','South Korea','Cameroon','Ecuador','Spain','Germany','USA','Australia','Croatia','Iran','Saudi Arabia','Belgium','Ghana','Mexico','Tunisia','Uruguay','Qatar',' Wales',' Canada','Serbia','Denmark','Costa Rica'],
     //------------------------ admin data ----------------------
     users: [],
+    requests: [],
     //------------------------ manager data ----------------------
     stadiums: [],
   });
@@ -135,7 +136,7 @@ export const actions = {
       .then((res) => {
         console.log("get requests showwwwwwwwwwwwwwwwwww");
         console.log(res.data);
-        commit("all_users", res.data.users);
+        commit("all_requests", res.data.users);
       })
       .catch((err) => {
         console.log("Error in get user");
@@ -220,6 +221,23 @@ export const mutations = {
       user["role"] = users[i].role;
       user["ID"] = users[i]._id;
       state.users.push(user);
+    }
+  },
+  all_requests(state, users) {
+    state.requests = [];
+    for (var i = 0; i < users.length; i++) {
+      var user = {};
+      user["username"] = users[i].userName;
+      user["firstName"] = users[i].firstName;
+      user["lastName"] = users[i].lastName;
+      user["password"] = users[i].password;
+      user["email"] = users[i].email;
+      user["birthDate"] = users[i].birthDate;
+      user["role"] = users[i].role;
+      user["ID"] = users[i]._id;
+      console.log("user");
+      console.log(users[i]);
+      state.requests.push(user);
     }
   },
   all_stads(state, stads) {
