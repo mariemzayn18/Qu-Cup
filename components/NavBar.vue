@@ -222,7 +222,7 @@ a {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  height: 72px;
+  height: 77px;
   -webkit-backdrop-filter: blur(11px);
   backdrop-filter: blur(17px);
   background-color: #6e1131;

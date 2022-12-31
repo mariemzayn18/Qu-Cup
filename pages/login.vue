@@ -1,6 +1,6 @@
 <template>
 <v-container fluid class="container-div my-8">
-    <v-row>
+    <v-row class="bg-img">
         <v-col cols="2"></v-col>
         <v-col class="my-5" cols="4">
             <v-form id="login" class="form-container pa-6" ref="form" v-model="isValid" method="post">
@@ -108,12 +108,14 @@ export default {
 </script>
 <style scoped>
 .container-div {
+    margin-top: 50px ;
+    padding-top: 50px;
     background-image: url('../assets/imgs/bg_right.jpg');
-    background-size: cover; /* or contain depending on what you want */
+    background-size:cover; /* or contain depending on what you want */
     background-position: center center;
     background-repeat: no-repeat;
     width:100%;
-    height: 100vh;
+    height: 110vh;
 }
 .v-text-field--outlined:deep(fieldset) {
   border: 1px solid #e5e5e5;
