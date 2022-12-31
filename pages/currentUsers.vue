@@ -2,70 +2,72 @@
   <v-container class="divv my-11" fluid>
     <v-row>
       <v-col cols="4">
-        <div class="user" v-for="user in users" :key="user._id" @click="selectUser(user)" :class="{selected:active}">
+        <div
+          class="user"
+          v-for="user in users"
+          :key="user._id"
+          @click="selectUser(user)"
+          :class="{ selected: active }"
+        >
           <v-icon color="#6e1131">mdi-account</v-icon>
           <p class="userName ma-4">{{ user.firstName }} {{ user.lastName }}</p>
         </div>
       </v-col>
       <v-col cols="1"> <div class="divider"></div></v-col>
       <v-col cols="3" class="my-5">
-        <v-alert v-show="!selected" shaped  color="#6e1131" class="white--text"
-        icon="mdi-account white" 
-              >Select a user</v-alert
-            >
-        <v-card
-            v-show="selected"
-            class="pt-6 mx-auto"
-            flat
-            max-width="400"
-          >
-            <v-card-text  class="card-r">
-              <v-avatar v-if="avatar" size="120">
-                <v-img
-                  :src="`https://avataaars.io/${avatar}`"
-                  class="mb-6"
-                ></v-img>
-              </v-avatar>
-              <h4 class="text-h5 mb-2">
-                {{ firstName }} {{ lastName }}
-              </h4>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-row  class="text-left align-center" tag="v-card-text">
-              <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
-                email:
-              </v-col>
-              <v-col>{{ email }}</v-col>
-              <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
-                username:
-              </v-col>
-              <v-col>{{ username }}</v-col>
-              <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
-                Role:
-              </v-col>
-              <v-col>{{ role }}</v-col>
+        <v-alert
+          v-show="!selected"
+          shaped
+          color="#6e1131"
+          class="white--text"
+          icon="mdi-account white"
+          >Select a user</v-alert
+        >
+        <v-card v-show="selected" class="pt-6 mx-auto" flat max-width="400">
+          <v-card-text class="card-r">
+            <v-avatar v-if="avatar" size="120">
+              <v-img
+                :src="`https://avataaars.io/${avatar}`"
+                class="mb-6"
+              ></v-img>
+            </v-avatar>
+            <h4 class="text-h5 mb-2">{{ firstName }} {{ lastName }}</h4>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-row class="text-left align-center" tag="v-card-text">
+            <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
+              email:
+            </v-col>
+            <v-col>{{ email }}</v-col>
+            <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
+              username:
+            </v-col>
+            <v-col>{{ username }}</v-col>
+            <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
+              Role:
+            </v-col>
+            <v-col>{{ role }}</v-col>
 
-              <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
-                Birth Date:
-              </v-col>
-              <v-col>{{ birthDate.substring(0,10) }}</v-col>
-              <v-col>
-                <v-alert v-show="showAlert" shaped type="success"
-                  >user deleted successfully</v-alert
-                >
-              </v-col>
-              <v-col cols="12 " class="text-center">
-                <button
-                  id="btn2"
-                  class="text-center pa-3 mt-4"
-                  @click="removeUser(ID)"
-                >
-                  REMOVE USER
-                </button>
-              </v-col>
-            </v-row>
-          </v-card>
-
+            <v-col class="text-right mr-4 mb-2 data" tag="strong" cols="5">
+              Birth Date:
+            </v-col>
+            <v-col>{{ birthDate.substring(0, 10) }}</v-col>
+            <v-col>
+              <v-alert v-show="showAlert" shaped type="success"
+                >user deleted successfully</v-alert
+              >
+            </v-col>
+            <v-col cols="12 " class="text-center">
+              <button
+                id="btn2"
+                class="text-center pa-3 mt-4"
+                @click="removeUser(ID)"
+              >
+                REMOVE USER
+              </button>
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -80,7 +82,6 @@ const avatars = [
   "?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly",
 ];
 
-
 import TheButton from "../components/TheButton.vue";
 import axios from "axios";
 export default {
@@ -92,7 +93,7 @@ export default {
     firstName: "",
     lastName: "",
     email: "",
-    username:"",
+    username: "",
     birthDate: "",
     nationality: "",
     role: "",
@@ -108,13 +109,12 @@ export default {
     users() {
       return this.$store.state.users;
     },
-
   },
 
   methods: {
     async removeUser(userid) {
       await axios
-        .delete(`http://localhost:8080/admin/${userid}`, {
+        .delete(`http://localhost:9090/admin/${userid}`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -132,18 +132,18 @@ export default {
       this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
     },
     selectUser(user) {
-      this.randomAvatar()
+      this.randomAvatar();
       console.log("selectUser");
-      console.log(user)
+      console.log(user);
       this.selected = true;
-      this.firstName= user.firstName
-      this.lastName= user.lastName
-      this.email = user.email
-      this.role = user.role
-      this.nationality=  user.nationality
-      this.birthDate= user.birthDate
-      this.username= user.username
-      this.ID = user.ID
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+      this.email = user.email;
+      this.role = user.role;
+      this.nationality = user.nationality;
+      this.birthDate = user.birthDate;
+      this.username = user.username;
+      this.ID = user.ID;
       console.log(user.ID);
       console.log(this.ID);
     },
@@ -152,11 +152,10 @@ export default {
     this.showAlert = false;
     this.token = localStorage.getItem("token");
     console.log("getUsers");
-      this.$store.dispatch("getUsers", this.token);
-      // item.children.push(this.users)
-      console.log("getYYYYYYYYYYYYUsers");
-      console.log(this.$store.state.users);
-     
+    this.$store.dispatch("getUsers", this.token);
+    // item.children.push(this.users)
+    console.log("getYYYYYYYYYYYYUsers");
+    console.log(this.$store.state.users);
   },
 };
 </script>
@@ -165,7 +164,6 @@ export default {
 .divv {
   background-color: white;
   height: max-content;
-
 }
 .colors {
   color: #6e1131;
@@ -186,17 +184,16 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: baseline;
-  background-color:white ;
+  background-color: white;
   width: 100%;
   cursor: pointer;
-
 }
 .card {
   display: flex;
-  flex-direction: column;;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color:white ;
+  background-color: white;
   width: 100%;
   cursor: pointer;
 }
@@ -204,19 +201,17 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #6e1131;
-
 }
 .user:hover {
   background-color: #f5f5f5;
 }
 .divider {
   width: 1px;
-  height:100vh;
+  height: 100vh;
   background-color: #6e1131;
   margin: 10px 0;
 }
 .card-r {
-  margin-left: 100px ;
+  margin-left: 100px;
 }
-
 </style>
