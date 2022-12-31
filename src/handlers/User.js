@@ -1,4 +1,5 @@
 import {userData} from '../models/User.js'
+import bcrypt from "bcryptjs"
 import Jwt from 'jsonwebtoken'
 
 const SECRET_KEY = "NOTESAPI"
@@ -52,9 +53,13 @@ const handleUpdateData  = async(req,res) =>{
         const token = bearer?.split(" ")[1];
         const payload  = Jwt.decode(token)
         const userId = payload.id
-        const update= { ...req.body }
+        let update = { ...req.body }
         console.log(req.body)
-        const updated = await userData.findByIdAndUpdate(userId,{firstName: req.body.firstName},{new:true})
+        
+        if(update.password != null) {
+            update.password = await bcrypt.hash(update.password, 12);
+        }
+        const updated = await userData.findByIdAndUpdate(userId,update,{new:true})
         return res.status(200).json({user: updated});
     }catch(error){
         res.status(400).send({message: error.message})
