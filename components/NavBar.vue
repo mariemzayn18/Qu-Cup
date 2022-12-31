@@ -2,11 +2,11 @@
   <!-- <MobNavBarVue v-if="$vuetify.breakpoint.smAndDown" /> -->
   <v-container fluid class="navbar">
     <v-row class="nav-bar justify-center align-center">
-      <v-col cols="3">
+      <v-col cols="2">
         <nuxt-link to="/">
           <div class="logo">
             <img src="~assets/icons/ball.png" alt="" />
-            <p class="name">QuCup</p>
+            <p class="logoName">QuCup</p>
           </div>
         
         </nuxt-link>
@@ -121,7 +121,7 @@
       </v-col>
 
       <v-col v-if="auth">
-        <TheButton text="Log out" @clicked="logout" />
+        <TheButton text="Log out" @clicked="logout" route="/" />
       </v-col>
     </v-row>
 
@@ -163,15 +163,13 @@ export default {
     };
   },
   mounted(){
-    // check if token exists in local storage
-if (JSON.parse(localStorage.getItem("user")) !== null)
-   this.userData=JSON.parse(localStorage.getItem("user"));
    // check if token in local storage is null
    if (localStorage.getItem("token") !== null)
    {
     console.log("not null");
       this.auth=true;
       this.token=localStorage.getItem("token")
+      this.userData=JSON.parse(localStorage.getItem("user"));
    }
    else
    this.auth=false;
@@ -180,7 +178,7 @@ if (JSON.parse(localStorage.getItem("user")) !== null)
    console.log(this.auth);
    console.log(typeof( localStorage.getItem("token")));
    console.log(localStorage.getItem("user") );
-
+   console.log(this.userData.firstName)
   },
   methods:{
     profile(){
@@ -263,7 +261,7 @@ img {
 .un {
   color: #475050;
 }
-.name {
+.logoName {
   font-weight: 700;
   font-size: 40px;
   color: #d3d5d5;;

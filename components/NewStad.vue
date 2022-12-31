@@ -110,13 +110,13 @@ export default {
   },
   methods: {
     async addStadium() {
-      if (this.seatsNum > 70) {
-        this.alertMsg = "max number of seats per row is 12";
+      if (this.seatsNum > 19) {
+        this.alertMsg = "max number of seats per row is 19";
         this.alert = true;
         return;
       }
-      if (this.rowsNum > 70) {
-        this.alertMsg = "max number of rows is 12";
+      if (this.rowsNum > 200) {
+        this.alertMsg = "max number of rows is 200";
         this.alert = true;
         return;
       }
@@ -131,7 +131,7 @@ export default {
       let VIPRows = this.rowsNum;
       await axios
         .post(
-          "http://localhost:9090/manager/stadium",
+          "http://localhost:8080/manager/stadium",
           { name, VIPRows, VIPSeatsPerRow },
           {
             headers: {

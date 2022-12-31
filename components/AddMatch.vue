@@ -127,11 +127,10 @@ export default {
     return {
       userData: {},
       token: "",
-      teams: ["ahly", "zamalek", "esmaaley","da","ge","ew"],
-      venues: ["kaak", "cairo stad", "uuu"],
+      teams: ["ahly", "zamalek", "esmaaley", "da", "ge", "ew"],
       team1: "",
       team2: "",
-      venue: "",
+      venueNames: [],
       mainReferee: "",
       linesmen1: "",
       linesmen2: "",
@@ -192,7 +191,7 @@ export default {
       console.log("FFFFFFFFFFFFFFF");
       console.log(this.token);
       await axios
-        .post("http://localhost:9090/manager/match", match, {
+        .post("http://localhost:8080/manager/match", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -206,10 +205,19 @@ export default {
   mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
+    this.$store.dispatch('getAllStads',this.token)
   },
   created() {
     this.showSuccessAlert = false;
+    // for (let i = 0; i < this.venues.length; i++) {
+    //   this.venueNames.push(this.venues[i].name);
+    // }
   },
+  computed:{
+    venues(){
+      return this.$store.state.stadiums
+    }
+  }
 };
 </script>
 
