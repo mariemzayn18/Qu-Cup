@@ -59,7 +59,7 @@
       <v-col></v-col>
       <v-col cols="7">
         <v-alert shaped type="success"
-          >reservation is done successfully !
+          >{{alertMsg}}
         </v-alert>
       </v-col>
       <v-col></v-col>
@@ -91,7 +91,7 @@ export default {
       confirmed: false,
       isSelected: [],
       reservedSeats: [],
-      errMsg:"",
+      alertMsg:"",
       // seatsNum:70,
       pinNumber: "",
       creditCard: "",
