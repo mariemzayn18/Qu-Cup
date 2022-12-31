@@ -142,11 +142,13 @@ export default {
       console.log(match);
       let owner = this.userData._id;
       let seats = this.reservedSeats;
-      this.reserveMatch({ match, owner, seats });
+      let pinNumber = this.creditCard;
+      let creditCard = this.reservedSeats;
+      this.reserveMatch({ match, owner, seats,pinNumber,creditCard });
     },
     async reserveMatch(match) {
       await axios
-        .post("http://localhost:9090/fan/reservation", match, {
+        .post("http://localhost:8080/fan/reservation", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -161,7 +163,7 @@ export default {
   },
   created() {
     for (let i = 0; i < this.seats.length; i++) {
-      this.isSelected.push(false) 
+      this.isSelected.push(false);
     }
     this.confirmed = false;
   },
