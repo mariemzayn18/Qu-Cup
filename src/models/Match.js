@@ -17,7 +17,7 @@ const matchSchema = mongoose.Schema({
         ref : 'Stadium'
     },
     date : {
-        type : Date,
+        type : String,
         required : true,
     },
     mainReferee : {

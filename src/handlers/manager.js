@@ -4,30 +4,47 @@ import {Stadium} from '../models/Stadium.js'
 
 const addMatch =  async (req, res) => {
     try {
-        await Match.find({teamOne :req.body.teamOne, date: req.body.date},async(err,docs)=>{
+      console.log(req.body.teamOne)
+      console.log( req.body.date)
+        await Match.find({teamOne :req.body.teamOne},async(err,docs)=>{
             console.log("docs")
             console.log(docs)
-            if(docs.length != 0)
-            throw new Error('team one has match in this date');
-            else {
-                await  Match.find({teamOne : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
-                    if(docs.length != 0)
-                     throw new Error('team 1 has match in this date');
-                     else {
-                        await  Match.find({teamTwo : req.body.teamOne, date: req.body.date },async(err,docs)=>{
-                            if(docs.length != 0)
-                             throw new Error('team two has match in this date');
-                             else {
-                                await  Match.find({teamTwo : req.body.teamTwo, date: req.body.date },async(err,docs)=>{
-                                    if(docs.length != 0)
-                                     throw new Error('team 2 has match in this date');
-                                }).clone()
-                             }
-                        }).clone()
-                     }
-                }).clone()
-            }
-        }).clone()
+            for( var i=0;i<docs.length;i++)
+            {
+              console.log("llllllllll")
+              console.log((docs[i].date).toString().split('T')[0])
+              console.log((req.body.date).toString().split('T')[0])
+              if((docs[i].date).toString().split('T')[0] == (req.body.date).toString().split('T')[0])
+              throw new Error('team one has match in this date')}
+            }).clone()
+
+                await  Match.find({teamOne : req.body.teamTwo },async(err,docs)=>{
+                  for( var i=0;i<docs.length;i++)
+                  {
+                    console.log((docs[i].date).toString().split('T')[0])
+                    console.log(req.body.date.split('T')[0])
+                    if((docs[i].date).toString().split('T')[0]== req.body.date.split('T')[0])
+                    throw new Error('team Two has match in this date');
+                  }}).clone()
+
+                        await  Match.find({teamTwo : req.body.teamOne},async(err,docs)=>{
+                          for( var i=0;i<docs.length;i++)
+                          {
+                            console.log((docs[i].date).toString().split('T')[0])
+                            console.log(req.body.date.split('T')[0])
+                            if((docs[i].date).toString().split('T')[0]== req.body.date.split('T')[0])
+                            throw new Error('team one has match in this date')
+                          }}).clone()
+
+                                await  Match.find({teamTwo : req.body.teamTwo },async(err,docs)=>{
+                                  for( var i=0;i<docs.length;i++)
+                                  {
+                                    console.log((docs[i].date).toString().split('T')[0])
+                                    console.log(req.body.date.split('T')[0])
+                                    if((docs[i].date).toString().split('T')[0]== req.body.date.split('T')[0])
+                                    throw new Error('team Two has match in this date')
+                                  }}).clone()
+
 
         const match = new Match(req.body);
         console.log("Gggggggggggggggggggg")

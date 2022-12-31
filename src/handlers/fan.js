@@ -136,13 +136,15 @@ const cancelReservation = async(req,res) =>{
 
     var match  = await Match.findById(matchid.valueOf())
 
-    var matchDate = new Date(match.date)
-
+    var matchDate = new Date(match.date.split('T')[0])
+    console.log(matchDate)
     var dayNum = Math.abs(matchDate-cancelDate)/(60 * 60 * 24 * 1000)
+    console.log("dayNum")
+    console.log(dayNum)
 
 
     //date check
-    if(dayNum<3) res.status(400).send({msg:'Cant be canceled'})
+    if(dayNum<3) throw new Error('Cant be canceled')
 
     // loop for all reservation to free the seats
     for( var i =0; i<reservation.seats.length; i++)
