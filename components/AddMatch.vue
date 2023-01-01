@@ -190,7 +190,7 @@ export default {
       console.log("FFFFFFFFFFFFFFF");
       console.log(this.token);
       await axios
-        .post("http://localhost:9090/manager/match", match, {
+        .post("https://fifa-qatar-cmp.onrender.com/manager/match", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
@@ -198,9 +198,9 @@ export default {
         .then((res) => {})
         .catch((err) => {
           this.showAlert = true;
-        this.showSuccessAlert = false;
-        this.alertMsg = "this team has another match in the same time";
-          console.log(err);
+          this.showSuccessAlert = false;
+          this.alertMsg = "this team has another match in the same time";
+          console.log("this teaaaaaaml");
         });
     },
   },

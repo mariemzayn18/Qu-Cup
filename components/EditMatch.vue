@@ -167,11 +167,15 @@ export default {
       console.log("%%%%%%#############################3");
       console.log(this.token);
       await axios
-        .patch(`http://localhost:8080/manager/match/${matchID}`, match, {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
+        .patch(
+          `https://fifa-qatar-cmp.onrender.com/manager/match/${matchID}`,
+          match,
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then((res) => {
           console.log(res.data);
         })
@@ -187,17 +191,16 @@ export default {
   mounted() {
     this.userData = JSON.parse(localStorage.getItem("user"));
     this.token = localStorage.getItem("token");
-    this.$store.dispatch('getAllStads',this.token)
-
+    this.$store.dispatch("getAllStads", this.token);
   },
-  computed:{
-    venues(){
-      return this.$store.state.stadiums
+  computed: {
+    venues() {
+      return this.$store.state.stadiums;
     },
-    teams(){
-      return this.$store.state.teams
-    }
-  }
+    teams() {
+      return this.$store.state.teams;
+    },
+  },
 };
 </script>
 

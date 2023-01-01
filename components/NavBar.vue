@@ -176,7 +176,7 @@ export default {
 
    console.log("auth");
    console.log(this.auth);
-   console.log(typeof( localStorage.getItem("token")));
+   console.log(localStorage.getItem("token"));
    console.log(localStorage.getItem("user") );
    console.log(this.userData.firstName)
   },

@@ -134,7 +134,7 @@ export default {
       let VIPRows = this.rowsNum;
       await axios
         .post(
-          "http://localhost:8080/manager/stadium",
+          "https://fifa-qatar-cmp.onrender.com/manager/stadium",
           { name, VIPRows, VIPSeatsPerRow },
           {
             headers: {

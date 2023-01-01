@@ -22,8 +22,8 @@ app.use(
 
 const PORT = 8080;
 app.listen(PORT, async () => {
-  var b = await bcrypt.hash("n12345", 12)
-  console.log(b)
+  var b = await bcrypt.hash("n12345", 12);
+  console.log(b);
   console.log("server started at port 8080");
 });
 app.use("", userRouter);

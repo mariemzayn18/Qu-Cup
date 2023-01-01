@@ -114,7 +114,7 @@ export default {
   methods: {
     async removeUser(userid) {
       await axios
-        .delete(`http://localhost:9090/admin/${userid}`, {
+        .delete(`https://fifa-qatar-cmp.onrender.com/admin/${userid}`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },

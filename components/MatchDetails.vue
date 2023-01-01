@@ -143,7 +143,7 @@ export default {
     seats: Array,
     seatsNum: Number,
   },
-  computed:{
+  computed: {
     flags() {
       return this.$store.state.flags;
     },
@@ -166,7 +166,6 @@ export default {
     },
     ticketReservation() {
       this.reserveTicket = true;
-     
     },
     viewDetails() {
       this.showDialog = true;
@@ -190,11 +189,14 @@ export default {
       console.log("VIEW SEATS");
       console.log(this.token);
       await axios
-        .get(`http://localhost:8080/manager/match/viewseats/${ID}`, {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        })
+        .get(
+          `https://fifa-qatar-cmp.onrender.com/manager/match/viewseats/${ID}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        )
         .then((res) => {
           // TODO reflect the vacant seats
           console.log("$######### showwwwwwwwwwwwwwwwwww");

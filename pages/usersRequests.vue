@@ -121,7 +121,7 @@ export default {
       let userId = this.userID;
       await axios
         .post(
-          `http://localhost:9090/admin/approve`,
+          `https://fifa-qatar-cmp.onrender.com/admin/approve`,
           { userId },
           {
             headers: {

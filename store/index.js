@@ -12,7 +12,7 @@ function newFunction() {
     },
     //------------------ user data  ----------------------
     status: "",
-    baseUrl: "https://localhost:9090",
+    baseUrl: "https://localhost:8080",
     token: "",
     errorMessage: "",
     user: {
@@ -90,7 +90,7 @@ export const actions = {
   async login({ commit }, user) {
     console.log("LOGINNNNNNNNNNNNNNNNNN");
     await axios
-      .post("http://localhost:9090/login", user)
+      .post("https://fifa-qatar-cmp.onrender.com/login", user)
       .then((res) => {
         console.log(res);
         const user = res.data.user;
@@ -102,15 +102,14 @@ export const actions = {
         commit("auth_init", { user, token });
       })
       .catch((err) => {
-        commit("err_msg","Username or password is incorrect");
-      
+        commit("err_msg", "Username or password is incorrect");
         console.log("Error in looogin");
         console.log(err.message);
       });
   },
   async signup({ commit }, user) {
     await axios
-      .post("http://localhost:9090/signup", user)
+      .post("https://fifa-qatar-cmp.onrender.com/signup", user)
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -128,7 +127,7 @@ export const actions = {
   //------------------------- match actions ----------------------------
   async matchDetails({ commit }) {
     await axios
-      .get("http://localhost:9090/fan/allmatches")
+      .get("https://fifa-qatar-cmp.onrender.com/fan/allmatches")
       .then((res) => {
         commit("match_details", res.data.match);
       })
@@ -139,7 +138,7 @@ export const actions = {
   //----------------------- manager actions --------------------------
   async getAllStads({ commit }, token) {
     await axios
-      .get(`http://localhost:9090/manager/allstadium`, {
+      .get(`https://fifa-qatar-cmp.onrender.com/manager/allstadium`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -158,7 +157,7 @@ export const actions = {
   async getUsers({ commit }, token) {
     console.log("get userrrr");
     await axios
-      .get("http://localhost:9090/admin/allusers", {
+      .get("https://fifa-qatar-cmp.onrender.com/admin/allusers", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -176,7 +175,7 @@ export const actions = {
   async getRequests({ commit }, token) {
     console.log("get requests");
     await axios
-      .get("http://localhost:9090/admin/allrequests", {
+      .get("https://fifa-qatar-cmp.onrender.com/admin/allrequests", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -194,7 +193,7 @@ export const actions = {
   async getUser({ commit }, token) {
     console.log("get user");
     await axios
-      .get("http://localhost:9090/", {
+      .get("https://fifa-qatar-cmp.onrender.com/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -249,7 +248,7 @@ export const mutations = {
     state.user.nationality = user.nationality;
     state.user.role = user.role;
     state.user.ID = user._id;
-   
+
     localStorage.setItem("user", JSON.stringify(user));
     console.log(localStorage.getItem("token"));
     console.log(localStorage.getItem("user"));
@@ -341,7 +340,6 @@ export const mutations = {
     console.log(state.stadiums);
   },
   err_msg(state, msg) {
-    state.errorMessage= msg;
-  }
- 
+    state.errorMessage = msg;
+  },
 };

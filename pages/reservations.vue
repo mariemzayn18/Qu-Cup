@@ -92,18 +92,19 @@
               <v-btn
                 id="btn"
                 class="text-center"
-                @click="cancelReservation(ticket._id,count)"
+                @click="cancelReservation(ticket._id, count)"
               >
                 CANCEL RESERVATION</v-btn
               >
             </v-card-actions>
             <v-row>
               <v-col class="ma-3">
-                <v-alert v-show="showAlert[count]" type="error" shaped>{{ errMsg }}</v-alert>
+                <v-alert v-show="showAlert[count]" type="error" shaped>{{
+                  errMsg
+                }}</v-alert>
               </v-col>
             </v-row>
           </v-card>
-          
         </v-col>
       </v-row>
     </v-container>
@@ -123,7 +124,6 @@ export default {
       errMsg: "",
       showAlert: [],
     };
-
   },
   components: {
     matchDetails,
@@ -144,7 +144,7 @@ export default {
     let _id = this.userData._id;
     await axios
       .post(
-        "http://localhost:9090/fan/allreservation",
+        "https://fifa-qatar-cmp.onrender.com/fan/allreservation",
         { _id },
         {
           headers: {
@@ -163,13 +163,13 @@ export default {
       });
   },
   methods: {
-    async cancelReservation(id,count) {
+    async cancelReservation(id, count) {
       let _id = id;
       console.log("cancel reservation");
       console.log(_id);
       await axios
         .post(
-          "http://localhost:9090/fan/cancelreservation",
+          "https://fifa-qatar-cmp.onrender.com/fan/cancelreservation",
           { _id },
           {
             headers: {
@@ -183,7 +183,7 @@ export default {
         .catch((err) => {
           console.log("error");
           this.showAlert[count] = true;
-          this.errMsg="can't cancel this reservation"
+          this.errMsg = "can't cancel this reservation";
           console.log(err);
         });
     },
@@ -192,12 +192,12 @@ export default {
       return flag;
     },
   },
-  created(){
+  created() {
     // initialize array of showAlert with false
     this.tickets.forEach(() => {
       this.showAlert.push(false);
     });
-  }
+  },
 };
 </script>
 

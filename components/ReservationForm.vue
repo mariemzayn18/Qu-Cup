@@ -150,7 +150,7 @@ export default {
     },
     async reserveMatch(match) {
       await axios
-        .post("http://localhost:9090/fan/reservation", match, {
+        .post("https://fifa-qatar-cmp.onrender.com/fan/reservation", match, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },

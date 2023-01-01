@@ -19,7 +19,9 @@
             <p class="un">username: {{ userData.userName }}</p>
             <p class="un">email: {{ userData.email }}</p>
             <p class="un">Nationality: {{ userData.nationality }}</p>
-            <p class="un">birth date: {{ userData.birthDate.substring(0,10) }}</p>
+            <p class="un">
+              birth date: {{ userData.birthDate.substring(0, 10) }}
+            </p>
           </div>
         </v-col>
         <v-col>
@@ -106,11 +108,9 @@ export default {
       isValid: false,
       showProfile: false,
       nameRules: [
-      (v) => /(\s*|^[A-Za-z\s]+$)/.test(v) || "Please insert a right name",
+        (v) => /(\s*|^[A-Za-z\s]+$)/.test(v) || "Please insert a right name",
       ],
-      emailRules: [
-        (v) => /(\s*|.+@.+\..+)/.test(v) || "E-mail must be valid",
-      ],
+      emailRules: [(v) => /(\s*|.+@.+\..+)/.test(v) || "E-mail must be valid"],
       countries: [
         "Afghanistan",
         "Albania",
@@ -332,7 +332,7 @@ export default {
       let email = this.newEmail;
       await axios
         .put(
-          "http://localhost:9090/edit_profile",
+          "https://fifa-qatar-cmp.onrender.com/edit_profile",
           {
             firstName,
             lastName,
