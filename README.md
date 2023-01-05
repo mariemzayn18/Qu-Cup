@@ -49,13 +49,13 @@ Match Reservation Website for FIFA World Cup Qatar 2022
     </td>
      <td align="center">
     <a href="https://github.com/maryemsalah22" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/55799245?s=120&v=4" width="100px;" alt="Maryem Salah"/>
+    <img src="https://avatars.githubusercontent.com/u/56718680?v=4" width="100px;" alt="Maryem Salah"/>
     <br />
     <sub><b>Maryem Salah</b></sub></a>
     </td>
      <td align="center">
     <a href="https://github.com/nadeenay" target="_black">
-    <img src="https://avatars.githubusercontent.com/u/62112968?s=120&v=4" width="100px;" alt="Nadeen Ayman"/>
+    <img src="https://avatars.githubusercontent.com/u/70846138?v=4" width="100px;" alt="Nadeen Ayman"/>
     <br />
     <sub><b>Nadeen Ayman</b></sub></a>
     </td>
