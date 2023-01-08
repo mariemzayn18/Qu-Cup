@@ -25,16 +25,20 @@ Match Reservation Website for FIFA World Cup Qatar 2022
 10. The admin can approve a manager
 11. The admin can remove existing user
 
+# Fan Features
+
+https://user-images.githubusercontent.com/76243256/211219396-1c28d1c3-d92c-407d-967f-c9aeff6ba067.mp4
+
+
+
 # Manager Features
 
-# Guest Features
-# Fan Features
+https://user-images.githubusercontent.com/76243256/211218519-fc623269-cc5a-41ed-a2b1-4984bb7e7639.mp4
+
 
 # Admin Features
 
-
-
-https://user-images.githubusercontent.com/76243256/211218519-fc623269-cc5a-41ed-a2b1-4984bb7e7639.mp4
+https://user-images.githubusercontent.com/76243256/211218952-50e84630-a012-444f-b985-794768646a8f.mp4
 
 
 
